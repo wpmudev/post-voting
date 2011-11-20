@@ -165,4 +165,72 @@ class Wdpv_AdminFormRenderer {
 		echo '</select> ';
 
 	}
+
+	function create_plugins_box () {
+		$all = Wdpv_PluginsHandler::get_all_plugins();
+		$active = Wdpv_PluginsHandler::get_active_plugins();
+		$sections = array('thead', 'tfoot');
+
+		echo "<table class='widefat'>";
+		foreach ($sections as $section) {
+			echo "<{$section}>";
+			echo '<tr>';
+			echo '<th width="30%">' . __('Add-on name', 'wdpv') . '</th>';
+			echo '<th>' . __('Add-on description', 'wdpv') . '</th>';
+			echo '</tr>';
+			echo "</{$section}>";
+		}
+		echo "<tbody>";
+		foreach ($all as $plugin) {
+			$plugin_data = Wdpv_PluginsHandler::get_plugin_info($plugin);
+			if (!@$plugin_data['Name']) continue; // Require the name
+			$is_active = in_array($plugin, $active);
+			echo "<tr>";
+			echo "<td width='30%'>";
+			echo '<b>' . $plugin_data['Name'] . '</b>';
+			echo "<br />";
+			echo ($is_active
+				?
+				'<a href="#deactivate" class="wdpv_deactivate_plugin" wdpv:plugin_id="' . esc_attr($plugin) . '">' . __('Deactivate', 'wdpv') . '</a>'
+				:
+				'<a href="#activate" class="wdpv_activate_plugin" wdpv:plugin_id="' . esc_attr($plugin) . '">' . __('Activate', 'wdpv') . '</a>'
+			);
+			echo "</td>";
+			echo '<td>' .
+				$plugin_data['Description'] .
+				'<br />' .
+				sprintf(__('Version %s', 'wdpv'), $plugin_data['Version']) .
+				'&nbsp;|&nbsp;' .
+				sprintf(__('by %s', 'wdpv'), '<a href="' . $plugin_data['Plugin URI'] . '">' . $plugin_data['Author'] . '</a>') .
+			'</td>';
+			echo "</tr>";
+		}
+		echo "</tbody>";
+		echo "</table>";
+
+		echo <<<EOWdpvPluginJs
+<script type="text/javascript">
+(function ($) {
+$(function () {
+	$(".wdpv_activate_plugin").click(function () {
+		var me = $(this);
+		var plugin_id = me.attr("wdpv:plugin_id");
+		$.post(ajaxurl, {"action": "wdpv_activate_plugin", "plugin": plugin_id}, function (data) {
+			window.location = window.location;
+		});
+		return false;
+	});
+	$(".wdpv_deactivate_plugin").click(function () {
+		var me = $(this);
+		var plugin_id = me.attr("wdpv:plugin_id");
+		$.post(ajaxurl, {"action": "wdpv_deactivate_plugin", "plugin": plugin_id}, function (data) {
+			window.location = window.location;
+		});
+		return false;
+	});
+});
+})(jQuery);
+</script>
+EOWdpvPluginJs;
+	}
 }

@@ -1,7 +1,10 @@
 <div class="wrap">
 	<h2>Post Voting Statistics</h2>
 
+<?php do_action('wdpv-stats-before_any_stats');?>
+
 <?php if (is_array($overall)) { ?>
+<?php do_action('wdpv-stats-before_stat_table');?>
 <table class="wp-list-table widefat fixed posts">
 	<thead>
 		<tr>
@@ -42,6 +45,10 @@
 		</tr>
 	</tfoot>
 </table>
+<?php do_action('wdpv-stats-after_stat_table');?>
 
 <?php } ?>
+
+<?php do_action('wdpv-stats-after_any_stats');?>
+
 </div>

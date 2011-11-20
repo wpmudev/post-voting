@@ -312,7 +312,8 @@ class Wdpv_Model {
 
 		$not_voted = true;
 		if ($not_voted && $user_id) {
-			$result = $this->db->get_var("SELECT COUNT(*) FROM " . $this->db->base_prefix . "wdpv_post_votes WHERE user_id={$user_id} AND site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id}");
+			$where = apply_filters('wdpv-sql-where-user_id_check', "WHERE user_id={$user_id} AND site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id}");
+			$result = $this->db->get_var("SELECT COUNT(*) FROM " . $this->db->base_prefix . "wdpv_post_votes {$where}");
 			$not_voted = $result ? false : true;
 		}
 
@@ -320,7 +321,8 @@ class Wdpv_Model {
 
 		if ($not_voted) { // Either not registered user, or not voted yet. Check IPs
 			$user_ip = $this->get_user_ip();
-			$result = $this->db->get_var("SELECT COUNT(*) FROM " . $this->db->base_prefix . "wdpv_post_votes WHERE user_ip={$user_ip} AND site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id}");
+			$where = apply_filters('wdpv-sql-where-user_ip_check', "WHERE user_ip={$user_ip} AND site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id}");
+			$result = $this->db->get_var("SELECT COUNT(*) FROM " . $this->db->base_prefix . "wdpv_post_votes {$where}");
 			return $result ? false : true;
 		} else return false;
 	}
@@ -358,7 +360,9 @@ class Wdpv_Model {
 		}
 		$voted[] = $this->create_data_string($site_id, $blog_id, $post_id);
 
-		setcookie("wdpv_voted", $this->encrypt_cookie_data_array($voted), time() + 30*24*3600, COOKIEPATH, COOKIE_DOMAIN);//, "/", str_replace('http://', '', get_bloginfo('url')));
+		$expiration_time = apply_filters('wdpv-cookie-expiration_time', (time() + 30*24*3600));
+
+		setcookie("wdpv_voted", $this->encrypt_cookie_data_array($voted), $expiration_time, COOKIEPATH, COOKIE_DOMAIN);//, "/", str_replace('http://', '', get_bloginfo('url')));
 	}
 
 	/**

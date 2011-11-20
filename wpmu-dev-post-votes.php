@@ -3,7 +3,8 @@
 Plugin Name: Post Voting
 Plugin URI: http://premium.wpmudev.org/project/post-voting-plugin
 Description: Gauge the popularity of your site's content by letting your visitors or users vote on that content. Sort of like your own personal Digg or Reddit, and it's packed with features!
-Version: 2.0.2
+Version: 2.1
+Text Domain: wdpv
 Author: scribu (Incsub), Ve Bailovity (Incsub)
 Author URI: http://premium.wpmudev.org
 WDP ID: 231
@@ -68,9 +69,11 @@ Wdpv_Installer::check();
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_options.php';
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_model.php';
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_codec.php';
+require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_plugins_handler.php';
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/wdpv_template_tags.php';
 
 Wdpv_Options::populate();
+Wdpv_PluginsHandler::init();
 
 // Widgets
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wpdv_widget_voting.php';

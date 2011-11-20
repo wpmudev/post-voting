@@ -61,6 +61,13 @@ class Wdpv_AdminPages {
 		add_settings_section('wdpv_bp', __('BuddyPress integration', 'wdpv'), create_function('', ''), 'wdpv_options_page');
 		add_settings_field('wdpv_bp_publish_activity', __('Publish votes to activity stream', 'wdpv'), array($form, 'create_bp_publish_activity_box'), 'wdpv_options_page', 'wdpv_bp');
 		add_settings_field('wdpv_bp_profile_votes', __('Show recent votes on user profile page', 'wdpv'), array($form, 'create_bp_profile_votes_box'), 'wdpv_options_page', 'wdpv_bp');
+
+		if (!is_multisite || (is_multisite() && WP_NETWORK_ADMIN)) { // On multisite, plugins are available only on network admin pages
+			add_settings_section('wdpv_plugins', __('Post Voting add-ons', 'wdpv'), create_function('', ''), 'wdpv_options_page');
+			add_settings_field('wdpv_plugins_all_plugins', __('All add-ons', 'wdpv'), array($form, 'create_plugins_box'), 'wdpv_options_page', 'wdpv_plugins');
+		}
+
+		do_action('wdpv-options-plugins_options', $form);
 	}
 
 	function create_blog_admin_menu_entry () {
@@ -148,6 +155,22 @@ class Wdpv_AdminPages {
 		return $res;
 	}
 
+	function json_activate_plugin () {
+		$status = Wdpv_PluginsHandler::activate_plugin($_POST['plugin']);
+		echo json_encode(array(
+			'status' => $status ? 1 : 0,
+		));
+		exit();
+	}
+
+	function json_deactivate_plugin () {
+		$status = Wdpv_PluginsHandler::deactivate_plugin($_POST['plugin']);
+		echo json_encode(array(
+			'status' => $status ? 1 : 0,
+		));
+		exit();
+	}
+
 	function add_hooks () {
 		// Step0: Register options and menu
 		add_action('admin_init', array($this, 'register_settings'));
@@ -179,5 +202,9 @@ class Wdpv_AdminPages {
 				add_action('wdpv_voted', array($this, 'bp_record_vote_activity'), 10, 4);
 			}
 		}
+
+		// AJAX plugin handlers
+		add_action('wp_ajax_wdpv_activate_plugin', array($this, 'json_activate_plugin'));
+		add_action('wp_ajax_wdpv_deactivate_plugin', array($this, 'json_deactivate_plugin'));
 	}
 }

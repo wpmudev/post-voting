@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPMU DEV Post Votes 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-09-15 08:49+0100\n"
-"PO-Revision-Date: 2011-09-15 08:49+0100\n"
+"POT-Creation-Date: 2011-11-20 16:25+0100\n"
+"PO-Revision-Date: 2011-11-20 16:25+0100\n"
 "Last-Translator: \n"
 "Language-Team: Incsub\n"
 "MIME-Version: 1.0\n"
@@ -112,6 +112,32 @@ msgstr ""
 msgid "vote(s) within last"
 msgstr ""
 
+#: lib/class_wdpv_admin_form_renderer.php:178
+msgid "Add-on name"
+msgstr ""
+
+#: lib/class_wdpv_admin_form_renderer.php:179
+msgid "Add-on description"
+msgstr ""
+
+#: lib/class_wdpv_admin_form_renderer.php:194
+msgid "Deactivate"
+msgstr ""
+
+#: lib/class_wdpv_admin_form_renderer.php:196
+msgid "Activate"
+msgstr ""
+
+#: lib/class_wdpv_admin_form_renderer.php:202
+#, php-format
+msgid "Version %s"
+msgstr ""
+
+#: lib/class_wdpv_admin_form_renderer.php:204
+#, php-format
+msgid "by %s"
+msgstr ""
+
 #: lib/class_wdpv_admin_pages.php:46
 msgid "Voting settings"
 msgstr ""
@@ -168,7 +194,15 @@ msgstr ""
 msgid "Show recent votes on user profile page"
 msgstr ""
 
-#: lib/class_wdpv_admin_pages.php:138
+#: lib/class_wdpv_admin_pages.php:66
+msgid "Post Voting add-ons"
+msgstr ""
+
+#: lib/class_wdpv_admin_pages.php:67
+msgid "All add-ons"
+msgstr ""
+
+#: lib/class_wdpv_admin_pages.php:145
 #, php-format
 msgid "%s voted on <a href=\"%s\">%s</a>"
 msgstr ""
@@ -256,12 +290,10 @@ msgid "Show voting results:"
 msgstr ""
 
 #: lib/forms/bp_profile.php:1
-#: lib\forms/bp_profile.php:1
 msgid "Recent votes"
 msgstr ""
 
 #: lib/forms/bp_profile.php:17
-#: lib\forms/bp_profile.php:17
 msgid "No recent votes"
 msgstr ""
 
