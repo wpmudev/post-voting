@@ -57,12 +57,14 @@ class Wdpv_AdminPages {
 			add_settings_field('wdpv_disable_siteadmin_changes', __('Prevent Site Admins from making changes?', 'wdpv'), array($form, 'create_disable_siteadmin_changes_box'), 'wdpv_options_page', 'wdpv_voting');
 		}
 
-		if (!defined('BP_VERSION')) return; // If no BuddyPress, we're done here
-		add_settings_section('wdpv_bp', __('BuddyPress integration', 'wdpv'), create_function('', ''), 'wdpv_options_page');
-		add_settings_field('wdpv_bp_publish_activity', __('Publish votes to activity stream', 'wdpv'), array($form, 'create_bp_publish_activity_box'), 'wdpv_options_page', 'wdpv_bp');
-		add_settings_field('wdpv_bp_profile_votes', __('Show recent votes on user profile page', 'wdpv'), array($form, 'create_bp_profile_votes_box'), 'wdpv_options_page', 'wdpv_bp');
+		// BuddyPress integration
+		if (!defined('BP_VERSION')) {
+			add_settings_section('wdpv_bp', __('BuddyPress integration', 'wdpv'), create_function('', ''), 'wdpv_options_page');
+			add_settings_field('wdpv_bp_publish_activity', __('Publish votes to activity stream', 'wdpv'), array($form, 'create_bp_publish_activity_box'), 'wdpv_options_page', 'wdpv_bp');
+			add_settings_field('wdpv_bp_profile_votes', __('Show recent votes on user profile page', 'wdpv'), array($form, 'create_bp_profile_votes_box'), 'wdpv_options_page', 'wdpv_bp');
+		}
 
-		if (!is_multisite || (is_multisite() && WP_NETWORK_ADMIN)) { // On multisite, plugins are available only on network admin pages
+		if (!is_multisite() || (is_multisite() && WP_NETWORK_ADMIN)) { // On multisite, plugins are available only on network admin pages
 			add_settings_section('wdpv_plugins', __('Post Voting add-ons', 'wdpv'), create_function('', ''), 'wdpv_options_page');
 			add_settings_field('wdpv_plugins_all_plugins', __('All add-ons', 'wdpv'), array($form, 'create_plugins_box'), 'wdpv_options_page', 'wdpv_plugins');
 		}
