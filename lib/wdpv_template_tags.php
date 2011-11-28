@@ -63,7 +63,7 @@ function wdpv_get_vote_result_ms ($standalone=true, $blog_id=false, $post_id=fal
 }
 
 function wdpv_get_vote_result ($standalone=true, $post_id=false) {
-	return wdpv_get_vote_ms($standalone, false, $post_id);
+	return wdpv_get_vote_result_ms($standalone, false, $post_id);
 }
 
 function wdpv_vote_result ($standalone=true) {

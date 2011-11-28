@@ -218,6 +218,8 @@ class Wdpv_Model {
 			if (!$site_id) $site_id = $current_blog->site_id;
 			if (!$blog_id) $blog_id = $current_blog->blog_id;
 		}
+		$site_id = (int)$site_id;
+		$blog_id = (int)$blog_id;
 
 		$sql = "SELECT SUM(vote) FROM " . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id}";
 		return (int)$this->db->get_var($sql);
@@ -284,6 +286,9 @@ class Wdpv_Model {
 		if ((!$site_id || !$blog_id) && $current_blog) { // Requested current blog post
 			if (!$site_id) $site_id = $current_blog->site_id;
 			if (!$blog_id) $blog_id = $current_blog->blog_id;
+		} else if (!$site_id || !$blog_id) {
+			if (!$site_id) $site_id = 0;
+			if (!$blog_id) $blog_id = 1;
 		}
 		if (!$post_id || !$site_id || !$blog_id) return false;
 
