@@ -58,7 +58,7 @@ class Wdpv_AdminPages {
 		}
 
 		// BuddyPress integration
-		if (!defined('BP_VERSION')) {
+		if (defined('BP_VERSION')) {
 			add_settings_section('wdpv_bp', __('BuddyPress integration', 'wdpv'), create_function('', ''), 'wdpv_options_page');
 			add_settings_field('wdpv_bp_publish_activity', __('Publish votes to activity stream', 'wdpv'), array($form, 'create_bp_publish_activity_box'), 'wdpv_options_page', 'wdpv_bp');
 			add_settings_field('wdpv_bp_profile_votes', __('Show recent votes on user profile page', 'wdpv'), array($form, 'create_bp_profile_votes_box'), 'wdpv_options_page', 'wdpv_bp');
