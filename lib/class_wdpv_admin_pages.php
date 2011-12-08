@@ -137,6 +137,7 @@ class Wdpv_AdminPages {
 		$username = $username ? $username : bp_get_loggedin_user_username();
 		if (!$username) return false;
 
+		$user_link = bp_get_loggedin_user_link();
 		$link = get_blog_permalink($blog_id, $post_id);
 
 		$post = get_blog_post($blog_id, $post_id);
@@ -144,8 +145,8 @@ class Wdpv_AdminPages {
 
 		$args = array (
 			'action' => sprintf(
-				__('%s voted on <a href="%s">%s</a>', 'wdpv'),
-				$username, $link, $title
+				__('<a href="%s">%s</a> voted on <a href="%s">%s</a>', 'wdpv'),
+				$user_link, $username, $link, $title
 			),
 			'component' => 'wdpv_post_vote',
 			'type' => 'wdpv_post_vote',
