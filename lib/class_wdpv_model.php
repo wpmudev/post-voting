@@ -56,6 +56,7 @@ class Wdpv_Model {
 		if (defined('MULTI_DB_VERSION') && class_exists('m_wpdb')) return $this->get_popular_on_multidb_site($site_id, $blog_id, $limit, $posted_timeframe, $voted_timeframe);
 		$site_id = (int)$site_id;
 		$blog_id = (int)$blog_id;
+		$blog_id = $blog_id ? $blog_id : 1;
 		$limit = (int)$limit;
 		if ($posted_timeframe) {
 			list($start_date, $end_date) = $this->extract_timeframe($posted_timeframe);
