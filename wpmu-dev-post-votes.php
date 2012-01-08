@@ -3,7 +3,7 @@
 Plugin Name: Post Voting
 Plugin URI: http://premium.wpmudev.org/project/post-voting-plugin
 Description: Gauge the popularity of your site's content by letting your visitors or users vote on that content. Sort of like your own personal Digg or Reddit, and it's packed with features!
-Version: 2.1.4
+Version: 2.1.5
 Text Domain: wdpv
 Author: scribu (Incsub), Ve Bailovity (Incsub)
 Author URI: http://premium.wpmudev.org
@@ -43,17 +43,17 @@ define ('WDPV_PLUGIN_SELF_DIRNAME', basename(dirname(__FILE__)), true);
 if (is_multisite() && defined('WPMU_PLUGIN_URL') && defined('WPMU_PLUGIN_DIR') && file_exists(WPMU_PLUGIN_DIR . '/' . basename(__FILE__))) {
 	define ('WDPV_PLUGIN_LOCATION', 'mu-plugins', true);
 	define ('WDPV_PLUGIN_BASE_DIR', WPMU_PLUGIN_DIR, true);
-	define ('WDPV_PLUGIN_URL', WPMU_PLUGIN_URL, true);
+	define ('WDPV_PLUGIN_URL', str_replace('http://', (@$_SERVER["HTTPS"] == 'on' ? 'https://' : 'http://'), WPMU_PLUGIN_URL), true);
 	$textdomain_handler = 'load_muplugin_textdomain';
 } else if (defined('WP_PLUGIN_URL') && defined('WP_PLUGIN_DIR') && file_exists(WP_PLUGIN_DIR . '/' . WDPV_PLUGIN_SELF_DIRNAME . '/' . basename(__FILE__))) {
 	define ('WDPV_PLUGIN_LOCATION', 'subfolder-plugins', true);
 	define ('WDPV_PLUGIN_BASE_DIR', WP_PLUGIN_DIR . '/' . WDPV_PLUGIN_SELF_DIRNAME, true);
-	define ('WDPV_PLUGIN_URL', WP_PLUGIN_URL . '/' . WDPV_PLUGIN_SELF_DIRNAME, true);
+	define ('WDPV_PLUGIN_URL', str_replace('http://', (@$_SERVER["HTTPS"] == 'on' ? 'https://' : 'http://'), WP_PLUGIN_URL) . '/' . WDPV_PLUGIN_SELF_DIRNAME, true);
 	$textdomain_handler = 'load_plugin_textdomain';
 } else if (defined('WP_PLUGIN_URL') && defined('WP_PLUGIN_DIR') && file_exists(WP_PLUGIN_DIR . '/' . basename(__FILE__))) {
 	define ('WDPV_PLUGIN_LOCATION', 'plugins', true);
 	define ('WDPV_PLUGIN_BASE_DIR', WP_PLUGIN_DIR, true);
-	define ('WDPV_PLUGIN_URL', WP_PLUGIN_URL, true);
+	define ('WDPV_PLUGIN_URL', str_replace('http://', (@$_SERVER["HTTPS"] == 'on' ? 'https://' : 'http://'), WP_PLUGIN_URL), true);
 	$textdomain_handler = 'load_plugin_textdomain';
 } else {
 	// No textdomain is loaded because we can't determine the plugin location.

@@ -34,6 +34,7 @@ class Wdpv_AdminPages {
 			}
 			$goback = add_query_arg('settings-updated', 'true',  wp_get_referer());
 			wp_redirect($goback);
+			die;
 		}
 		add_submenu_page('settings.php', 'Post Voting', 'Post Voting', 'manage_network_options', 'wdpv', array($this, 'create_admin_page'));
 		add_dashboard_page('Voting Stats', 'Voting Stats', 'manage_network_options', 'wdpv_stats', array($this, 'create_stats_page'));

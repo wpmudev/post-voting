@@ -149,7 +149,7 @@ class Wdpv_Codec {
 		$standalone = ('no' != $args['standalone']) ? true : false;
 		$post_id = $args['post_id'] ? $args['post_id'] : get_the_ID();
 		$blog_id = $this->_get_blog_id($args['blog_id']);
-		$count = $this->model->get_votes_total($post_id, false, $args['blog_id']);
+		$count = $this->model->get_votes_total($post_id, false, $blog_id);
 		$ret = "<div class='wdpv_vote_result'><span class='wdpv_vote_result_output'>{$count}</span><input type='hidden' value='{$post_id}' /><input type='hidden' class='wdpv_blog_id' value='{$blog_id}' /></div>";
 		$ret .= $standalone ? '<div class="wdpv_clear"></div>' : '';
 		return $ret;
