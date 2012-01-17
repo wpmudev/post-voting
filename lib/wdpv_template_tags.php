@@ -80,3 +80,19 @@ function wdpv_get_popular ($limit=5, $network=false) {
 function wdpv_popular ($standalone=true) {
 	echo wdpv_get_popular ($standalone);
 }
+
+/**
+ * Compatibility layer.
+ */
+if (!is_multisite()) {
+	if (!function_exists('get_blog_permalink')) {
+		function get_blog_permalink ($blog_id, $post_id) {
+			return get_permalink($post_id);
+		}
+	}
+	if (!function_exists('get_blog_post')) {
+		function get_blog_post ($blog_id, $post_id) {
+			return get_post($post_id);
+		}
+	}
+}
