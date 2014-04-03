@@ -62,14 +62,14 @@ class Wdpv_Model {
 			list($start_date, $end_date) = $this->extract_timeframe($posted_timeframe);
 		}
 		if ($voted_timeframe) {
-			list($voted_start_date, $voted_end_date) = $this->extract_timeframe($posted_timeframe);
+			list($voted_start_date, $voted_end_date) = $this->extract_timeframe($voted_timeframe);
 		}
 
 		// Woot, mega complex SQL
 		$sql = "SELECT *, SUM(vote) as total FROM " . // SUM(vote) for getting the count - GROUP BY post_id to get to individual posts
 				$this->db->base_prefix . "wdpv_post_votes LEFT JOIN " . // Get the post data too - LEFT JOIN what we need
 				$this->db->prefix . "posts ON " . $this->db->prefix . "posts.ID=" .	$this->db->base_prefix . "wdpv_post_votes.post_id " .
-				"WHERE site_id={$site_id} AND blog_id={$blog_id} " . // Only posts on set site/blog
+				"WHERE site_id={$site_id} AND blog_id={$blog_id} AND post_status='publish' " . // Only posts on set site/blog
 				(
 					$posted_timeframe ?
 						"AND post_date > '{$start_date}' AND post_date < '{$end_date}' "
@@ -143,7 +143,7 @@ class Wdpv_Model {
 			$site_id = $current_blog->site_id;
 		}
 		if ($voted_timeframe) {
-			list($voted_start_date, $voted_end_date) = $this->extract_timeframe($posted_timeframe);
+			list($voted_start_date, $voted_end_date) = $this->extract_timeframe($voted_timeframe);
 		}
 		$limit = (int)$limit;
 		$sql = "SELECT *, SUM(vote) as total FROM " . // SUM(vote) for getting the count
@@ -157,6 +157,7 @@ class Wdpv_Model {
 			"GROUP BY post_id, site_id, blog_id " . // Group by post_id so we get the proper vote sum in `total`
 			"ORDER BY total DESC " . // Order them nicely
 		"LIMIT {$limit}";
+
 		$result = $this->db->get_results($sql, ARRAY_A);
 		return $result;
 	}
@@ -223,6 +224,56 @@ class Wdpv_Model {
 		$blog_id = (int)$blog_id;
 
 		$sql = "SELECT SUM(vote) FROM " . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id}";
+		return (int)$this->db->get_var($sql);
+	}
+
+	/**
+	 * Gets total sum of votes for a post, per user.
+	 *
+	 * @param $post_id int Post ID
+	 * @param $site_id int Network ID
+	 * @param $blog_id int Blog ID
+	 * @return int Number of votes.
+	 */
+	function get_user_votes_total ($user_id, $post_id, $site_id=0, $blog_id=0) {
+		global $current_blog;
+		$post_id = (int)$post_id;
+		if (!$post_id) return 0;
+		$user_id = (int)$user_id;
+		if (!$user_id) return 0;
+
+		if ((!$site_id || !$blog_id) && $current_blog) { // Requested current blog post
+			if (!$site_id) $site_id = $current_blog->site_id;
+			if (!$blog_id) $blog_id = $current_blog->blog_id;
+		}
+		$site_id = (int)$site_id;
+		$blog_id = (int)$blog_id;
+
+		$sql = "SELECT SUM(vote) FROM " . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id} AND user_id={$user_id}";
+		return (int)$this->db->get_var($sql);
+	}
+
+	/**
+	 * Gets votes count for a post.
+	 *
+	 * @param $post_id int Post ID
+	 * @param $site_id int Network ID
+	 * @param $blog_id int Blog ID
+	 * @return int Number of votes.
+	 */
+	function get_votes_count ($post_id, $site_id=0, $blog_id=0) {
+		global $current_blog;
+		$post_id = (int)$post_id;
+		if (!$post_id) return 0;
+
+		if ((!$site_id || !$blog_id) && $current_blog) { // Requested current blog post
+			if (!$site_id) $site_id = $current_blog->site_id;
+			if (!$blog_id) $blog_id = $current_blog->blog_id;
+		}
+		$site_id = (int)$site_id;
+		$blog_id = (int)$blog_id;
+
+		$sql = "SELECT COUNT(*) FROM " . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id}";
 		return (int)$this->db->get_var($sql);
 	}
 
@@ -434,6 +485,11 @@ class Wdpv_Model {
 				$start_date = date('Y-m-d', strtotime(date('Y-' . $month . '-01')));
 				$end_date = date('Y-m-d', strtotime(date('Y-' . $month . '-') . date('t')));
 				break;
+			case "last_year":
+				$year = (int)date('Y') - 1;
+				$start_date = "{$year}-01-01";
+				$end_date = "{$year}-12-31";
+				break;
 			case "this_year":
 			default:
 				$start_date = date('Y-m-d', strtotime(date('Y-01-01')));
@@ -447,3 +503,33 @@ class Wdpv_Model {
 		);
 	}
 }
+
+class Wdpv_Query {
+
+	const ORDER_QUERY = 'wdpv_post__in';
+
+	private $_query;
+
+	private function __construct ($args=array()) {
+		$args['orderby'] = self::ORDER_QUERY;
+		$this->_query = new WP_Query($args);
+	}
+
+	public static function spawn ($limit=5, $posted_timeframe=false, $voted_timeframe=false, $query_args=array()) {
+		$model = new Wdpv_Model;
+		$posts = $model->get_popular_on_current_site($limit, $posted_timeframe, $voted_timeframe);
+
+		$query_args['post__in'] = wp_list_pluck($posts, 'ID');
+		$query_args['posts_per_page'] = $limit;
+		
+		$me = new self($query_args);
+		return $me->_query;
+	}
+
+	public static function filter_wdpv_query ($sortby, $q) {
+		if (empty($q->query['post__in']) || empty($q->query['orderby']) || self::ORDER_QUERY != $q->query['orderby']) return $sortby;
+		if (!empty($q->query['order']) && 'DESC' == $q->query['order']) $q->query['post__in'] = array_reverse($q->query['post__in']);
+		return "find_in_set(ID, '" . join(',', $q->query['post__in']) . "')";
+	}
+}
+add_filter('posts_orderby', array('Wdpv_Query', 'filter_wdpv_query'), 10, 2);

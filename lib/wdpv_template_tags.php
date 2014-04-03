@@ -77,8 +77,23 @@ function wdpv_get_popular ($limit=5, $network=false) {
 	return $codec->process_popular_code(array('limit'=>$limit, 'network'=>$network));
 }
 
-function wdpv_popular ($standalone=true) {
-	echo wdpv_get_popular ($standalone);
+function wdpv_popular ($limit=5, $network=false) {
+	echo wdpv_get_popular ($limit, $network);
+}
+
+function wdpv_get_popular_within ($timespan, $limit=5) {
+	if (!class_exists('Wdpv_Codec')) return false;
+
+	$codec = new Wdpv_Codec;
+	return $codec->process_popular_code(array('limit'=>$limit, 'voted_within' => $timespan));
+}
+
+function wdpv_popular_within ($timespan, $limit=5) {
+	echo wdpv_get_popular_within($timespan, $limit);
+}
+
+function wdpv_query_within ($timespan, $limit=5, $query=array()) {
+	return Wdpv_Query::spawn($limit, false, $timespan, $query);
 }
 
 /**

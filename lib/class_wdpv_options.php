@@ -14,6 +14,7 @@ class Wdpv_Options {
 			'this_month' => __('This month', 'wdpv'),
 			'last_month' => __('Last month', 'wdpv'),
 			'this_year' => __('This year', 'wdpv'),
+			'last_year' => __('Last year', 'wdpv'),
 		);
 	}
 

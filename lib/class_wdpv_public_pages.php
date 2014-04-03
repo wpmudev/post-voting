@@ -42,22 +42,18 @@ class Wdpv_PublicPages {
 	}
 
 	function inject_voting_buttons ($body) {
-
-        $inject = apply_filters( "automatically_inject_voting_buttons", true );
-
 		if (
 			(is_home() && !$this->data->get_option('front_page_voting'))
 			||
 			(!is_home() && !is_singular())
-            ||
-            !$inject
 		) return $body;
+		if ($this->codec->has_wdpv_shortcode('no_auto', $body)) return $body;
 		$position = $this->data->get_option('voting_position');
 		if ('top' == $position || 'both' == $position) {
-			$body = $this->codec->get_code('vote_widget') . ' ' . $body;
+			$body = do_shortcode($this->codec->get_code('vote_widget')) . ' ' . $body;
 		}
 		if ('bottom' == $position || 'both' == $position) {
-			$body .= " " . $this->codec->get_code('vote_widget');
+			$body .= " " . do_shortcode($this->codec->get_code('vote_widget'));
 		}
 		return $body;
 	}
@@ -78,7 +74,8 @@ class Wdpv_PublicPages {
 
 		// Automatic Voting buttons
 		if ('manual' != $this->data->get_option('voting_position')) {
-			add_filter('the_content', array($this, 'inject_voting_buttons'), 1); // Do this VERY early in content processing
+			add_filter('the_content', array($this, 'inject_voting_buttons'), 15); // , 5);
+			if (class_exists('bbpress') && !(defined('WDPV_SKIP_BBPRESS_COMPAT_FILTER') && WDPV_SKIP_BBPRESS_COMPAT_FILTER)) add_filter('bbp_get_reply_content', array($this, 'inject_voting_buttons'), 5);
 		}
 
 		// Optional hooks for BuddyPress

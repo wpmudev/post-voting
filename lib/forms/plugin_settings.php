@@ -404,4 +404,60 @@ post voting in your content (as long as you have post voting allowed, obviously)
 	<dd class="notes"><strong>Note:</strong> results will be returned even if you don't allow voting.</dd>
 </dl>
 
+
+<h4>Period-sensitive Variations</h4>
+
+<dl class="item">
+	<dt class="tag">Tag: <code>wdpv_get_popular_within($timespan, $limit=5)</code></dt>
+	<dd>
+			<dl>
+				<dt class="attributes">Attributes:</dt>
+				<dd>string <code>timespan</code> - One of recognized timespans - <code>this_week</code>, <code>last_week</code>, <code>this_month</code>, <code>last_month</code>, <code>last_year</code>, <code>this_year</code></dd>
+				<dd>int <code>limit</code> - Limit the returned results to this many.</dd>
+			</dl>
+		</dd>
+	<dd>This will <em>return</em> just the voting results within the selected timespan.</dd>
+	<dd>
+		<dl>
+			<dt class="examples">Examples:</dt>
+			<dd><code>&lt;?php wdpv_get_popular_within('this_week'); ?&gt;</code> - will <em>return</em> just the top 5 popular results this week.</dd>
+		</dl>
+	</dd>
+	<dd class="notes"><strong>Note:</strong> results will be returned even if you don't allow voting.</dd>
+</dl>
+<dl class="item">
+	<dt class="tag">Tag: <code>wdpv_popular_within($timespan, $limit=5)</code></dt>
+	<dd>
+			<dl>
+				<dt class="attributes">Attributes:</dt>
+				<dd>string <code>timespan</code> - One of recognized timespans - <code>this_week</code>, <code>last_week</code>, <code>this_month</code>, <code>last_month</code>, <code>last_year</code>, <code>this_year</code></dd>
+				<dd>int <code>limit</code> - Limit the returned results to this many.</dd>
+			</dl>
+		</dd>
+	<dd>This will <em>output</em> the voting results within the selected timespan.</dd>
+	<dd>
+		<dl>
+			<dt class="examples">Examples:</dt>
+			<dd><code>&lt;?php wdpv_popular_within('this_week'); ?&gt;</code> - will <em>output</em> just the top 5 popular results this week.</dd>
+		</dl>
+	</dd>
+</dl>
+
+<h4>Advanced</h4>
+
+<dl class="item">
+	<dt class="tag">Tag: <code>wdpv_query_within($timespan, $limit=5, $query=array())</code></dt>
+	<dd>
+			<dl>
+				<dt class="attributes">Attributes:</dt>
+				<dd>string <code>timespan</code> - One of recognized timespans - <code>this_week</code>, <code>last_week</code>, <code>this_month</code>, <code>last_month</code>, <code>last_year</code>, <code>this_year</code></dd>
+				<dd>int <code>limit</code> - Limit the returned results to this many.</dd>
+				<dd>array <code>query</code> - Additional <code>WP_Query</code> arguments.</dd>
+			</dl>
+		</dd>
+	<dd>This will spawn and <em>return</em> a <code>WP_Query</code> instance populated with the popular posts for a given timespan.</dd>
+	<dd>You can then use the returned result to construct custom loops within your theme.</dd>
+	<dd class="notes"><strong>Note:</strong> results will be returned even if you don't allow voting.</dd>
+</dl>
+
 </div>

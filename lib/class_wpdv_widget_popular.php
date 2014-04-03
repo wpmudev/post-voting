@@ -89,7 +89,7 @@ class Wdpv_WidgetPopular extends WP_Widget {
 			echo "<ul class='wdpv_popular_posts'>";
 			foreach ($posts as $post) {
 				echo "<li>";
-				echo '<a href="' . get_permalink($post['ID']) . '">' . $post['post_title'] . '</a> ';
+				echo '<a href="' . get_permalink($post['ID']) . '">' . apply_filters('the_title', $post['post_title']) . '</a> ';
 				printf(__('<span class="wdpv_vote_count">(%s votes)</span>', 'wdpv'), $post['total']);
 				echo "</li>";
 			}

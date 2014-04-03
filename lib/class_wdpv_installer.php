@@ -19,7 +19,7 @@ class Wdpv_Installer {
 	 * @access private
 	 * @static
 	 */
-	function install () {
+	public static function install () {
 		$me = new Wdpv_Installer;
 		if (!$me->has_database_table()) {
 			$me->create_database_table();
@@ -31,7 +31,7 @@ class Wdpv_Installer {
 	 * @access private
 	 * @static
 	 */
-	function upgrade_to_dates () {
+	public static function upgrade_to_dates () {
 		$me = new Wdpv_Installer;
 		if (!$me->table_has_dates()) {
 			$me->alter_table_add_dates();

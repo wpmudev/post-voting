@@ -14,7 +14,7 @@ class Wdpv_AdminFormRenderer {
 		return
 			"<input {$disabled} type='radio' name='wdpv[{$name}]' id='{$name}-yes' value='1' " . ((int)$value ? 'checked="checked" ' : '') . " /> " .
 				"<label for='{$name}-yes'>" . __('Yes', 'wdpv') . "</label>" .
-			'&nbsp;' .
+			'<br />' .
 			"<input {$disabled} type='radio' name='wdpv[{$name}]' id='{$name}-no' value='0' " . (!(int)$value ? 'checked="checked" ' : '') . " /> " .
 				"<label for='{$name}-no'>" . __('No', 'wdpv') . "</label>" .
 		"";
