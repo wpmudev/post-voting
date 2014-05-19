@@ -81,8 +81,8 @@ function voteDown () {
 
 $(function () {
 
-$('.wdpv_vote_up').click(voteUp);
-$('.wdpv_vote_down').click(voteDown);
+$(document).on("click", '.wdpv_vote_up', voteUp);
+$(document).on("click", '.wdpv_vote_down', voteDown);
 
 /* ----- Rating ----- */
 
