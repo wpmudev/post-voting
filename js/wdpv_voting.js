@@ -70,11 +70,15 @@ function doVote ($me, vote) {
 }
 
 function voteUp () {
-	doVote($(this), "+1");
+    if( !$(this).hasClass("wdpv_disabled") ){
+        doVote($(this), "+1");
+    }
 	return false;
 }
 function voteDown () {
-	doVote($(this), "-1");
+    if( !$(this).hasClass("wdpv_disabled") ) {
+        doVote($(this), "-1");
+    }
 	return false;
 }
 
