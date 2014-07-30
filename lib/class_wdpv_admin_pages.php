@@ -17,7 +17,7 @@ class Wdpv_AdminPages {
 	 *
 	 * @static
 	 */
-	function serve () {
+	public static function serve () {
 		$me = new Wdpv_AdminPages;
 		$me->add_hooks();
 	}

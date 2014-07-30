@@ -8,7 +8,7 @@ class Wdpv_Installer {
 	 * @access public
 	 * @static
 	 */
-	function check () {
+	public static function check () {
 		$is_installed = get_site_option('wdpv', false);
 		$is_installed = $is_installed ? $is_installed : get_option('wdpv', false);
 		if (!$is_installed) Wdpv_Installer::install();

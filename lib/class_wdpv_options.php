@@ -5,7 +5,6 @@
 class Wdpv_Options {
 	var $timeframes;
 
-	function Wdpv_Options () { $this->__construct(); }
 
 	function __construct () {
 		$this->timeframes = array(
@@ -39,7 +38,7 @@ class Wdpv_Options {
 	 *
 	 * @static
 	 */
-	function populate () {
+	public static function populate () {
 		$site_opts = get_site_option('wdpv');
 		$site_opts = is_array($site_opts) ? $site_opts : array();
 
