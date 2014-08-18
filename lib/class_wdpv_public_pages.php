@@ -19,7 +19,7 @@ class Wdpv_PublicPages {
 	 *
 	 * @static
 	 */
-	function serve () {
+	public static function serve () {
 		$me = new Wdpv_PublicPages;
 		$me->add_hooks();
 	}
