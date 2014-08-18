@@ -3,7 +3,7 @@
 Plugin Name: Post Voting
 Plugin URI: http://premium.wpmudev.org/project/post-voting-plugin/
 Description: Gauge the popularity of your site's content by letting your visitors or users vote on that content. Sort of like your own personal Digg or Reddit, and it's packed with features!
-Version: 2.2-BETA-2
+Version: 2.2
 Text Domain: wdpv
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org
@@ -11,7 +11,7 @@ WDP ID: 231
 
 Copyright 2009-2014 Incsub (http://incsub.com)
 Author - Scribu
-Contributors - Ve Bailovity
+Contributors - Ve Bailovity, Ignacio Cruz
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License (Version 2 - GPLv2) as published by
@@ -52,7 +52,9 @@ if (is_multisite() && defined('WPMU_PLUGIN_URL') && defined('WPMU_PLUGIN_DIR') &
 }
 $textdomain_handler('wdpv', false, WDPV_PLUGIN_SELF_DIRNAME . '/languages/');
 
-if (file_exists(WDPV_PLUGIN_BASE_DIR . '/lib/external/wpmudev-dash-notification.php')) require_once WDPV_PLUGIN_BASE_DIR . '/lib/external/wpmudev-dash-notification.php';
+global $wpmudev_notices;
+$wpmudev_notices[] = array( 'id'=> 231, 'name'=> 'Post Voting', 'screens' => array( 'settings_page_wdpv-network', 'settings_page_wdpv' ) );
+if (file_exists(WDPV_PLUGIN_BASE_DIR . '/lib/externals/wpmudev-dash-notification.php')) require_once WDPV_PLUGIN_BASE_DIR . '/lib/externals/wpmudev-dash-notification.php';
 
 
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_installer.php';

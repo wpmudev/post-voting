@@ -62,11 +62,23 @@ function doVote ($me, vote) {
 		}
 	});
 
-	// Update the post votes
-	$.post(_wdpv_ajax_url, {"action": "wdpv_record_vote", "wdpv_vote": vote, "blog_id": blog_id, "post_id": pid}, function (resp) {
+	var data = {"action": "wdpv_record_vote", "wdpv_vote": vote, "blog_id": blog_id, "post_id": pid};
+
+	$.ajax({
+		url: _wdpv_ajax_url,
+		type: 'post',
+		data: data,
+	})
+	.done(function(resp) {
 		$(document).trigger('wdpv-voting-vote_complete', [blog_id, pid, vote]);
 		updateResultBoxes(blog_id, pid);
+	})
+	.fail(function(error) {
+		console.log(error);
+	})
+	.always(function() {
 	});
+	
 }
 
 function voteUp () {

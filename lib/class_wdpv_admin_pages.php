@@ -9,6 +9,11 @@ class Wdpv_AdminPages {
 	function __construct () {
 		$this->model = new Wdpv_Model;
 		$this->data = new Wdpv_Options;
+
+		$this->tabs = array(
+			'settings' => __( 'Settings', 'wdpv' ),
+			'shortcodes' => __( 'Shortcodes', 'wdpv' ),
+		);
 	}
 	function Wdpv_AdminPages () { $this->__construct(); }
 
@@ -27,7 +32,7 @@ class Wdpv_AdminPages {
 			if (isset($_POST['wdpv'])) {
 				$this->data->set_options($_POST['wdpv']);
 			}
-			if (WP_NETWORK_ADMIN && $this->data->get_option('disable_siteadmin_changes')) {
+			if (is_network_admin() && $this->data->get_option('disable_siteadmin_changes')) {
 				// Flush per-blog settings
 				$blogs = $this->model->get_blog_ids();
 				foreach ($blogs as $blog) delete_blog_option($blog['blog_id'], "wdpv");
@@ -37,7 +42,7 @@ class Wdpv_AdminPages {
 			die;
 		}
 		add_submenu_page('settings.php', 'Post Voting', 'Post Voting', 'manage_network_options', 'wdpv', array($this, 'create_admin_page'));
-		add_dashboard_page('Voting Stats', 'Voting Stats', 'manage_network_options', 'wdpv_stats', array($this, 'create_stats_page'));
+		add_dashboard_page('Voting Stats', __( 'Voting Stats', 'wdpv' ), 'manage_network_options', 'wdpv_stats', array($this, 'create_stats_page'));
 	}
 
 	function register_settings () {
@@ -54,7 +59,7 @@ class Wdpv_AdminPages {
 		add_settings_field('wdpv_voting_appearance', __('Appearance', 'wdpv'), array($form, 'create_voting_appearance_box'), 'wdpv_options_page', 'wdpv_voting');
 		add_settings_field('wdpv_voting_positive', __('Prevent negative voting', 'wdpv'), array($form, 'create_voting_positive_box'), 'wdpv_options_page', 'wdpv_voting');
 		add_settings_field('wdpv_front_page_voting', __('Voting on Front Page', 'wdpv'), array($form, 'create_front_page_voting_box'), 'wdpv_options_page', 'wdpv_voting');
-		if (WP_NETWORK_ADMIN) {
+		if (is_network_admin()) {
 			add_settings_field('wdpv_disable_siteadmin_changes', __('Prevent Site Admins from making changes?', 'wdpv'), array($form, 'create_disable_siteadmin_changes_box'), 'wdpv_options_page', 'wdpv_voting');
 		}
 
@@ -65,7 +70,7 @@ class Wdpv_AdminPages {
 			add_settings_field('wdpv_bp_profile_votes', __('Show recent votes on user profile page', 'wdpv'), array($form, 'create_bp_profile_votes_box'), 'wdpv_options_page', 'wdpv_bp');
 		}
 
-		if (!is_multisite() || (is_multisite() && WP_NETWORK_ADMIN)) { // On multisite, plugins are available only on network admin pages
+		if (!is_multisite() || (is_multisite() && is_network_admin())) { // On multisite, plugins are available only on network admin pages
 			add_settings_section('wdpv_plugins', __('Post Voting add-ons', 'wdpv'), create_function('', ''), 'wdpv_options_page');
 			add_settings_field('wdpv_plugins_all_plugins', __('All add-ons', 'wdpv'), array($form, 'create_plugins_box'), 'wdpv_options_page', 'wdpv_plugins');
 		}
@@ -76,7 +81,20 @@ class Wdpv_AdminPages {
 	function create_blog_admin_menu_entry () {
 		$settings_perms = $this->data->get_option('disable_siteadmin_changes') ? 'manage_network_options' : 'manage_options';
 		add_options_page('Post Voting', 'Post Voting', $settings_perms, 'wdpv', array($this, 'create_admin_page'));
-		add_dashboard_page('Voting Stats', 'Voting Stats', 'manage_options', 'wdpv_stats', array($this, 'create_stats_page'));
+		add_dashboard_page(__( 'Voting Stats', 'wdpv' ), 'Voting Stats', 'manage_options', 'wdpv_stats', array($this, 'create_stats_page'));
+	}
+
+	function get_current_tab() {
+		if ( isset( $_GET['tab'] ) && array_key_exists( $_GET['tab'], $this->tabs ) ) {
+			return $_GET['tab'];
+		}
+		else {
+			return key( $this->tabs );
+		}
+	}
+
+	function get_tab_title( $tab ) {
+		return $this->tabs[ $tab ];
 	}
 
 	/**
@@ -85,7 +103,11 @@ class Wdpv_AdminPages {
 	 * @access private
 	 */
 	function create_admin_page () {
-		include(WDPV_PLUGIN_BASE_DIR . '/lib/forms/plugin_settings.php');
+		$tab = $this->get_current_tab();
+		$file = WDPV_PLUGIN_BASE_DIR . '/lib/forms/plugin_' . $tab . '.php';
+
+		if ( is_file( $file ) )
+			include_once( $file );
 	}
 
 	/**
@@ -95,7 +117,7 @@ class Wdpv_AdminPages {
 	 */
 	function create_stats_page () {
 		$limit = 2000;
-		$overall = WP_NETWORK_ADMIN ? $this->model->get_popular_on_network($limit) : $this->model->get_popular_on_current_site($limit);
+		$overall = is_network_admin() ? $this->model->get_popular_on_network($limit) : $this->model->get_popular_on_current_site($limit);
 		include(WDPV_PLUGIN_BASE_DIR . '/lib/forms/plugin_stats.php');
 	}
 
@@ -178,7 +200,7 @@ class Wdpv_AdminPages {
 	function add_hooks () {
 		// Step0: Register options and menu
 		add_action('admin_init', array($this, 'register_settings'));
-		if (WP_NETWORK_ADMIN) {
+		if (is_network_admin()) {
 			add_action('network_admin_menu', array($this, 'create_site_admin_menu_entry'));
 		} else {
 			add_action('admin_menu', array($this, 'create_blog_admin_menu_entry'));

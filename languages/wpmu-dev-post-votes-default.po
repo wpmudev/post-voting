@@ -1,299 +1,784 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WPMU DEV Post Votes 1.0\n"
+"Project-Id-Version: WPMUDEV Post Voting\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-11-20 16:25+0100\n"
-"PO-Revision-Date: 2011-11-20 16:25+0100\n"
-"Last-Translator: \n"
-"Language-Team: Incsub\n"
+"POT-Creation-Date: 2014-08-18 12:11+0100\n"
+"PO-Revision-Date: 2014-08-18 12:11+0100\n"
+"Last-Translator: Ignacio <igmoweb@gmail.com>\n"
+"Language-Team: WPMU DEV\n"
+"Language: English\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-Basepath: D:\\xampp\\htdocs\\post-voting\\wp-content\\plugins\\wpmu-dev-post-votes\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-SearchPath-0: lib\n"
-"X-Poedit-SearchPath-1: lib\\forms\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;__;_e;esc_html_e;esc_html__;"
+"esc_attr_e;esc_attr__;_ex:1,2c\n"
+"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.5.4\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
 
-#: lib/class_wdpv_admin_form_renderer.php:16
-msgid "Yes"
+#: ../wpmu-dev-post-votes.php:51
+msgid ""
+"There was an issue determining where Post Voting plugin is installed. Please "
+"reinstall."
 msgstr ""
 
-#: lib/class_wdpv_admin_form_renderer.php:19
-msgid "No"
+#: ../lib/class_wpdv_widget_popular.php:8
+msgid "Shows list of posts with highest number of votes on current blog."
 msgstr ""
 
-#: lib/class_wdpv_admin_form_renderer.php:38
-msgid "<p>By default, visitors are tracked by IP too in order to prevent multiple voting. However, this can be problematic in certain cases (e.g. multiple users behind a single router).</p><p>Set this to \"No\" if you don't want to use this measure.</p>"
+#: ../lib/class_wpdv_widget_popular.php:22
+#: ../lib/class_wpdv_widget_network_popular.php:21
+#: ../lib/class_wpdv_widget_voting.php:22
+msgid "Title:"
 msgstr ""
 
-#: lib/class_wdpv_admin_form_renderer.php:46
-msgid "<p>By default, if visitor voting is not allowed, voting will not be shown at all.</p><p>Set this to \"Yes\" if you wish to have the login link instead.</p>"
+#: ../lib/class_wpdv_widget_popular.php:27
+#: ../lib/class_wpdv_widget_network_popular.php:26
+msgid "Show this many posts:"
 msgstr ""
 
-#: lib/class_wdpv_admin_form_renderer.php:53
-msgid "Before the post"
+#: ../lib/class_wpdv_widget_popular.php:37
+msgid "Posted within:"
 msgstr ""
 
-#: lib/class_wdpv_admin_form_renderer.php:54
-msgid "After the post"
+#: ../lib/class_wpdv_widget_popular.php:39
+#: ../lib/class_wpdv_widget_popular.php:49
+#: ../lib/class_wpdv_widget_network_popular.php:38
+msgid "All time"
 msgstr ""
 
-#: lib/class_wdpv_admin_form_renderer.php:55
-msgid "Both before and after the post"
+#: ../lib/class_wpdv_widget_popular.php:47
+#: ../lib/class_wpdv_widget_network_popular.php:36
+msgid "Voted within:"
 msgstr ""
 
-#: lib/class_wdpv_admin_form_renderer.php:56
-msgid "Manually position the box using shortcode or widget"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:66
-msgid "<p>By default, voting will be shown only on singular pages.</p><p>Set this option to \"Yes\" to add voting to all posts on the front page.</p>"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:73
-msgid "Default"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:74
-msgid "Arrows"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:75
-msgid "Plus/Minus"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:76
-msgid "White arrows"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:77
-msgid "Q&amp;A arrows"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:83
-msgid "Preview:"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:92
-msgid "<p>If checked, this option will prevent negative votes by showing only positive voting link.</p>"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:99
-msgid "<p>By default, Site Admins are allowed to access plugin settings and make changes.</p><p>Set this option to \"Yes\" to prevent them from making changes to plugin settings.</p>"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:119
-msgid "<p>Voting will <strong><em>not</em></strong> be shown for selected types.</p>"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:128
-msgid "Activities will be recorded only for your logged in users"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:129
-msgid "Hide from sitewide activity stream:"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:131
-msgid "Recorded activities will be hidden from your sitewide activity stream"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:143
-msgid "Show"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:146
-msgid "all"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:152
-msgid "vote(s) within last"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:178
-msgid "Add-on name"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:179
-msgid "Add-on description"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:194
-msgid "Deactivate"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:196
-msgid "Activate"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:202
-#, php-format
-msgid "Version %s"
-msgstr ""
-
-#: lib/class_wdpv_admin_form_renderer.php:204
-#, php-format
-msgid "by %s"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:46
-msgid "Voting settings"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:47
-msgid "Allow post voting"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:48
-msgid "Allow voting for unregistered users"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:49
-msgid "Use IP check"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:50
-msgid "Show login link for visitors"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:51
-msgid "Do <strong>NOT</strong> show voting for these types"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:52
-msgid "Voting box position"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:53
-msgid "Appearance"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:54
-msgid "Prevent negative voting"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:55
-msgid "Voting on Front Page"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:57
-msgid "Prevent Site Admins from making changes?"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:61
-msgid "BuddyPress integration"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:62
-msgid "Publish votes to activity stream"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:63
-msgid "Show recent votes on user profile page"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:66
-msgid "Post Voting add-ons"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:67
-msgid "All add-ons"
-msgstr ""
-
-#: lib/class_wdpv_admin_pages.php:145
-#, php-format
-msgid "%s voted on <a href=\"%s\">%s</a>"
-msgstr ""
-
-#: lib/class_wdpv_codec.php:28
-#, php-format
-msgid "<div class=\"wdpv_login\">This post has %s votes. <a href=\"%s\">Log in now</a> to vote</div>"
-msgstr ""
-
-#: lib/class_wdpv_codec.php:67
-#: lib/class_wpdv_widget_network_popular.php:80
-#: lib/class_wpdv_widget_popular.php:93
+#: ../lib/class_wpdv_widget_popular.php:93
+#: ../lib/class_wpdv_widget_network_popular.php:80
+#: ../lib/class_wdpv_codec.php:74
 #, php-format
 msgid "<span class=\"wdpv_vote_count\">(%s votes)</span>"
 msgstr ""
 
-#: lib/class_wdpv_options.php:12
+#: ../lib/class_wdpv_options.php:11
 msgid "This week"
 msgstr ""
 
-#: lib/class_wdpv_options.php:13
+#: ../lib/class_wdpv_options.php:12
 msgid "Last week"
 msgstr ""
 
-#: lib/class_wdpv_options.php:14
+#: ../lib/class_wdpv_options.php:13
 msgid "This month"
 msgstr ""
 
-#: lib/class_wdpv_options.php:15
+#: ../lib/class_wdpv_options.php:14
 msgid "Last month"
 msgstr ""
 
-#: lib/class_wdpv_options.php:16
+#: ../lib/class_wdpv_options.php:15
 msgid "This year"
 msgstr ""
 
-#: lib/class_wpdv_widget_network_popular.php:8
+#: ../lib/class_wdpv_options.php:16
+msgid "Last year"
+msgstr ""
+
+#: ../lib/class_wpdv_widget_network_popular.php:8
 msgid "Shows list of posts with highest number of votes on entire network."
 msgstr ""
 
-#: lib/class_wpdv_widget_network_popular.php:21
-#: lib/class_wpdv_widget_popular.php:22
-#: lib/class_wpdv_widget_voting.php:22
-msgid "Title:"
+#: ../lib/class_wdpv_codec.php:29
+#, php-format
+msgid ""
+"<div class=\"wdpv_login\">This post has %s votes. <a href=\"%s\">Log in now</"
+"a> to vote</div>"
 msgstr ""
 
-#: lib/class_wpdv_widget_network_popular.php:26
-#: lib/class_wpdv_widget_popular.php:27
-msgid "Show this many posts:"
+#: ../lib/class_wdpv_admin_pages.php:14
+msgid "Settings"
 msgstr ""
 
-#: lib/class_wpdv_widget_network_popular.php:36
-#: lib/class_wpdv_widget_popular.php:47
-msgid "Voted within:"
+#: ../lib/class_wdpv_admin_pages.php:15
+msgid "Shortcodes"
 msgstr ""
 
-#: lib/class_wpdv_widget_network_popular.php:38
-#: lib/class_wpdv_widget_popular.php:39
-#: lib/class_wpdv_widget_popular.php:49
-msgid "All time"
+#: ../lib/class_wdpv_admin_pages.php:45 ../lib/class_wdpv_admin_pages.php:84
+msgid "Voting Stats"
 msgstr ""
 
-#: lib/class_wpdv_widget_popular.php:8
-msgid "Shows list of posts with highest number of votes on current blog."
+#: ../lib/class_wdpv_admin_pages.php:52
+msgid "Voting settings"
 msgstr ""
 
-#: lib/class_wpdv_widget_popular.php:37
-msgid "Posted within:"
+#: ../lib/class_wdpv_admin_pages.php:53
+msgid "Allow post voting"
 msgstr ""
 
-#: lib/class_wpdv_widget_voting.php:8
+#: ../lib/class_wdpv_admin_pages.php:54
+msgid "Allow voting for unregistered users"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:55
+msgid "Use IP check"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:56
+msgid "Show login link for visitors"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:57
+msgid "Do <strong>NOT</strong> show voting for these types"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:58
+msgid "Voting box position"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:59
+msgid "Appearance"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:60
+msgid "Prevent negative voting"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:61
+msgid "Voting on Front Page"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:63
+msgid "Prevent Site Admins from making changes?"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:68
+msgid "BuddyPress integration"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:69
+msgid "Publish votes to activity stream"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:70
+msgid "Show recent votes on user profile page"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:74
+msgid "Post Voting add-ons"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:75
+msgid "All add-ons"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_pages.php:171
+#, php-format
+msgid "<a href=\"%s\">%s</a> voted on <a href=\"%s\">%s</a>"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:16
+msgid "Yes"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:19
+msgid "No"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:38
+msgid ""
+"<p>By default, visitors are tracked by IP too in order to prevent multiple "
+"voting. However, this can be problematic in certain cases (e.g. multiple "
+"users behind a single router).</p><p>Set this to \"No\" if you don't want to "
+"use this measure.</p>"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:46
+msgid ""
+"<p>By default, if visitor voting is not allowed, voting will not be shown at "
+"all.</p><p>Set this to \"Yes\" if you wish to have the login link instead.</"
+"p>"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:53
+msgid "Before the post"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:54
+msgid "After the post"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:55
+msgid "Both before and after the post"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:56
+msgid "Manually position the box using shortcode or widget"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:66
+msgid ""
+"<p>By default, voting will be shown only on singular pages.</p><p>Set this "
+"option to \"Yes\" to add voting to all posts on the front page.</p>"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:73
+msgid "Default"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:74
+msgid "Arrows"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:75
+msgid "Plus/Minus"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:76
+msgid "White arrows"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:77
+msgid "Q&amp;A arrows"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:83
+msgid "Preview:"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:92
+msgid ""
+"<p>If checked, this option will prevent negative votes by showing only "
+"positive voting link.</p>"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:99
+msgid ""
+"<p>By default, Site Admins are allowed to access plugin settings and make "
+"changes.</p><p>Set this option to \"Yes\" to prevent them from making "
+"changes to plugin settings.</p>"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:119
+msgid ""
+"<p>Voting will <strong><em>not</em></strong> be shown for selected types.</p>"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:128
+msgid "Activities will be recorded only for your logged in users"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:129
+msgid "Hide from sitewide activity stream:"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:131
+msgid "Recorded activities will be hidden from your sitewide activity stream"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:143
+msgid "Show"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:146
+msgid "all"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:152
+msgid "vote(s) within last"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:178
+msgid "Add-on name"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:179
+msgid "Add-on description"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:194
+msgid "Deactivate"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:196
+msgid "Activate"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:202
+#, php-format
+msgid "Version %s"
+msgstr ""
+
+#: ../lib/class_wdpv_admin_form_renderer.php:204
+#, php-format
+msgid "by %s"
+msgstr ""
+
+#: ../lib/class_wpdv_widget_voting.php:8
 msgid "Shows \"Vote\" box for current post/page with number of votes."
 msgstr ""
 
-#: lib/class_wpdv_widget_voting.php:27
+#: ../lib/class_wpdv_widget_voting.php:27
 msgid "Show \"Vote up\" button:"
 msgstr ""
 
-#: lib/class_wpdv_widget_voting.php:32
+#: ../lib/class_wpdv_widget_voting.php:32
 msgid "Show \"Vote down\" button:"
 msgstr ""
 
-#: lib/class_wpdv_widget_voting.php:37
+#: ../lib/class_wpdv_widget_voting.php:37
 msgid "Show voting results:"
 msgstr ""
 
-#: lib/forms/bp_profile.php:1
+#: ../lib/forms/bp_profile.php:1
 msgid "Recent votes"
 msgstr ""
 
-#: lib/forms/bp_profile.php:17
+#: ../lib/forms/bp_profile.php:17
 msgid "No recent votes"
 msgstr ""
 
+#: ../lib/forms/plugin_shortcodes.php:3
+msgid ""
+"Regardless of your <em>Voting box position settings</em>, you can always use "
+"the shortcodes to insert post voting in your content (as long as you have "
+"post voting allowed, obviously)."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:5
+msgid ""
+"There are several shortcodes that offer a fine-grained control over what is "
+"displayed."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:8 ../lib/forms/plugin_shortcodes.php:27
+#: ../lib/forms/plugin_shortcodes.php:43 ../lib/forms/plugin_shortcodes.php:59
+#: ../lib/forms/plugin_shortcodes.php:75
+#: ../lib/forms/plugin_shortcodes.php:108
+#: ../lib/forms/plugin_shortcodes.php:126
+#: ../lib/forms/plugin_shortcodes.php:144
+#: ../lib/forms/plugin_shortcodes.php:162
+#: ../lib/forms/plugin_shortcodes.php:180
+#: ../lib/forms/plugin_shortcodes.php:205
+#: ../lib/forms/plugin_shortcodes.php:225
+#: ../lib/forms/plugin_shortcodes.php:245
+#: ../lib/forms/plugin_shortcodes.php:265
+#: ../lib/forms/plugin_shortcodes.php:289
+#: ../lib/forms/plugin_shortcodes.php:310
+#: ../lib/forms/plugin_shortcodes.php:331
+#: ../lib/forms/plugin_shortcodes.php:352
+#: ../lib/forms/plugin_shortcodes.php:377
+#: ../lib/forms/plugin_shortcodes.php:395
+#: ../lib/forms/plugin_shortcodes.php:415
+msgctxt "Shortcode title"
+msgid "Tag"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:11 ../lib/forms/plugin_shortcodes.php:30
+#: ../lib/forms/plugin_shortcodes.php:46 ../lib/forms/plugin_shortcodes.php:62
+#: ../lib/forms/plugin_shortcodes.php:78
+#: ../lib/forms/plugin_shortcodes.php:111
+#: ../lib/forms/plugin_shortcodes.php:129
+#: ../lib/forms/plugin_shortcodes.php:147
+#: ../lib/forms/plugin_shortcodes.php:165
+#: ../lib/forms/plugin_shortcodes.php:183
+#: ../lib/forms/plugin_shortcodes.php:208
+#: ../lib/forms/plugin_shortcodes.php:228
+#: ../lib/forms/plugin_shortcodes.php:248
+#: ../lib/forms/plugin_shortcodes.php:268
+#: ../lib/forms/plugin_shortcodes.php:292
+#: ../lib/forms/plugin_shortcodes.php:313
+#: ../lib/forms/plugin_shortcodes.php:334
+#: ../lib/forms/plugin_shortcodes.php:355
+#: ../lib/forms/plugin_shortcodes.php:380
+#: ../lib/forms/plugin_shortcodes.php:398
+#: ../lib/forms/plugin_shortcodes.php:418
+msgid "Attributes"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:11 ../lib/forms/plugin_shortcodes.php:30
+#: ../lib/forms/plugin_shortcodes.php:46 ../lib/forms/plugin_shortcodes.php:62
+msgctxt "Attributes (none)"
+msgid "none"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:14
+msgid ""
+"This is the main voting shortcode. It will display all parts of voting "
+"gadget - \"Vote up\" link, \"Vote down\" link and results."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:17 ../lib/forms/plugin_shortcodes.php:36
+#: ../lib/forms/plugin_shortcodes.php:68 ../lib/forms/plugin_shortcodes.php:92
+#: ../lib/forms/plugin_shortcodes.php:118
+#: ../lib/forms/plugin_shortcodes.php:136
+#: ../lib/forms/plugin_shortcodes.php:154
+#: ../lib/forms/plugin_shortcodes.php:172
+#: ../lib/forms/plugin_shortcodes.php:191
+#: ../lib/forms/plugin_shortcodes.php:216
+#: ../lib/forms/plugin_shortcodes.php:236
+#: ../lib/forms/plugin_shortcodes.php:256
+#: ../lib/forms/plugin_shortcodes.php:276
+#: ../lib/forms/plugin_shortcodes.php:301
+#: ../lib/forms/plugin_shortcodes.php:322
+#: ../lib/forms/plugin_shortcodes.php:343
+#: ../lib/forms/plugin_shortcodes.php:364
+#: ../lib/forms/plugin_shortcodes.php:388
+#: ../lib/forms/plugin_shortcodes.php:406
+msgid "Examples"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:18
+#: ../lib/forms/plugin_shortcodes.php:119
+msgid ""
+"will display all parts of voting gadget - \"Vote up\" link, \"Vote down\" "
+"link and results."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:21
+#: ../lib/forms/plugin_shortcodes.php:123
+msgid ""
+"<strong>Note:</strong> if you don't allow voting, only the results will be "
+"displayed."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:24
+msgid ""
+"If you wish to customize the gadget appearance, you may want to use one or "
+"more of the other shortcodes listed below."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:33
+#: ../lib/forms/plugin_shortcodes.php:133
+msgid "This will display just the \"Vote up\" link."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:37
+#: ../lib/forms/plugin_shortcodes.php:137
+msgid "will display just the \"Vote up\" link."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:40 ../lib/forms/plugin_shortcodes.php:56
+#: ../lib/forms/plugin_shortcodes.php:141
+#: ../lib/forms/plugin_shortcodes.php:159
+msgid ""
+"<strong>Note:</strong> if you don't allow voting, nothing will be displayed."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:49
+#: ../lib/forms/plugin_shortcodes.php:151
+msgid "This will display just the \"Vote down\" link."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:52
+msgid "Example"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:53
+#: ../lib/forms/plugin_shortcodes.php:155
+msgid "will display just the \"Vote down\" link."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:65
+#: ../lib/forms/plugin_shortcodes.php:169
+msgid "This will display just the voting results."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:69
+#: ../lib/forms/plugin_shortcodes.php:173
+msgid "will display just the voting results."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:72
+#: ../lib/forms/plugin_shortcodes.php:177
+msgid ""
+"<strong>Note:</strong> results will be displayed even if you don't allow "
+"voting."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:82
+#: ../lib/forms/plugin_shortcodes.php:184
+msgid "<em>(optional)</em> Show only this many posts. Defaults to 5"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:84
+#, php-format
+msgid ""
+"<em>(optional)</em> Show posts from entire network. Set to %s if you wish to "
+"display posts from entire network."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:89
+#: ../lib/forms/plugin_shortcodes.php:188
+msgid "This will display the list of posts with highest number of votes."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:93
+#: ../lib/forms/plugin_shortcodes.php:192
+msgid "will display 5 highest rated posts on the current blog."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:94
+#: ../lib/forms/plugin_shortcodes.php:193
+msgid "will display 3 highest rated posts on the current blog."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:95
+#: ../lib/forms/plugin_shortcodes.php:194
+msgid "will display 5 highest rated posts on entire network."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:96
+#: ../lib/forms/plugin_shortcodes.php:195
+msgid "will display 10 highest rated posts on entire network."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:99
+#: ../lib/forms/plugin_shortcodes.php:198
+msgid ""
+"<strong>Note:</strong> popular posts will be displayed even if you don't "
+"allow voting."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:103
+msgid "Template tags"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:105
+msgid ""
+"Template tags can be used in your themes within The Loop, regardless of your "
+"<em>Voting box position settings</em>"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:112
+#: ../lib/forms/plugin_shortcodes.php:130
+#: ../lib/forms/plugin_shortcodes.php:148
+#: ../lib/forms/plugin_shortcodes.php:166
+#: ../lib/forms/plugin_shortcodes.php:209
+#: ../lib/forms/plugin_shortcodes.php:229
+#: ../lib/forms/plugin_shortcodes.php:249
+#: ../lib/forms/plugin_shortcodes.php:269
+#: ../lib/forms/plugin_shortcodes.php:293
+#: ../lib/forms/plugin_shortcodes.php:314
+#: ../lib/forms/plugin_shortcodes.php:335
+#: ../lib/forms/plugin_shortcodes.php:356
+#, php-format
+msgid "Clear the floats, %s or %s. Defaults to %s"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:115
+msgid ""
+"This is the main voting template tag. It will display all parts of voting "
+"gadget - \"Vote up\" link, \"Vote down\" link and results."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:120
+#: ../lib/forms/plugin_shortcodes.php:138
+#: ../lib/forms/plugin_shortcodes.php:156
+#: ../lib/forms/plugin_shortcodes.php:174
+#: ../lib/forms/plugin_shortcodes.php:218
+#: ../lib/forms/plugin_shortcodes.php:238
+#: ../lib/forms/plugin_shortcodes.php:258
+#: ../lib/forms/plugin_shortcodes.php:278
+#: ../lib/forms/plugin_shortcodes.php:303
+#: ../lib/forms/plugin_shortcodes.php:324
+#: ../lib/forms/plugin_shortcodes.php:345
+#: ../lib/forms/plugin_shortcodes.php:366
+msgid "same as above, without clearing the floats."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:185
+msgid ""
+"<em>(optional)</em> Show posts from entire network. Set to <code>true</code> "
+"if you wish to display posts from entire network."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:202
+msgid "Custom post variations"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:210
+#: ../lib/forms/plugin_shortcodes.php:230
+#: ../lib/forms/plugin_shortcodes.php:250
+#: ../lib/forms/plugin_shortcodes.php:270
+#: ../lib/forms/plugin_shortcodes.php:295
+#: ../lib/forms/plugin_shortcodes.php:316
+#: ../lib/forms/plugin_shortcodes.php:337
+#: ../lib/forms/plugin_shortcodes.php:358
+msgid "Your post ID"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:213
+#: ../lib/forms/plugin_shortcodes.php:298
+msgid ""
+"This is the main voting template tag. It will <em>return</em> all parts of "
+"voting gadget - \"Vote up\" link, \"Vote down\" link and results."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:217
+#: ../lib/forms/plugin_shortcodes.php:302
+msgid ""
+"will <em>return</em> all parts of voting gadget - \"Vote up\" link, \"Vote "
+"down\" link and results."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:219
+msgid "will return all parts of voting gadget for your post with ID of 12."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:222
+#: ../lib/forms/plugin_shortcodes.php:307
+msgid ""
+"<strong>Note:</strong> if you don't allow voting, only the results will be "
+"returned."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:233
+#: ../lib/forms/plugin_shortcodes.php:319
+msgid "This will <em>return</em> just the \"Vote up\" link."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:237
+#: ../lib/forms/plugin_shortcodes.php:323
+msgid "will <em>return</em> just the \"Vote up\" link."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:239
+msgid "will return \"Vote up\" link for your post with ID of 12."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:242
+#: ../lib/forms/plugin_shortcodes.php:262
+#: ../lib/forms/plugin_shortcodes.php:328
+#: ../lib/forms/plugin_shortcodes.php:349
+msgid ""
+"<strong>Note:</strong> if you don't allow voting, nothing will be returned."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:253
+#: ../lib/forms/plugin_shortcodes.php:340
+msgid "This will <em>return</em> just the \"Vote down\" link."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:257
+#: ../lib/forms/plugin_shortcodes.php:344
+msgid "will <em>return</em> just the \"Vote down\" link."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:259
+msgid "will return \"Vote down\" link for your post with ID of 12."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:273
+#: ../lib/forms/plugin_shortcodes.php:361
+msgid "This will <em>return</em> just the voting results."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:277
+#: ../lib/forms/plugin_shortcodes.php:365
+msgid "will <em>return</em> just the voting results."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:279
+msgid "will return voting results for your post with ID of 12."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:282
+#: ../lib/forms/plugin_shortcodes.php:370
+#: ../lib/forms/plugin_shortcodes.php:392
+#: ../lib/forms/plugin_shortcodes.php:426
+msgid ""
+"<strong>Note:</strong> results will be returned even if you don't allow "
+"voting."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:286
+msgid "Multisite variations"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:294
+#: ../lib/forms/plugin_shortcodes.php:315
+#: ../lib/forms/plugin_shortcodes.php:336
+#: ../lib/forms/plugin_shortcodes.php:357
+msgid "Your blog ID"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:304
+msgid ""
+"will return all parts of voting gadget for your post with ID of 12 from the "
+"blog on your network with ID of 4."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:325
+msgid ""
+"will return \"Vote up\" link for your post with ID of 12 from the blog on "
+"your network with ID of 4."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:346
+msgid ""
+"will return \"Vote down\" link for your post with ID of 12 from the blog on "
+"your network with ID of 4."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:367
+msgid ""
+"will return voting results for your post with ID of 12 from the blog on your "
+"network with ID of 4."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:374
+msgid "Period-sensitive Variations"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:381
+#: ../lib/forms/plugin_shortcodes.php:399
+#: ../lib/forms/plugin_shortcodes.php:419
+msgid "One of recognized timespans"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:382
+#: ../lib/forms/plugin_shortcodes.php:400
+#: ../lib/forms/plugin_shortcodes.php:420
+msgid "Limit the returned results to this many."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:385
+msgid ""
+"This will <em>return</em> just the voting results within the selected "
+"timespan."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:389
+msgid "will <em>return</em> just the top 5 popular results this week."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:403
+msgid ""
+"This will <em>output</em> the voting results within the selected timespan."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:407
+msgid "will <em>output</em> just the top 5 popular results this week."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:412
+msgid "Advanced"
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:421
+#, php-format
+msgid "Additional %s arguments."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:424
+msgid ""
+"This will spawn and <em>return</em> a <code>WP_Query</code> instance "
+"populated with the popular posts for a given timespan."
+msgstr ""
+
+#: ../lib/forms/plugin_shortcodes.php:425
+msgid ""
+"You can then use the returned result to construct custom loops within your "
+"theme."
+msgstr ""
