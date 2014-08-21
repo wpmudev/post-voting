@@ -103,16 +103,16 @@ class Wdpv_AdminFormRenderer {
 	}
 
 	function create_skip_post_types_box () {
-		$post_types = get_post_types(array('public'=>true), 'names');
+		$post_types = get_post_types(array('public'=>true), 'objects');
 		$opt = $this->_get_option();
 		$skip_types = is_array(@$opt['skip_post_types']) ? @$opt['skip_post_types'] : array();
 
-		foreach ($post_types as $tid=>$type) {
-			$checked = in_array($type, $skip_types) ? 'checked="checked"' : '';
+		foreach ($post_types as $tid=>$post_type_object) {
+			$checked = in_array($tid, $skip_types) ? 'checked="checked"' : '';
 			echo
-				"<input type='hidden' name='wdpv[skip_post_types][{$type}]' value='0' />" . // Override for checkbox
-				"<input {$checked} type='checkbox' name='wdpv[skip_post_types][{$type}]' id='skip_post_types-{$tid}' value='{$type}' /> " .
-				"<label for='skip_post_types-{$tid}'>" . ucfirst($type) . "</label>" .
+				"<input type='hidden' name='wdpv[skip_post_types][{$tid}]' value='0' />" . // Override for checkbox
+				"<input {$checked} type='checkbox' name='wdpv[skip_post_types][{$tid}]' id='skip_post_types-{$tid}' value='{$tid}' /> " .
+				"<label for='skip_post_types-{$tid}'>" . ucfirst($post_type_object->labels->name) . "</label>" .
 			"<br />";
 		}
 		_e(
