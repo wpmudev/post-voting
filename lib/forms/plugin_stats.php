@@ -1,5 +1,5 @@
 <div class="wrap">
-	<h2>Post Voting Statistics</h2>
+	<h2><?php _e('Post Voting Statistics', 'wdpv'); ?></h2>
 
 <?php do_action('wdpv-stats-before_any_stats');?>
 
@@ -9,10 +9,10 @@
 	<thead>
 		<tr>
 			<?php if (WP_NETWORK_ADMIN) { ?><th>Blog</th><?php } ?>
-			<th>Title</th>
-			<th>Total</th>
-			<th>Votes up</th>
-			<th>Votes down</th>
+			<th><?php _e('Title', 'wdpv'); ?></th>
+			<th><?php _e('Total', 'wdpv'); ?></th>
+			<th><?php _e('Votes up', 'wdpv'); ?></th>
+			<th><?php _e('Votes down', 'wdpv'); ?></th>
 		</tr>
 	</thead>
 <?php
@@ -37,11 +37,11 @@
 <?php } // end foreach?>
 	<tfoot>
 		<tr>
-			<?php if (WP_NETWORK_ADMIN) { ?><th>Blog</th><?php } ?>
-			<th>Title</th>
-			<th>Total</th>
-			<th>Votes up</th>
-			<th>Votes down</th>
+			<?php if (WP_NETWORK_ADMIN) { ?><th><?php _e('Blog', 'wdpv'); ?></th><?php } ?>
+			<th><?php _e('Title', 'wdpv'); ?></th>
+			<th><?php _e('Total', 'wdpv'); ?></th>
+			<th><?php _e('Votes up', 'wdpv'); ?></th>
+			<th><?php _e('Votes down', 'wdpv'); ?></th>
 		</tr>
 	</tfoot>
 </table>
