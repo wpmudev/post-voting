@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: WPMUDEV Post Voting\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-21 12:19+0100\n"
-"PO-Revision-Date: 2014-08-21 12:20+0100\n"
+"POT-Creation-Date: 2014-08-25 09:21+0100\n"
+"PO-Revision-Date: 2014-08-25 09:21+0100\n"
 "Last-Translator: Ignacio <igmoweb@gmail.com>\n"
 "Language-Team: WPMU DEV\n"
 "Language: English\n"
@@ -26,6 +26,10 @@ msgstr ""
 
 #: ../lib/class_wpdv_widget_popular.php:8
 msgid "Shows list of posts with highest number of votes on current blog."
+msgstr ""
+
+#: ../lib/class_wpdv_widget_popular.php:9
+msgid "Top voted Posts"
 msgstr ""
 
 #: ../lib/class_wpdv_widget_popular.php:22
@@ -318,6 +322,10 @@ msgstr ""
 msgid "Shows \"Vote\" box for current post/page with number of votes."
 msgstr ""
 
+#: ../lib/class_wpdv_widget_voting.php:9
+msgid "Voting Widget"
+msgstr ""
+
 #: ../lib/class_wpdv_widget_voting.php:27
 msgid "Show \"Vote up\" button:"
 msgstr ""
@@ -328,6 +336,30 @@ msgstr ""
 
 #: ../lib/class_wpdv_widget_voting.php:37
 msgid "Show voting results:"
+msgstr ""
+
+#: ../lib/forms/plugin_stats.php:2
+msgid "Post Voting Statistics"
+msgstr ""
+
+#: ../lib/forms/plugin_stats.php:12 ../lib/forms/plugin_stats.php:41
+msgid "Title"
+msgstr ""
+
+#: ../lib/forms/plugin_stats.php:13 ../lib/forms/plugin_stats.php:42
+msgid "Total"
+msgstr ""
+
+#: ../lib/forms/plugin_stats.php:14 ../lib/forms/plugin_stats.php:43
+msgid "Votes up"
+msgstr ""
+
+#: ../lib/forms/plugin_stats.php:15 ../lib/forms/plugin_stats.php:44
+msgid "Votes down"
+msgstr ""
+
+#: ../lib/forms/plugin_stats.php:40
+msgid "Blog"
 msgstr ""
 
 #: ../lib/forms/bp_profile.php:1
