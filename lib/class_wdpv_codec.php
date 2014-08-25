@@ -26,7 +26,7 @@ class Wdpv_Codec {
 		$post_id = get_the_ID();
 		$count = $this->model->get_votes_total($post_id);
 		return sprintf(
-			__('<div class="wdpv_login">This post has %s votes. <a href="%s">Log in now</a> to vote</div>'),
+			__('<div class="wdpv_login">This post has %s votes. <a href="%s">Log in now</a> to vote</div>', 'wdpv'),
 			$count, site_url('wp-login.php')
 		);
 	}
