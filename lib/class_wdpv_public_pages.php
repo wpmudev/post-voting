@@ -32,12 +32,19 @@ class Wdpv_PublicPages {
 	}
 
 	function js_load_scripts () {
-		wp_enqueue_script('jquery');
-		wp_enqueue_script('wdpv_voting', WDPV_PLUGIN_URL . '/js/wdpv_voting.js');
+		if ( $this->data->get_option('allow_voting') )
+			wp_enqueue_script( 'wdpv_voting', WDPV_PLUGIN_URL . '/js/wdpv_voting.js', array( 'jquery' ) );
 	}
 	function css_load_styles () {
-		if (!current_theme_supports('wdpv_voting_style')) {
-			wp_enqueue_style('wdpv_voting_style', WDPV_PLUGIN_URL . '/css/wdpv_voting.css');
+		if ( ! current_theme_supports( 'wdpv_voting_style' ) && $this->data->get_option('allow_voting') ) {
+			wp_enqueue_style('wdpv_voting_general_style', WDPV_PLUGIN_URL . '/css/wdpv_voting_general.css');
+			if ( $this->data->get_option('voting_appearance') != 'icomoon' ) {
+				wp_enqueue_style('wdpv_voting_general_img', WDPV_PLUGIN_URL . '/css/wdpv_voting_img.css');
+			}
+		}
+		
+		if ( $this->data->get_option('allow_voting') && $this->data->get_option('voting_appearance') == 'icomoon' ) {
+			wdpv_enqueue_icomoon_fonts();
 		}
 	}
 
@@ -73,8 +80,8 @@ class Wdpv_PublicPages {
 	function add_hooks () {
 
 		add_action('wp_head', array($this, 'js_set_up_globals'));
-		add_action('wp_print_scripts', array($this, 'js_load_scripts'));
-		add_action('wp_print_styles', array($this, 'css_load_styles'));
+		add_action('wp_enqueue_scripts', array($this, 'js_load_scripts'));
+		add_action('wp_enqueue_scripts', array($this, 'css_load_styles'));
 
 		// Automatic Voting buttons
 		if ('manual' != $this->data->get_option('voting_position')) {

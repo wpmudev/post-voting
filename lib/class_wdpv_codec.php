@@ -101,6 +101,9 @@ class Wdpv_Codec {
 		$blog_id = $this->_get_blog_id($args['blog_id']);
 		if (!$this->_check_voting_display_restrictions($post_id)) return '';
 
+		$class = 'wdpv_vote_up';
+		if ( $this->data->get_option('voting_appearance') == 'icomoon' )
+			$class .= ' wdpv-icon-thumbs-up';
 		$ret = "<div class='wdpv_vote_up {$skin}'><input type='hidden' value='{$post_id}' /><input type='hidden' class='wdpv_blog_id' value='{$blog_id}' /></div>";
 		$ret .= $standalone ? '<div class="wdpv_clear"></div>' : '';
 		return apply_filters('wdpv-output-vote_up', $ret, $args, $blog_id, $post_id);
@@ -161,23 +164,25 @@ class Wdpv_Codec {
 			return '';
 		}
 
-		$args = shortcode_atts(array(
+		$args = shortcode_atts( array(
 			'standalone' => false,
 			'blog_id' => false,
 			'post_id' => false,
-		), $args);
-		$standalone = ('no' != $args['standalone']) ? true : false;
+		), $args );
+		$standalone = ('no' != $args['standalone'] ) ? true : false;
 
 		$post_id = $args['post_id'] ? $args['post_id'] : get_the_ID();
 		$blog_id = $this->_get_blog_id($args['blog_id']);
-		if (!$this->_check_voting_display_restrictions($post_id)) return '';
+		if ( ! $this->_check_voting_display_restrictions( $post_id ) ) 
+			return '';
 
-		$ret = apply_filters('wdpv-output-before_vote_widget', '', $args, $blog_id, $post_id);
-		if (!$ret) {
-			$ret = $this->get_code('vote_up', false, $blog_id, $post_id) . ' ' . $this->get_code('vote_result', false, $blog_id, $post_id) . ' ';
-			$ret .= ($this->data->get_option('voting_positive')) ? '' : $this->get_code('vote_down', false, $blog_id, $post_id);
+		$ret = apply_filters( 'wdpv-output-before_vote_widget', '', $args, $blog_id, $post_id );
+		if ( ! $ret ) {
+			$ret = $this->get_code( 'vote_up', false, $blog_id, $post_id ) . ' ' . $this->get_code( 'vote_result', false, $blog_id, $post_id ) . ' ';
+			$ret .= ( $this->data->get_option('voting_positive' ) ) ? '' : $this->get_code( 'vote_down', false, $blog_id, $post_id );
 			$ret = do_shortcode("<div class='wdpv_voting'>{$ret}</div>");
 		}
+
 		$ret .= $standalone ? '<div class="wdpv_clear"></div>' : '';
 		return apply_filters('wdpv-output-vote_widget', $ret, $args, $blog_id, $post_id);
 	}

@@ -1,0 +1,76 @@
+.wdpv_vote_up {
+	width: 18px;
+	height: 26px;
+	float: left;
+	cursor: pointer;
+}
+.wdpv_vote_down {
+	width: 18px;
+	height: 26px;
+	float: left;
+	cursor: pointer;
+}
+
+.wdpv_vote_result {
+    float: left;
+    font-size: 24px;
+    padding: 2px 5px;
+}
+.wdpv_waiting {
+	width: 16px;
+	height: 16px;
+	background: url(../img/loading.gif) top left no-repeat;
+	float: left;
+	cursor: pointer;
+}
+.wdpv_login {
+	background-color: #FEF1B5;
+	border: 1px solid #FEE5AC;
+	margin: 10px 0px;
+	padding: 10px;
+}
+
+.wdpv_clear {
+	clear: left;
+}
+
+.wdpv_dev_stars {
+	height: 23px;
+	width: 121px;
+	background-image: url(../img/dev-stars.png);
+	background-repeat: no-repeat;
+}
+
+.wdpv_5_offset {
+	background-position: left -22px;
+}
+.wdpv_10_offset {
+	background-position: left -44px;
+}
+.wdpv_15_offset {
+	background-position: left -66px;
+}
+.wdpv_20_offset {
+	background-position: left -88px;
+}
+.wdpv_25_offset {
+	background-position: left -110px;
+}
+.wdpv_30_offset {
+	background-position: left -132px;
+}
+.wdpv_35_offset {
+	background-position: left -154px;
+}
+.wdpv_40_offset {
+	background-position: left -176px;
+}
+.wdpv_45_offset {
+	background-position: left -198px;
+}
+.wdpv_50_offset {
+	background-position: left -220px;
+}
+.wdpv_rating_result {
+	display: none;
+}

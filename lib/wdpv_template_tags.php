@@ -111,3 +111,7 @@ if (!is_multisite()) {
 		}
 	}
 }
+
+function wdpv_enqueue_icomoon_fonts() {
+	wp_enqueue_style( 'wdpv_icomoon', WDPV_PLUGIN_URL . '/img/icomoon/style.css');
+}

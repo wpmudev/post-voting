@@ -14,9 +14,14 @@ class Wdpv_AdminPages {
 			'settings' => __( 'Settings', 'wdpv' ),
 			'shortcodes' => __( 'Shortcodes', 'wdpv' ),
 		);
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 	function Wdpv_AdminPages () { $this->__construct(); }
 
+	function enqueue_scripts() {
+		wdpv_enqueue_icomoon_fonts();
+	}
 	/**
 	 * Main entry point.
 	 *
