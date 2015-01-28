@@ -70,33 +70,16 @@ class Wdpv_AdminFormRenderer {
 	}
 	function create_voting_appearance_box () {
 		$skins = array (
-			'' => __('Default', 'wdpv'),
+			'icomoon' => __('Default', 'wdpv'),
 			'arrows' => __('Arrows', 'wdpv'),
 			'plusminus' => __('Plus/Minus', 'wdpv'),
 			'whitearrow' => __('White arrows', 'wdpv'),
 			'qa' => __('Q&amp;A arrows', 'wdpv'),
-			'icomoon' => __('Icon fonts', 'wdpv'),
 		);
-		foreach ($skins as $skin => $label) {
-			echo $this->_create_radiobox ('voting_appearance', $skin);
-			echo "<label for='voting_appearance-{$skin}'>$label</label>";
-			if ( $skin != 'icomoon' ) {
-				
-				$path_fragment = $skin ? "{$skin}/" : '';
-				echo '<div class="wdpv_preview" style="display:inline-block">' .
-					' <img style="margin-left:15px; vertical-align:middle" src="' . WDPV_PLUGIN_URL . '/img/' . $path_fragment . 'up.png" />' .
-					' <img style="vertical-align:middle" src="' . WDPV_PLUGIN_URL . '/img/' . $path_fragment . 'down.png" />' .
-				'</div>';
-			}
-			else {
-				echo '<div class="wdpv_preview" style="display:inline-block">' .
-					'<span style="margin-left:15px;" class="wdpv-icon-thumbs-up"></span>' . 
-					'<span class="wdpv-icon-thumbs-down"></span>' . 
-				'</div>';
-			}
 
-			echo '<br/><br/>';
-		}
+		$opt = wdpv_get_options();
+		
+		include_once( 'views/settings-appearance.php' );
 	}
 	function create_voting_positive_box () {
 		echo $this->_create_checkbox ('voting_positive');

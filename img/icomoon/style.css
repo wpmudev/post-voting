@@ -1,16 +1,16 @@
 @font-face {
-	font-family: 'wdpv-icomoon';
-	src:url('icomoon.eot?i2k1h5');
-	src:url('icomoon.eot?#iefixi2k1h5') format('embedded-opentype'),
-		url('icomoon.woff?i2k1h5') format('woff'),
-		url('icomoon.ttf?i2k1h5') format('truetype'),
-		url('icomoon.svg?i2k1h5#icomoon') format('svg');
+	font-family: 'icomoon';
+	src:url('icomoon.eot?9bg5d2');
+	src:url('icomoon.eot?#iefix9bg5d2') format('embedded-opentype'),
+		url('icomoon.woff?9bg5d2') format('woff'),
+		url('icomoon.ttf?9bg5d2') format('truetype'),
+		url('icomoon.svg?9bg5d2#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
 
-[class^="wdpv-icon-"], [class*=" wdpv-icon-"] {
-	font-family: 'wdpv-icomoon';
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
 	speak: none;
 	font-style: normal;
 	font-weight: normal;
@@ -23,63 +23,51 @@
 	-moz-osx-font-smoothing: grayscale;
 }
 
-.wdpv_vote_up.icomoon,
-.wdpv_vote_down.icomoon {
-	font-size: 1.2rem;
+.icon-keyboard-arrow-down:before {
+	content: "\e600";
 }
 
-.wdpv_vote_up.icomoon:before {
-	content: "\e600";
-	color:#76A676;
-}
-.wdpv_vote_down.icomoon:before {
+.icon-keyboard-arrow-up:before {
 	content: "\e601";
-	color:#C83939;
-}
-.wdpv_vote_up.icomoon.wdpv_disabled:before {
-	content: "\e600";
-	color:#8C8C8C;
-}
-.wdpv_vote_down.icomoon.wdpv_disabled:before {
-	content: "\e601";
-	color:#8C8C8C;
 }
 
-.wdpv_vote_up.icomoon:before,
-.wdpv_vote_down.icomoon:before {
-	font-family: 'wdpv-icomoon';
-	speak: none;
-	font-style: normal;
-	font-weight: normal;
-	font-variant: normal;
-	text-transform: none;
-	line-height: 1;
-
-	/* Better Font Rendering =========== */
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+.icon-arrow-drop-down:before {
+	content: "\e602";
 }
 
-
-.wdpv-icon-thumbs-up:before {
-	content: "\e600";
-	color:#76A676;
-}
-.wdpv-icon-thumbs-up_disabled:before,
-.wdpv-icon-thumbs-down_disabled:before {
-	content: "\e600";
-	color:#8C8C8C;
-}
-.wdpv-icon-thumbs-down:before {
-	content: "\e601";
-	color:#C83939;
+.icon-arrow-drop-up:before {
+	content: "\e603";
 }
 
-.wdpv-icon-thumbs-down_disabled:before,
-.wdpv-icon-thumbs-down:before {
-	margin-left:0.7rem;
+.icon-thumbs-up:before {
+	content: "\f164";
 }
 
-.wdpv_vote_result {
-    font-size: 1.2rem;
+.icon-thumbs-down:before {
+	content: "\f165";
 }
+
+.icon-plus:before {
+	content: "\ea0a";
+}
+
+.icon-minus:before {
+	content: "\ea0b";
+}
+
+.icon-arrow-up:before {
+	content: "\ea32";
+}
+
+.icon-arrow-down:before {
+	content: "\ea36";
+}
+
+.icon-circle-up:before {
+	content: "\ea41";
+}
+
+.icon-circle-down:before {
+	content: "\ea43";
+}
+
