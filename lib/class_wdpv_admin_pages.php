@@ -211,7 +211,7 @@ class Wdpv_AdminPages {
 				<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
 				<?php if ( is_multisite() && is_network_admin() ): ?>
-					<form action="options.php" method="post">
+					<form action="settings.php" method="post">
 				<?php else: ?>
 					<form action="options.php" method="post">
 				<?php endif; ?>
