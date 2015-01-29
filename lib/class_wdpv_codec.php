@@ -104,7 +104,7 @@ class Wdpv_Codec {
 		$class = 'wdpv_vote_up';
 		if ( $this->data->get_option('voting_appearance') == 'icomoon' )
 			$class .= ' wdpv-icon-thumbs-up';
-		$ret = "<div class='wdpv_vote_up {$skin}'><input type='hidden' value='{$post_id}' /><input type='hidden' class='wdpv_blog_id' value='{$blog_id}' /></div>";
+		$ret = "<div class='wdpv_vote_up {$skin}'><i class='wdpv-icon'></i><input type='hidden' value='{$post_id}' /><input type='hidden' class='wdpv_blog_id' value='{$blog_id}' /></div>";
 		$ret .= $standalone ? '<div class="wdpv_clear"></div>' : '';
 		return apply_filters('wdpv-output-vote_up', $ret, $args, $blog_id, $post_id);
 	}
@@ -131,7 +131,7 @@ class Wdpv_Codec {
 		$blog_id = $this->_get_blog_id($args['blog_id']);
 		if (!$this->_check_voting_display_restrictions($post_id)) return '';
 
-		$ret = "<div class='wdpv_vote_down {$skin}'><input type='hidden' value='{$post_id}' /><input type='hidden' class='wdpv_blog_id' value='{$blog_id}' /></div>";
+		$ret = "<div class='wdpv_vote_down {$skin}'><i class='wdpv-icon'></i><input type='hidden' value='{$post_id}' /><input type='hidden' class='wdpv_blog_id' value='{$blog_id}' /></div>";
 		$ret .= $standalone ? '<div class="wdpv_clear"></div>' : '';
 		return apply_filters('wdpv-output-vote_down', $ret, $args, $blog_id, $post_id);
 	}

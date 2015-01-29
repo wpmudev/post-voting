@@ -4,7 +4,6 @@
 		<input type="radio" name='wdpv[voting_appearance]' id="voting_appearance-<?php echo esc_attr( $skin ); ?>" value="<?php echo esc_attr( $skin ); ?>" <?php checked( $opt['voting_appearance'] == $skin ); ?> />
 		<div><?php echo $label; ?> <i class="<?php echo esc_attr( $skin ); ?> up"></i> <i class="<?php echo esc_attr( $skin ); ?> down"></i></div>
 	</label>
-	<div class="clear"></div>
 
 <?php endforeach; ?>
 
@@ -75,10 +74,10 @@
 	}
 
 	.wdpv-voting-appereance-label i.up {
-		color:#6CA96C;
+		color:<?php echo $opt['color_up']; ?>
 	}
 	.wdpv-voting-appereance-label i.down {
-		color:#D04C4C;
+		color:<?php echo $opt['color_down']; ?>
 	}
 
 

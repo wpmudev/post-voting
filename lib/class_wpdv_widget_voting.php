@@ -10,32 +10,41 @@ class Wdpv_WidgetVoting extends WP_Widget {
 	}
 
 	function form($instance) {
+		$defaults = array(
+			'title' => '',
+			'show_vote_up' => false,
+			'show_vote_down' => false,
+			'show_vote_result' => false,
+		);
+
+		$instance = wp_parse_args( $instance, $defaults );
+
 		$title = esc_attr($instance['title']);
-		$show_vote_up = esc_attr($instance['show_vote_up']);
-		$show_vote_down = esc_attr($instance['show_vote_down']);
-		$show_vote_result = esc_attr($instance['show_vote_result']);
+		$show_vote_up = $instance['show_vote_up'];
+		$show_vote_down = $instance['show_vote_down'];
+		$show_vote_result = $instance['show_vote_result'];
 
 		// Set defaults
 		// ...
 
 		$html = '<p>';
-		$html .= '<label for="' . $this->get_field_id('title') . '">' . __('Title:', 'wdpv') . '</label>';
+		$html .= '<label for="' . $this->get_field_id('title') . '">' . __('Title', 'wdpv') . '</label>';
 		$html .= '<input type="text" name="' . $this->get_field_name('title') . '" id="' . $this->get_field_id('title') . '" class="widefat" value="' . $title . '"/>';
 		$html .= '</p>';
 
 		$html .= '<p>';
-		$html .= '<label for="' . $this->get_field_id('show_vote_up') . '">' . __('Show "Vote up" button:', 'wdpv') . '</label>';
-		$html .= '<input type="checkbox" name="' . $this->get_field_name('show_vote_up') . '" id="' . $this->get_field_id('show_vote_up') . '" value="1" ' . ($show_vote_up ? 'checked="checked"' : '') . ' />';
+		$html .= '<input type="checkbox" name="' . $this->get_field_name('show_vote_up') . '" id="' . $this->get_field_id('show_vote_up') . '" value="1" ' . checked( $show_vote_up, true, false ) . ' />';
+		$html .= '<label for="' . $this->get_field_id('show_vote_up') . '">' . __('Show "Vote up" button', 'wdpv') . '</label>';
 		$html .= '</p>';
 
 		$html .= '<p>';
-		$html .= '<label for="' . $this->get_field_id('show_vote_down') . '">' . __('Show "Vote down" button:', 'wdpv') . '</label>';
-		$html .= '<input type="checkbox" name="' . $this->get_field_name('show_vote_down') . '" id="' . $this->get_field_id('show_vote_down') . '" value="1" ' . ($show_vote_down ? 'checked="checked"' : '') . ' />';
+		$html .= '<input type="checkbox" name="' . $this->get_field_name('show_vote_down') . '" id="' . $this->get_field_id('show_vote_down') . '" value="1" ' . checked( $show_vote_down, true, false ) . ' />';
+		$html .= '<label for="' . $this->get_field_id('show_vote_down') . '">' . __('Show "Vote down" button', 'wdpv') . '</label>';
 		$html .= '</p>';
 
 		$html .= '<p>';
-		$html .= '<label for="' . $this->get_field_id('show_vote_result') . '">' . __('Show voting results:', 'wdpv') . '</label>';
-		$html .= '<input type="checkbox" name="' . $this->get_field_name('show_vote_result') . '" id="' . $this->get_field_id('show_vote_result') . '" value="1" ' . ($show_vote_result ? 'checked="checked"' : '') . ' />';
+		$html .= '<input type="checkbox" name="' . $this->get_field_name('show_vote_result') . '" id="' . $this->get_field_id('show_vote_result') . '" value="1" ' . checked( $show_vote_result, true, false ) . ' />';
+		$html .= '<label for="' . $this->get_field_id('show_vote_result') . '">' . __('Show voting results', 'wdpv') . '</label>';
 		$html .= '</p>';
 
 		echo $html;

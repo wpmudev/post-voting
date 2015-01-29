@@ -85,7 +85,7 @@ class Wdpv_AdminFormRenderer {
 			'icomoon' => __('Default', 'wdpv'),
 			'arrows' => __('Arrows', 'wdpv'),
 			'plusminus' => __('Plus/Minus', 'wdpv'),
-			'whitearrow' => __('White arrows', 'wdpv'),
+			'whitearrow' => __('Alternative arrows', 'wdpv'),
 			'qa' => __('Q&amp;A arrows', 'wdpv'),
 		);
 
@@ -93,6 +93,15 @@ class Wdpv_AdminFormRenderer {
 		
 		include_once( 'views/settings-appearance.php' );
 	}
+
+	function create_voting_colors_box() {
+		$opt = wdpv_get_options();
+		
+		$color_up = $opt['color_up'];
+		$color_down = $opt['color_down'];
+		include_once( 'views/settings-colors.php' );
+	}
+
 	function create_voting_positive_box () {
 		$opt = wdpv_get_options();
 

@@ -27,6 +27,8 @@ class Wdpv_AdminPages {
 
 	function enqueue_scripts() {
 		wdpv_enqueue_icomoon_fonts();
+		wp_enqueue_script( 'wp-color-picker' );
+		wp_enqueue_style( 'wp-color-picker' );
 	}
 
 
@@ -55,22 +57,6 @@ class Wdpv_AdminPages {
 	 * Executed when the Settings page is being loaded
 	 */
 	public function on_load_settings_page() {
-		if ( isset( $_POST['option_page'] ) && 'wdpv' === $_POST['option_page'] ) {
-			// The form has been submitted
-			if ( isset( $_POST['wdpv'] ) ) {
-				wdpv_update_options( $_POST['wdpv'] );
-			}
-			if ( is_network_admin() && $this->data->get_option( 'disable_siteadmin_changes' ) ) {
-				// Flush per-blog settings
-				$blogs = $this->model->get_blog_ids();
-				foreach ($blogs as $blog) 
-					delete_blog_option( $blog['blog_id'], "wdpv" );
-			}
-
-			$goback = add_query_arg( 'updated', 'true',  wp_get_referer() );
-			wp_redirect( $goback );
-			exit;
-		}
 
 		if ( isset( $_GET['wdpv_deactivate_plugin'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'deactivate-plugin' ) ) {
 			$status = Wdpv_PluginsHandler::deactivate_plugin( $_GET['plugin_id'] );
@@ -126,6 +112,11 @@ class Wdpv_AdminPages {
 			'wdpv_voting_appearance' => array(
 				'title' => __('Appearance', 'wdpv'),
 				'callback' => array($form, 'create_voting_appearance_box'),
+				'section' => 'wdpv_voting'
+			),
+			'wdpv_voting_colors' => array(
+				'title' => __('Colors', 'wdpv'),
+				'callback' => array($form, 'create_voting_colors_box'),
 				'section' => 'wdpv_voting'
 			),
 			'wdpv_voting_positive' => array(
@@ -199,6 +190,23 @@ class Wdpv_AdminPages {
 
 	function register_settings() {
 		
+		if ( isset( $_POST['option_page'] ) && 'wdpv' === $_POST['option_page'] ) {
+			// The form has been submitted
+			if ( isset( $_POST['wdpv'] ) ) {
+				wdpv_update_options( $_POST['wdpv'] );
+			}
+			if ( is_network_admin() && $this->data->get_option( 'disable_siteadmin_changes' ) ) {
+				// Flush per-blog settings
+				$blogs = $this->model->get_blog_ids();
+				foreach ($blogs as $blog) 
+					delete_blog_option( $blog['blog_id'], "wdpv" );
+			}
+
+			$goback = add_query_arg( 'updated', 'true',  wp_get_referer() );
+			wp_redirect( $goback );
+			exit;
+		}
+
 		$page = 'wdpv_options_page';
 
 		register_setting( 'wdpv', 'wdpv' );

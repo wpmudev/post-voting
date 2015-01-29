@@ -11,8 +11,16 @@ class Wdpv_PublicPages {
 		$this->model = wdpv_get_model();
 		$this->data = new Wdpv_Options;
 		$this->codec = new Wdpv_Codec;
+		add_action( 'init', array(  $this, 'render_colors_stylesheet' ) );
 	}
-	function Wdpv_PublicPages () { $this->__construct(); }
+
+	function render_colors_stylesheet() {
+		if ( isset( $_GET['wdpv-colors'] ) ) {
+			header('Content-type: text/css');
+			//echo 'body {background:black !important; }';
+			exit;
+		}
+	}
 
 	/**
 	 * Main entry point.
@@ -37,16 +45,11 @@ class Wdpv_PublicPages {
 	}
 	function css_load_styles () {
 		if ( ! current_theme_supports( 'wdpv_voting_style' ) && $this->data->get_option('allow_voting') ) {
-			wp_enqueue_style('wdpv_voting_general_style', WDPV_PLUGIN_URL . '/css/wdpv_voting_general.css');
-			if ( $this->data->get_option('voting_appearance') != 'icomoon' ) {
-				wp_enqueue_style('wdpv_voting_general_img', WDPV_PLUGIN_URL . '/css/wdpv_voting_img.css');
-			}
-		}
-		
-		if ( $this->data->get_option('allow_voting') && $this->data->get_option('voting_appearance') == 'icomoon' ) {
-			wdpv_enqueue_icomoon_fonts();
+			wp_enqueue_style('wdpv_voting_general_style', WDPV_PLUGIN_URL . '/css/wdpv_voting.css');
+			wp_enqueue_style( 'wdpv_voting_colors', add_query_arg( 'wdpv-colors', 'true', home_url() ) );
 		}
 	}
+
 
 	function inject_voting_buttons ($body) {
 		$inject = apply_filters( "automatically_inject_voting_buttons", true );

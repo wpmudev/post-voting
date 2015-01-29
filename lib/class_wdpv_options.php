@@ -54,7 +54,7 @@ class Wdpv_Options {
 function wdpv_get_options() {
 	$settings = get_site_option('wdpv');
 
-	if ( is_multisite() && ! is_network_admin() && ! $settings['disable_siteadmin_changes'] ) {
+	if ( is_multisite() && ! is_network_admin() ) {
 		$settings = get_option( 'wdpv' );
 	}
 	
@@ -81,5 +81,7 @@ function wdpv_get_default_options() {
 		'voting_positive' => false,
 		'front_page_voting' => true,
 		'disable_siteadmin_changes' => false,
+		'color_up' => '#6CA96C',
+		'color_down' => '#D04C4C'
 	);
 }
