@@ -4,7 +4,7 @@ Plugin Name: Five-star rating
 Description: Activating this add-on will convert up/down voting into 5-star rating system.
 Plugin URI: http://premium.wpmudev.org/project/post-voting-plugin
 Version: 1.0
-Author: Ve Bailovity (Incsub)
+Author: WPMU DEV
 */
 
 class Wdpv_Voting_FiveStarRating {
@@ -14,7 +14,7 @@ class Wdpv_Voting_FiveStarRating {
 	
 	private function __construct () {
 		$this->_data = new Wdpv_Options;
-		$this->_model = new Wdpv_Model;
+		$this->_model = wdpv_get_model();
 	}
 	
 	public static function serve () {

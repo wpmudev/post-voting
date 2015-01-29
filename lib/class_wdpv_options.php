@@ -50,3 +50,29 @@ class Wdpv_Options {
 	}
 
 }
+
+function wdpv_get_options() {
+	$settings = get_site_option('wdpv');
+
+	if ( is_multisite() && ! is_network_admin() && ! $settings['disable_siteadmin_changes'] ) {
+		$settings = get_option( 'wdpv' );
+	}
+	
+	return wp_parse_args( $settings, wdpv_get_default_options() );
+}
+
+
+function wdpv_get_default_options() {
+	return array(
+		'allow_voting' => true,
+		'allow_visitor_voting' => false,
+		'use_ip_check' => true,
+		'show_login_link' => false,
+		'skip_post_types' => array(),
+		'voting_position' => 'top',
+		'voting_appearance' => 'default',
+		'voting_positive' => false,
+		'front_page_voting' => true,
+		'disable_siteadmin_changes' => false,
+	);
+}

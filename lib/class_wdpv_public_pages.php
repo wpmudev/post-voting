@@ -8,7 +8,7 @@ class Wdpv_PublicPages {
 	var $codec;
 
 	function __construct () {
-		$this->model = new Wdpv_Model;
+		$this->model = wdpv_get_model();
 		$this->data = new Wdpv_Options;
 		$this->codec = new Wdpv_Codec;
 	}

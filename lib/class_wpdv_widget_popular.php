@@ -79,7 +79,7 @@ class Wdpv_WidgetPopular extends WP_Widget {
 		if (!in_array($posted_timeframe, array_keys($data->timeframes))) $posted_timeframe = false;
 		if (!in_array($voted_timeframe, array_keys($data->timeframes))) $voted_timeframe = false;
 
-		$model = new Wdpv_Model;
+		$model = wdpv_get_model();
 		$posts = $model->get_popular_on_current_site($limit, $posted_timeframe, $voted_timeframe);
 
 		echo $before_widget;

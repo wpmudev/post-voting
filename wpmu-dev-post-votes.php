@@ -78,36 +78,11 @@ require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wpdv_widget_network_popular.php'
 add_action('widgets_init', create_function('', "register_widget('Wdpv_WidgetNetworkPopular');"));
 
 
-if (is_admin()) {
-	require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_admin_form_renderer.php';
-	require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_admin_pages.php';
-	Wdpv_AdminPages::serve();
+if ( is_admin() ) {
+	require_once WDPV_PLUGIN_BASE_DIR . '/lib/class-admin.php';
+	new Wdpv_Admin();
 } else {
 	require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_public_pages.php';
 	Wdpv_PublicPages::serve();
 }
 
-function wdpv_get_options() {
-	if ( is_multisite() && ! is_network_admin() )
-		$settings = get_option( 'wdpv' );
-	else
-		$settings = get_site_option('wdpv');
-	
-	return wp_parse_args( $settings, wdpv_get_default_options() );
-}
-
-
-function wdpv_get_default_options() {
-	return array(
-		'allow_voting' => true,
-		'allow_visitor_voting' => false,
-		'use_ip_check' => true,
-		'show_login_link' => false,
-		'skip_post_types' => array(),
-		'voting_position' => 'top',
-		'voting_appearance' => 'default',
-		'voting_positive' => false,
-		'front_page_voting' => true,
-		'disable_siteadmin_changes' => false,
-	);
-}

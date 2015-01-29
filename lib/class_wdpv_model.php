@@ -1,17 +1,32 @@
 <?php
+
+/**
+ * Returns the Wdpv_Model instance
+ */
+function wdpv_get_model() {
+	return Wdpv_Model::get_instance();
+}
+
 /**
  * Handles data access, checks and sanitization.
  */
 class Wdpv_Model {
 	var $db;
 	var $data;
+	private static $instance = null;
 
 	function __construct () {
 		global $wpdb;
 		$this->db = $wpdb;
 		$this->data = new Wdpv_Options;
 	}
-	function Wdpv_Model () { $this->__construct(); }
+
+	public static function get_instance() {
+		if ( ! self::$instance )
+			self::$instance = new self();
+
+		return self::$instance;
+	}
 
 	/**
 	 * Returns all blogs on the current site.
@@ -516,7 +531,7 @@ class Wdpv_Query {
 	}
 
 	public static function spawn ($limit=5, $posted_timeframe=false, $voted_timeframe=false, $query_args=array()) {
-		$model = new Wdpv_Model;
+		$model = wdpv_get_model();
 		$posts = $model->get_popular_on_current_site($limit, $posted_timeframe, $voted_timeframe);
 
 		$query_args['post__in'] = wp_list_pluck($posts, 'ID');

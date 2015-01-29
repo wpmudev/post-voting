@@ -4,7 +4,7 @@ Plugin Name: Allow daily voting
 Description: Activate this add-on to allow your visitors to vote once a day, instead of voting once for all.
 Plugin URI: http://premium.wpmudev.org/project/post-voting-plugin
 Version: 1.0
-Author: Ve Bailovity (Incsub)
+Author: WPMU DEV
 */
 
 class Wdpv_Checks_AllowDailyVoting {

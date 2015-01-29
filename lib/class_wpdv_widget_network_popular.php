@@ -65,7 +65,7 @@ class Wdpv_WidgetNetworkPopular extends WP_Widget {
 		if (!in_array($voted_timeframe, array_keys($data->timeframes))) $voted_timeframe = false;
 
 		if (is_main_site()) {
-			$model = new Wdpv_Model;
+			$model = wdpv_get_model();
 			$posts = $model->get_popular_on_network($limit, $voted_timeframe);
 
 			echo $before_widget;

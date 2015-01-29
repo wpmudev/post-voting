@@ -17,7 +17,7 @@ class Wdpv_Codec {
 	var $data;
 
 	function __construct () {
-		$this->model = new Wdpv_Model;
+		$this->model = wdpv_get_model();
 		$this->data = new Wdpv_Options;
 	}
 	function Wdpv_Codec () { $this->__construct(); }
@@ -55,7 +55,7 @@ class Wdpv_Codec {
 			'voted_within' => false,
 		), $args));
 
-		$model = new Wdpv_Model;
+		$model = wdpv_get_model();
 		$posts = $network ? $model->get_popular_on_network($limit) : $model->get_popular_on_current_site($limit, $posted_within, $voted_within);
 
 		$ret = '';

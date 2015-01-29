@@ -20,53 +20,65 @@ class Wdpv_AdminFormRenderer {
 		"";
 	}
 
-	function _create_radiobox ($name, $value) {
-		$opt = $this->_get_option();
-		$checked = (@$opt[$name] == $value) ? true : false;
-		return "<input type='radio' name='wdpv[{$name}]' id='{$name}-{$value}' value='{$value}' " . ($checked ? 'checked="checked" ' : '') . " /> ";
+	function create_allow_voting_box () {
+		$opt = wdpv_get_options();
+
+		$slug = 'allow_voting';
+		$checked = $opt[ $slug ];
+
+		include( 'views/settings-checkbox.php' );
 	}
 
-	function create_allow_voting_box () {
-		echo $this->_create_checkbox ('allow_voting');
-	}
 	function create_allow_visitor_voting_box () {
-		echo $this->_create_checkbox ('allow_visitor_voting');
+		$opt = wdpv_get_options();
+
+		$slug = 'allow_visitor_voting';
+		$checked = $opt[ $slug ];
+
+		include( 'views/settings-checkbox.php' );
 	}
 	function create_use_ip_check_box () {
-		echo $this->_create_checkbox ('use_ip_check');
-		_e(
-			'<p>By default, visitors are tracked by IP too in order to prevent multiple voting. However, this can be problematic in certain cases (e.g. multiple users behind a single router).</p>' .
-			'<p>Set this to "No" if you don\'t want to use this measure.</p>',
-			'wdpv'
-		);
+		$opt = wdpv_get_options();
+
+		$slug = 'use_ip_check';
+		$checked = $opt[ $slug ];
+
+		$description = '<p class="description">' . __( 'By default, visitors are tracked by IP too in order to prevent multiple voting. However, this can be problematic in certain cases (e.g. multiple users behind a single router).', 'wdpv' ) . '</p>';
+		$description .= '<p class="description">' . __( 'Set this to "No" if you don\'t want to use this measure.', 'wdpv' ) . '</p>';
+
+		include( 'views/settings-checkbox.php' );
 	}
+
 	function create_show_login_link_box () {
-		echo $this->_create_checkbox ('show_login_link');
-		_e(
-			'<p>By default, if visitor voting is not allowed, voting will not be shown at all.</p>' .
-			'<p>Set this to "Yes" if you wish to have the login link instead.</p>',
-			'wdpv'
-		);
+		$opt = wdpv_get_options();
+
+		$slug = 'show_login_link';
+		$checked = $opt[ $slug ];
+
+		$description = '<p class="description">' . __( 'By default, if visitor voting is not allowed, voting will not be shown at all.', 'wdpv' ) . '</p>';
+		$description .= '<p class="description">' . __( 'Set this to "Yes" if you wish to have the login link instead.', 'wdpv' ) . '</p>';
+
+		include( 'views/settings-checkbox.php' );
 	}
 	function create_voting_position_box () {
-		$positions = array (
-			'top' => __('Before the post', 'wdpv'),
-			'bottom' => __('After the post', 'wdpv'),
-			'both' => __('Both before and after the post', 'wdpv'),
-			'manual' => __('Manually position the box using shortcode or widget', 'wdpv'),
-		);
-		foreach ($positions as $pos => $label) {
-			echo $this->_create_radiobox ('voting_position', $pos);
-			echo "<label for='voting_position-{$pos}'>$label</label><br />";
-		}
+		$opt = wdpv_get_options();
+
+		$slug = 'voting_position';
+		$opt = $opt[ $slug ];
+
+		include( 'views/settings-position.php' );
 	}
+
 	function create_front_page_voting_box () {
-		echo $this->_create_checkbox ('front_page_voting');
-		_e(
-			'<p>By default, voting will be shown only on singular pages.</p>' .
-			'<p>Set this option to "Yes" to add voting to all posts on the front page.</p>',
-			'wdpv'
-		);
+		$opt = wdpv_get_options();
+
+		$slug = 'front_page_voting';
+		$checked = $opt[ $slug ];
+
+		$description = '<p class="description">' . __( 'By default, voting will be shown only on singular pages.', 'wdpv' ) . '</p>';
+		$description .= '<p class="description">' . __( 'Set this option to "Yes" to add voting to all posts on the front page.', 'wdpv' ) . '</p>';
+
+		include( 'views/settings-checkbox.php' );
 	}
 	function create_voting_appearance_box () {
 		$skins = array (
@@ -82,23 +94,29 @@ class Wdpv_AdminFormRenderer {
 		include_once( 'views/settings-appearance.php' );
 	}
 	function create_voting_positive_box () {
-		echo $this->_create_checkbox ('voting_positive');
-		_e(
-			'<p>If checked, this option will prevent negative votes by showing only positive voting link.</p>',
-			'wdpv'
-		);
+		$opt = wdpv_get_options();
+
+		$slug = 'voting_positive';
+		$checked = $opt[ $slug ];
+
+		$description = '<p class="description">' . __( 'If checked, this option will prevent negative votes by showing only positive voting link.', 'wdpv' ) . '</p>';
+
+		include( 'views/settings-checkbox.php' );
 	}
 	function create_disable_siteadmin_changes_box () {
-		echo $this->_create_checkbox ('disable_siteadmin_changes');
-		_e(
-			'<p>By default, Site Admins are allowed to access plugin settings and make changes.</p>' .
-			'<p>Set this option to "Yes" to prevent them from making changes to plugin settings.</p>',
-			'wdpv'
-		);
+		$opt = wdpv_get_options();
+
+		$slug = 'disable_siteadmin_changes';
+		$checked = $opt[ $slug ];
+
+		$description = '<p class="description">' . __( 'By default, Site Admins are allowed to access plugin settings and make changes.', 'wdpv' ) . '</p>';
+		$description .= '<p class="description">' . __( 'Set this option to "Yes" to prevent them from making changes to plugin settings.', 'wdpv' ) . '</p>';
+
+		include( 'views/settings-checkbox.php' );
 	}
 
 	function create_skip_post_types_box () {
-		$post_types = get_post_types(array('public'=>true), 'objects');
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
 		$opt = $this->_get_option();
 		$skip_types = is_array(@$opt['skip_post_types']) ? @$opt['skip_post_types'] : array();
 
@@ -125,6 +143,7 @@ class Wdpv_AdminFormRenderer {
 		echo $this->_create_checkbox ('bp_publish_activity_local');
 		echo '<div><small>' . __('Recorded activities will be hidden from your sitewide activity stream', 'wdpv') . '</small></div>';
 	}
+
 	function create_bp_profile_votes_box () {
 		$opt = $this->_get_option();
 		echo $this->_create_checkbox ('bp_profile_votes');
@@ -164,68 +183,7 @@ class Wdpv_AdminFormRenderer {
 	function create_plugins_box () {
 		$all = Wdpv_PluginsHandler::get_all_plugins();
 		$active = Wdpv_PluginsHandler::get_active_plugins();
-		$sections = array('thead', 'tfoot');
 
-		echo "<table class='widefat'>";
-		foreach ($sections as $section) {
-			echo "<{$section}>";
-			echo '<tr>';
-			echo '<th width="30%">' . __('Add-on name', 'wdpv') . '</th>';
-			echo '<th>' . __('Add-on description', 'wdpv') . '</th>';
-			echo '</tr>';
-			echo "</{$section}>";
-		}
-		echo "<tbody>";
-		foreach ($all as $plugin) {
-			$plugin_data = Wdpv_PluginsHandler::get_plugin_info($plugin);
-			if (!@$plugin_data['Name']) continue; // Require the name
-			$is_active = in_array($plugin, $active);
-			echo "<tr>";
-			echo "<td width='30%'>";
-			echo '<b>' . $plugin_data['Name'] . '</b>';
-			echo "<br />";
-			echo ($is_active
-				?
-				'<a href="#deactivate" class="wdpv_deactivate_plugin" wdpv:plugin_id="' . esc_attr($plugin) . '">' . __('Deactivate', 'wdpv') . '</a>'
-				:
-				'<a href="#activate" class="wdpv_activate_plugin" wdpv:plugin_id="' . esc_attr($plugin) . '">' . __('Activate', 'wdpv') . '</a>'
-			);
-			echo "</td>";
-			echo '<td>' .
-				$plugin_data['Description'] .
-				'<br />' .
-				sprintf(__('Version %s', 'wdpv'), $plugin_data['Version']) .
-				'&nbsp;|&nbsp;' .
-				sprintf(__('by %s', 'wdpv'), '<a href="' . $plugin_data['Plugin URI'] . '">' . $plugin_data['Author'] . '</a>') .
-			'</td>';
-			echo "</tr>";
-		}
-		echo "</tbody>";
-		echo "</table>";
-
-		echo <<<EOWdpvPluginJs
-<script type="text/javascript">
-(function ($) {
-$(function () {
-	$(".wdpv_activate_plugin").click(function () {
-		var me = $(this);
-		var plugin_id = me.attr("wdpv:plugin_id");
-		$.post(ajaxurl, {"action": "wdpv_activate_plugin", "plugin": plugin_id}, function (data) {
-			window.location = window.location;
-		});
-		return false;
-	});
-	$(".wdpv_deactivate_plugin").click(function () {
-		var me = $(this);
-		var plugin_id = me.attr("wdpv:plugin_id");
-		$.post(ajaxurl, {"action": "wdpv_deactivate_plugin", "plugin": plugin_id}, function (data) {
-			window.location = window.location;
-		});
-		return false;
-	});
-});
-})(jQuery);
-</script>
-EOWdpvPluginJs;
+		include( 'views/settings-plugins.php' );
 	}
 }

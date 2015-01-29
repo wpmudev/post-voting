@@ -27,30 +27,46 @@ class Wdpv_PluginsHandler {
 	}
 
 	public static function get_all_plugins () {
-		$all = glob(WDPV_PLUGIN_PLUGINS_DIR . '/*.php');
+		$default_headers = array(
+			'Name' => 'Plugin Name',
+			'Version' => 'Version',
+			'Description' => 'Description',
+			'Author' => 'Author',
+			'AuthorURI' => 'Author URI',
+		);
+
+		//$plugin_data = get_file_data( $plugin_file, $default_headers, 'wdpv-plugin' );
+
+		$all = apply_filters( 'wdpv_plugins', array(
+			WDPV_PLUGIN_PLUGINS_DIR . '/wdpv-checks-allow_daily_voting.php',
+			WDPV_PLUGIN_PLUGINS_DIR . '/wdpv-voting-five_star_rating.php'
+		) );
+
 		$all = $all ? $all : array();
 		$ret = array();
-		foreach ($all as $path) {
-			$ret[] = pathinfo($path, PATHINFO_FILENAME);
+		foreach ( $all as $path ) {
+			$ret[] = pathinfo( $path, PATHINFO_FILENAME );
 		}
+
 		return $ret;
 	}
 
-	public static function plugin_to_path ($plugin) {
+	public static function plugin_to_path( $plugin ) {
 		$plugin = str_replace('/', '_', $plugin);
 		return WDPV_PLUGIN_PLUGINS_DIR . '/' . "{$plugin}.php";
 	}
 
-	public static function get_plugin_info ($plugin) {
+	public static function get_plugin_info( $plugin ) {
 		$path = self::plugin_to_path($plugin);
 		$default_headers = array(
 			'Name' => 'Plugin Name',
 			'Author' => 'Author',
 			'Description' => 'Description',
-			'Plugin URI' => 'Plugin URI',
+			'PluginURI' => 'Plugin URI',
 			'Version' => 'Version',
 		);
-		return get_file_data($path, $default_headers, 'plugin');
+
+		return get_file_data( $path, $default_headers, 'wdpv-plugin' );
 	}
 
 	public static function activate_plugin ($plugin) {
