@@ -61,6 +61,13 @@ function wdpv_get_options() {
 	return wp_parse_args( $settings, wdpv_get_default_options() );
 }
 
+function wdpv_update_options( $options ) {
+	if ( is_multisite() && is_network_admin() )
+		update_site_option( 'wdpv', $options );
+	else
+		update_option( 'wdpv', $options );
+}
+
 
 function wdpv_get_default_options() {
 	return array(

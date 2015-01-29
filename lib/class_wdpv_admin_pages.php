@@ -55,6 +55,23 @@ class Wdpv_AdminPages {
 	 * Executed when the Settings page is being loaded
 	 */
 	public function on_load_settings_page() {
+		if ( isset( $_POST['option_page'] ) && 'wdpv' === $_POST['option_page'] ) {
+			// The form has been submitted
+			if ( isset( $_POST['wdpv'] ) ) {
+				wdpv_update_options( $_POST['wdpv'] );
+			}
+			if ( is_network_admin() && $this->data->get_option( 'disable_siteadmin_changes' ) ) {
+				// Flush per-blog settings
+				$blogs = $this->model->get_blog_ids();
+				foreach ($blogs as $blog) 
+					delete_blog_option( $blog['blog_id'], "wdpv" );
+			}
+
+			$goback = add_query_arg( 'updated', 'true',  wp_get_referer() );
+			wp_redirect( $goback );
+			exit;
+		}
+
 		if ( isset( $_GET['wdpv_deactivate_plugin'] ) && wp_verify_nonce( $_GET['_wpnonce'], 'deactivate-plugin' ) ) {
 			$status = Wdpv_PluginsHandler::deactivate_plugin( $_GET['plugin_id'] );
 			$url = remove_query_arg( array( 'wdpv_deactivate_plugin', 'plugin_id', '_wpnonce' ) );
