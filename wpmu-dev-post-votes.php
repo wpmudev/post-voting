@@ -27,34 +27,34 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
-define ('WDPV_PLUGIN_SELF_DIRNAME', basename(dirname(__FILE__)), true);
+define( 'WDPV_PLUGIN_SELF_DIRNAME', basename( dirname( __FILE__ ) ), true );
 
 //Setup proper paths/URLs and load text domains
-if (is_multisite() && defined('WPMU_PLUGIN_URL') && defined('WPMU_PLUGIN_DIR') && file_exists(WPMU_PLUGIN_DIR . '/' . basename(__FILE__))) {
-	define ('WDPV_PLUGIN_LOCATION', 'mu-plugins', true);
-	define ('WDPV_PLUGIN_BASE_DIR', WPMU_PLUGIN_DIR, true);
-	define ('WDPV_PLUGIN_URL', str_replace('http://', (@$_SERVER["HTTPS"] == 'on' ? 'https://' : 'http://'), WPMU_PLUGIN_URL), true);
+if ( is_multisite() && defined( 'WPMU_PLUGIN_URL' ) && defined( 'WPMU_PLUGIN_DIR' ) && file_exists( WPMU_PLUGIN_DIR . '/' . basename( __FILE__ ) ) ) {
+	define( 'WDPV_PLUGIN_LOCATION', 'mu-plugins', true );
+	define( 'WDPV_PLUGIN_BASE_DIR', WPMU_PLUGIN_DIR, true );
+	define( 'WDPV_PLUGIN_URL', str_replace( 'http://', (@$_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://'), WPMU_PLUGIN_URL ), true );
 	$textdomain_handler = 'load_muplugin_textdomain';
-} else if (defined('WP_PLUGIN_URL') && defined('WP_PLUGIN_DIR') && file_exists(WP_PLUGIN_DIR . '/' . WDPV_PLUGIN_SELF_DIRNAME . '/' . basename(__FILE__))) {
-	define ('WDPV_PLUGIN_LOCATION', 'subfolder-plugins', true);
-	define ('WDPV_PLUGIN_BASE_DIR', WP_PLUGIN_DIR . '/' . WDPV_PLUGIN_SELF_DIRNAME, true);
-	define ('WDPV_PLUGIN_URL', str_replace('http://', (@$_SERVER["HTTPS"] == 'on' ? 'https://' : 'http://'), WP_PLUGIN_URL) . '/' . WDPV_PLUGIN_SELF_DIRNAME, true);
+} else if ( defined( 'WP_PLUGIN_URL' ) && defined( 'WP_PLUGIN_DIR' ) && file_exists( WP_PLUGIN_DIR . '/' . WDPV_PLUGIN_SELF_DIRNAME . '/' . basename( __FILE__ ) ) ) {
+	define( 'WDPV_PLUGIN_LOCATION', 'subfolder-plugins', true );
+	define( 'WDPV_PLUGIN_BASE_DIR', WP_PLUGIN_DIR . '/' . WDPV_PLUGIN_SELF_DIRNAME, true );
+	define( 'WDPV_PLUGIN_URL', str_replace( 'http://', (@$_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://'), WP_PLUGIN_URL ) . '/' . WDPV_PLUGIN_SELF_DIRNAME, true );
 	$textdomain_handler = 'load_plugin_textdomain';
-} else if (defined('WP_PLUGIN_URL') && defined('WP_PLUGIN_DIR') && file_exists(WP_PLUGIN_DIR . '/' . basename(__FILE__))) {
-	define ('WDPV_PLUGIN_LOCATION', 'plugins', true);
-	define ('WDPV_PLUGIN_BASE_DIR', WP_PLUGIN_DIR, true);
-	define ('WDPV_PLUGIN_URL', str_replace('http://', (@$_SERVER["HTTPS"] == 'on' ? 'https://' : 'http://'), WP_PLUGIN_URL), true);
+} else if ( defined( 'WP_PLUGIN_URL' ) && defined( 'WP_PLUGIN_DIR' ) && file_exists( WP_PLUGIN_DIR . '/' . basename( __FILE__ ) ) ) {
+	define( 'WDPV_PLUGIN_LOCATION', 'plugins', true );
+	define( 'WDPV_PLUGIN_BASE_DIR', WP_PLUGIN_DIR, true );
+	define( 'WDPV_PLUGIN_URL', str_replace( 'http://', (@$_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://'), WP_PLUGIN_URL ), true );
 	$textdomain_handler = 'load_plugin_textdomain';
 } else {
 	// No textdomain is loaded because we can't determine the plugin location.
 	// No point in trying to add textdomain to string and/or localizing it.
-	wp_die(__('There was an issue determining where Post Voting plugin is installed. Please reinstall.'));
+	wp_die( __( 'There was an issue determining where Post Voting plugin is installed. Please reinstall.' ) );
 }
 $textdomain_handler('wdpv', false, WDPV_PLUGIN_SELF_DIRNAME . '/languages/');
 
 global $wpmudev_notices;
-$wpmudev_notices[] = array( 'id'=> 231, 'name'=> 'Post Voting', 'screens' => array( 'settings_page_wdpv-network', 'settings_page_wdpv' ) );
-if (file_exists(WDPV_PLUGIN_BASE_DIR . '/lib/externals/wpmudev-dash-notification.php')) require_once WDPV_PLUGIN_BASE_DIR . '/lib/externals/wpmudev-dash-notification.php';
+$wpmudev_notices[] = array( 'id' => 231, 'name' => 'Post Voting', 'screens' => array( 'settings_page_wdpv-network', 'settings_page_wdpv' ) );
+if ( file_exists( WDPV_PLUGIN_BASE_DIR . '/lib/externals/wpmudev-dash-notification.php' ) ) { require_once WDPV_PLUGIN_BASE_DIR . '/lib/externals/wpmudev-dash-notification.php'; }
 
 
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_installer.php';
@@ -71,11 +71,11 @@ Wdpv_PluginsHandler::init();
 
 // Widgets
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wpdv_widget_voting.php';
-add_action('widgets_init', create_function('', "register_widget('Wdpv_WidgetVoting');"));
+add_action( 'widgets_init', create_function( '', "register_widget('Wdpv_WidgetVoting');" ) );
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wpdv_widget_popular.php';
-add_action('widgets_init', create_function('', "register_widget('Wdpv_WidgetPopular');"));
+add_action( 'widgets_init', create_function( '', "register_widget('Wdpv_WidgetPopular');" ) );
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wpdv_widget_network_popular.php';
-add_action('widgets_init', create_function('', "register_widget('Wdpv_WidgetNetworkPopular');"));
+add_action( 'widgets_init', create_function( '', "register_widget('Wdpv_WidgetNetworkPopular');" ) );
 
 
 if ( is_admin() ) {

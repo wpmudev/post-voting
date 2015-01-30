@@ -8,12 +8,12 @@ class Wdpv_Options {
 
 	function __construct () {
 		$this->timeframes = array(
-			'this_week' => __('This week', 'wdpv'),
-			'last_week' => __('Last week', 'wdpv'),
-			'this_month' => __('This month', 'wdpv'),
-			'last_month' => __('Last month', 'wdpv'),
-			'this_year' => __('This year', 'wdpv'),
-			'last_year' => __('Last year', 'wdpv'),
+			'this_week' => __( 'This week', 'wdpv' ),
+			'last_week' => __( 'Last week', 'wdpv' ),
+			'this_month' => __( 'This month', 'wdpv' ),
+			'last_month' => __( 'Last month', 'wdpv' ),
+			'this_year' => __( 'This year', 'wdpv' ),
+			'last_year' => __( 'Last year', 'wdpv' ),
 		);
 	}
 
@@ -22,7 +22,7 @@ class Wdpv_Options {
 	 */
 	function get_option ($key) {
 		//$opts = WP_ALLOW_MULTISITE ? get_site_option('wdpv') : get_option('wdpv');
-		$opts = get_option('wdpv');
+		$opts = get_option( 'wdpv' );
 		return @$opts[$key];
 	}
 
@@ -30,7 +30,7 @@ class Wdpv_Options {
 	 * Sets all stored options.
 	 */
 	function set_options ($opts) {
-		return WP_NETWORK_ADMIN ? update_site_option('wdpv', $opts) : update_option('wdpv', $opts);
+		return WP_NETWORK_ADMIN ? update_site_option( 'wdpv', $opts ) : update_option( 'wdpv', $opts );
 	}
 
 	/**
@@ -39,33 +39,33 @@ class Wdpv_Options {
 	 * @static
 	 */
 	public static function populate () {
-		$site_opts = get_site_option('wdpv');
-		$site_opts = is_array($site_opts) ? $site_opts : array();
+		$site_opts = get_site_option( 'wdpv' );
+		$site_opts = is_array( $site_opts ) ? $site_opts : array();
 
-		$opts = get_option('wdpv');
-		$opts = is_array($opts) ? $opts : array();
+		$opts = get_option( 'wdpv' );
+		$opts = is_array( $opts ) ? $opts : array();
 
-		$res = array_merge($site_opts, $opts);
-		update_option('wdpv', $res);
+		$res = array_merge( $site_opts, $opts );
+		update_option( 'wdpv', $res );
 	}
 
 }
 
 function wdpv_get_options() {
-	$settings = get_site_option('wdpv');
+	$settings = get_site_option( 'wdpv' );
 
 	if ( is_multisite() && ! is_network_admin() ) {
 		$settings = get_option( 'wdpv' );
 	}
-	
+
 	return wp_parse_args( $settings, wdpv_get_default_options() );
 }
 
 function wdpv_update_options( $options ) {
-	if ( is_multisite() && is_network_admin() )
-		update_site_option( 'wdpv', $options );
-	else
-		update_option( 'wdpv', $options );
+	if ( is_multisite() && is_network_admin() ) {
+		update_site_option( 'wdpv', $options ); }
+	else {
+		update_option( 'wdpv', $options ); }
 }
 
 

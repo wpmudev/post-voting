@@ -22,8 +22,8 @@ class Wdpv_Model {
 	}
 
 	public static function get_instance() {
-		if ( ! self::$instance )
-			self::$instance = new self();
+		if ( ! self::$instance ) {
+			self::$instance = new self(); }
 
 		return self::$instance;
 	}
@@ -34,11 +34,11 @@ class Wdpv_Model {
 	function get_blog_ids () {
 		global $current_blog;
 		$site_id = 0;
-		if ($current_blog) {
+		if ( $current_blog ) {
 			$site_id = $current_blog->site_id;
 		}
-		$sql = "SELECT blog_id FROM " . $this->db->blogs . " WHERE site_id={$site_id} AND public='1' AND archived= '0' AND spam='0' AND deleted='0' ORDER BY registered DESC";
-		return $this->db->get_results($sql, ARRAY_A);
+		$sql = 'SELECT blog_id FROM ' . $this->db->blogs . " WHERE site_id={$site_id} AND public='1' AND archived= '0' AND spam='0' AND deleted='0' ORDER BY registered DESC";
+		return $this->db->get_results( $sql, ARRAY_A );
 	}
 
 	/**
@@ -50,13 +50,13 @@ class Wdpv_Model {
 	function get_popular_on_current_site ($limit=5, $posted_timeframe=false, $voted_timeframe=false) {
 		global $current_blog;
 		$site_id = $blog_id = 0;
-		if ($current_blog) {
+		if ( $current_blog ) {
 			$site_id = $current_blog->site_id;
 			$blog_id = $current_blog->blog_id;
 		}
 		$limit = (int)$limit;
 
-		return $this->get_popular_on_site($site_id, $blog_id, $limit, $posted_timeframe, $voted_timeframe);
+		return $this->get_popular_on_site( $site_id, $blog_id, $limit, $posted_timeframe, $voted_timeframe );
 	}
 
 	/**
@@ -68,22 +68,22 @@ class Wdpv_Model {
 	 * @return array A list of posts with post data JOINED in.
 	 */
 	function get_popular_on_site ($site_id, $blog_id, $limit, $posted_timeframe=false, $voted_timeframe=false) {
-		if (defined('MULTI_DB_VERSION') && class_exists('m_wpdb')) return $this->get_popular_on_multidb_site($site_id, $blog_id, $limit, $posted_timeframe, $voted_timeframe);
+		if ( defined( 'MULTI_DB_VERSION' ) && class_exists( 'm_wpdb' ) ) { return $this->get_popular_on_multidb_site( $site_id, $blog_id, $limit, $posted_timeframe, $voted_timeframe ); }
 		$site_id = (int)$site_id;
 		$blog_id = (int)$blog_id;
 		$blog_id = $blog_id ? $blog_id : 1;
 		$limit = (int)$limit;
-		if ($posted_timeframe) {
-			list($start_date, $end_date) = $this->extract_timeframe($posted_timeframe);
+		if ( $posted_timeframe ) {
+			list($start_date, $end_date) = $this->extract_timeframe( $posted_timeframe );
 		}
-		if ($voted_timeframe) {
-			list($voted_start_date, $voted_end_date) = $this->extract_timeframe($voted_timeframe);
+		if ( $voted_timeframe ) {
+			list($voted_start_date, $voted_end_date) = $this->extract_timeframe( $voted_timeframe );
 		}
 
 		// Woot, mega complex SQL
-		$sql = "SELECT *, SUM(vote) as total FROM " . // SUM(vote) for getting the count - GROUP BY post_id to get to individual posts
-				$this->db->base_prefix . "wdpv_post_votes LEFT JOIN " . // Get the post data too - LEFT JOIN what we need
-				$this->db->prefix . "posts ON " . $this->db->prefix . "posts.ID=" .	$this->db->base_prefix . "wdpv_post_votes.post_id " .
+		$sql = 'SELECT *, SUM(vote) as total FROM ' . // SUM(vote) for getting the count - GROUP BY post_id to get to individual posts
+				$this->db->base_prefix . 'wdpv_post_votes LEFT JOIN ' . // Get the post data too - LEFT JOIN what we need
+				$this->db->prefix . 'posts ON ' . $this->db->prefix . 'posts.ID=' .	$this->db->base_prefix . 'wdpv_post_votes.post_id ' .
 				"WHERE site_id={$site_id} AND blog_id={$blog_id} AND post_status='publish' " . // Only posts on set site/blog
 				(
 					$posted_timeframe ?
@@ -95,12 +95,12 @@ class Wdpv_Model {
 						"AND date > '{$voted_start_date}' AND date < '{$voted_end_date}' "
 						: ''
 				) .
-				"GROUP BY post_id " . // Group by post_id so we get the proper vote sum in `total`
-				"ORDER BY total DESC " . // Order them nicely
-			"LIMIT {$limit}";
+				'GROUP BY post_id ' . // Group by post_id so we get the proper vote sum in `total`
+				'ORDER BY total DESC ' . // Order them nicely
+				"LIMIT {$limit}";
 
-		$result = $this->db->get_results($sql, ARRAY_A);
-		return $result;
+				$result = $this->db->get_results( $sql, ARRAY_A );
+				return $result;
 	}
 
 	/**
@@ -110,15 +110,15 @@ class Wdpv_Model {
 		$site_id = (int)$site_id;
 		$blog_id = (int)$blog_id;
 		$limit = (int)$limit;
-		if ($posted_timeframe) {
-			list($start_date, $end_date) = $this->extract_timeframe($posted_timeframe);
+		if ( $posted_timeframe ) {
+			list($start_date, $end_date) = $this->extract_timeframe( $posted_timeframe );
 		}
-		if ($voted_timeframe) {
-			list($voted_start_date, $voted_end_date) = $this->extract_timeframe($posted_timeframe);
+		if ( $voted_timeframe ) {
+			list($voted_start_date, $voted_end_date) = $this->extract_timeframe( $posted_timeframe );
 		}
 		// Woot, mega complex SQL
-		$sql = "SELECT *, SUM(vote) as total FROM " . // SUM(vote) for getting the count - GROUP BY post_id to get to individual posts
-				$this->db->base_prefix . "wdpv_post_votes " .
+		$sql = 'SELECT *, SUM(vote) as total FROM ' . // SUM(vote) for getting the count - GROUP BY post_id to get to individual posts
+				$this->db->base_prefix . 'wdpv_post_votes ' .
 				"WHERE site_id={$site_id} AND blog_id={$blog_id} " .
 				(
 					$posted_timeframe ?
@@ -130,16 +130,16 @@ class Wdpv_Model {
 						"AND date > '{$voted_start_date}' AND date < '{$voted_end_date}' "
 						: ''
 				) .
-				"GROUP BY post_id " . // Group by post_id so we get the proper vote sum in `total`
-				"ORDER BY total DESC " . // Order them nicely
-			"LIMIT {$limit}";
+				'GROUP BY post_id ' . // Group by post_id so we get the proper vote sum in `total`
+				'ORDER BY total DESC ' . // Order them nicely
+				"LIMIT {$limit}";
 
-		$results = $this->db->get_results($sql, ARRAY_A);
-		foreach ($results as $key=>$val) {
-			$post = (array)get_blog_post($val['blog_id'], $val['post_id']);
-			$results[$key] = array_merge($val, $post);
-		}
-		return $results;
+				$results = $this->db->get_results( $sql, ARRAY_A );
+				foreach ( $results as $key => $val ) {
+					$post = (array)get_blog_post( $val['blog_id'], $val['post_id'] );
+					$results[$key] = array_merge( $val, $post );
+				}
+				return $results;
 	}
 
 	/**
@@ -154,37 +154,37 @@ class Wdpv_Model {
 	function get_popular_on_network ($limit, $voted_timeframe=false) {
 		global $current_blog;
 		$site_id = 0;
-		if ($current_blog) {
+		if ( $current_blog ) {
 			$site_id = $current_blog->site_id;
 		}
-		if ($voted_timeframe) {
-			list($voted_start_date, $voted_end_date) = $this->extract_timeframe($voted_timeframe);
+		if ( $voted_timeframe ) {
+			list($voted_start_date, $voted_end_date) = $this->extract_timeframe( $voted_timeframe );
 		}
 		$limit = (int)$limit;
-		$sql = "SELECT *, SUM(vote) as total FROM " . // SUM(vote) for getting the count
-			$this->db->base_prefix . "wdpv_post_votes " .
+		$sql = 'SELECT *, SUM(vote) as total FROM ' . // SUM(vote) for getting the count
+			$this->db->base_prefix . 'wdpv_post_votes ' .
 			"WHERE site_id={$site_id} AND blog_id<>0 " . // Only posts on multisite sites/blogs
 			(
 				$voted_timeframe ?
 					"AND date > '{$voted_start_date}' AND date < '{$voted_end_date}' "
 					: ''
 			) .
-			"GROUP BY post_id, site_id, blog_id " . // Group by post_id so we get the proper vote sum in `total`
-			"ORDER BY total DESC " . // Order them nicely
-		"LIMIT {$limit}";
+			'GROUP BY post_id, site_id, blog_id ' . // Group by post_id so we get the proper vote sum in `total`
+			'ORDER BY total DESC ' . // Order them nicely
+			"LIMIT {$limit}";
 
-		$result = $this->db->get_results($sql, ARRAY_A);
-		return $result;
+			$result = $this->db->get_results( $sql, ARRAY_A );
+			return $result;
 	}
 
 	function get_stats ($post_id, $blog_id, $site_id) {
-		$sql_up = "SELECT COUNT(id) FROM " . $this->db->base_prefix . "wdpv_post_votes " .
+		$sql_up = 'SELECT COUNT(id) FROM ' . $this->db->base_prefix . 'wdpv_post_votes ' .
 			"WHERE site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id} AND vote>0 ";
-		$sql_down = "SELECT COUNT(id) FROM " . $this->db->base_prefix . "wdpv_post_votes " .
+		$sql_down = 'SELECT COUNT(id) FROM ' . $this->db->base_prefix . 'wdpv_post_votes ' .
 			"WHERE site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id} AND vote<0 ";
 		return array (
-			'up' => $this->db->get_var($sql_up),
-			'down' => $this->db->get_var($sql_down),
+			'up' => $this->db->get_var( $sql_up ),
+			'down' => $this->db->get_var( $sql_down ),
 		);
 	}
 
@@ -197,23 +197,23 @@ class Wdpv_Model {
 	function get_recent_votes_by ($uid) {
 		$ret = array();
 		$uid = (int)$uid;
-		if (!$uid) return $ret;
+		if ( ! $uid ) { return $ret; }
 
-		$limit = (int)$this->data->get_option('bp_profile_votes_limit');
-		$limit = $limit ? "LIMIT {$limit}" : "";
+		$limit = (int)$this->data->get_option( 'bp_profile_votes_limit' );
+		$limit = $limit ? "LIMIT {$limit}" : '';
 
-		$time = (int)$this->data->get_option('bp_profile_votes_period');
-		$unit = $this->data->get_option('bp_profile_votes_unit');
+		$time = (int)$this->data->get_option( 'bp_profile_votes_period' );
+		$unit = $this->data->get_option( 'bp_profile_votes_unit' );
 
 		$where = '';
-		if ($time) {
+		if ( $time ) {
 			$valid_units = array('hour', 'day', 'week', 'month', 'year');
-			$unit = in_array($unit, $valid_units) ? $unit : 'month';
+			$unit = in_array( $unit, $valid_units ) ? $unit : 'month';
 			$where = "AND date > DATE_SUB(CURDATE(), INTERVAL {$time} {$unit})";
 		}
 
 		return $this->db->get_results(
-			"SELECT * FROM " . $this->db->base_prefix . "wdpv_post_votes WHERE user_id={$uid} {$where} {$limit} ORDER BY date DESC",
+			'SELECT * FROM ' . $this->db->base_prefix . "wdpv_post_votes WHERE user_id={$uid} {$where} {$limit} ORDER BY date DESC",
 			ARRAY_A
 		);
 	}
@@ -229,17 +229,17 @@ class Wdpv_Model {
 	function get_votes_total ($post_id, $site_id=0, $blog_id=0) {
 		global $current_blog;
 		$post_id = (int)$post_id;
-		if (!$post_id) return 0;
+		if ( ! $post_id ) { return 0; }
 
-		if ((!$site_id || !$blog_id) && $current_blog) { // Requested current blog post
-			if (!$site_id) $site_id = $current_blog->site_id;
-			if (!$blog_id) $blog_id = $current_blog->blog_id;
+		if ( ( ! $site_id || ! $blog_id) && $current_blog ) { // Requested current blog post
+			if ( ! $site_id ) { $site_id = $current_blog->site_id; }
+			if ( ! $blog_id ) { $blog_id = $current_blog->blog_id; }
 		}
 		$site_id = (int)$site_id;
 		$blog_id = (int)$blog_id;
 
-		$sql = "SELECT SUM(vote) FROM " . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id}";
-		return (int)$this->db->get_var($sql);
+		$sql = 'SELECT SUM(vote) FROM ' . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id}";
+		return (int)$this->db->get_var( $sql );
 	}
 
 	/**
@@ -253,19 +253,19 @@ class Wdpv_Model {
 	function get_user_votes_total ($user_id, $post_id, $site_id=0, $blog_id=0) {
 		global $current_blog;
 		$post_id = (int)$post_id;
-		if (!$post_id) return 0;
+		if ( ! $post_id ) { return 0; }
 		$user_id = (int)$user_id;
-		if (!$user_id) return 0;
+		if ( ! $user_id ) { return 0; }
 
-		if ((!$site_id || !$blog_id) && $current_blog) { // Requested current blog post
-			if (!$site_id) $site_id = $current_blog->site_id;
-			if (!$blog_id) $blog_id = $current_blog->blog_id;
+		if ( ( ! $site_id || ! $blog_id) && $current_blog ) { // Requested current blog post
+			if ( ! $site_id ) { $site_id = $current_blog->site_id; }
+			if ( ! $blog_id ) { $blog_id = $current_blog->blog_id; }
 		}
 		$site_id = (int)$site_id;
 		$blog_id = (int)$blog_id;
 
-		$sql = "SELECT SUM(vote) FROM " . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id} AND user_id={$user_id}";
-		return (int)$this->db->get_var($sql);
+		$sql = 'SELECT SUM(vote) FROM ' . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id} AND user_id={$user_id}";
+		return (int)$this->db->get_var( $sql );
 	}
 
 	/**
@@ -279,17 +279,17 @@ class Wdpv_Model {
 	function get_votes_count ($post_id, $site_id=0, $blog_id=0) {
 		global $current_blog;
 		$post_id = (int)$post_id;
-		if (!$post_id) return 0;
+		if ( ! $post_id ) { return 0; }
 
-		if ((!$site_id || !$blog_id) && $current_blog) { // Requested current blog post
-			if (!$site_id) $site_id = $current_blog->site_id;
-			if (!$blog_id) $blog_id = $current_blog->blog_id;
+		if ( ( ! $site_id || ! $blog_id) && $current_blog ) { // Requested current blog post
+			if ( ! $site_id ) { $site_id = $current_blog->site_id; }
+			if ( ! $blog_id ) { $blog_id = $current_blog->blog_id; }
 		}
 		$site_id = (int)$site_id;
 		$blog_id = (int)$blog_id;
 
-		$sql = "SELECT COUNT(*) FROM " . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id}";
-		return (int)$this->db->get_var($sql);
+		$sql = 'SELECT COUNT(*) FROM ' . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id}";
+		return (int)$this->db->get_var( $sql );
 	}
 
 	/**
@@ -306,29 +306,29 @@ class Wdpv_Model {
 		global $current_blog;
 		$site_id = 0;
 
-		if ($current_blog) {
+		if ( $current_blog ) {
 			$site_id = $current_blog->site_id;
-			if (!$blog_id) $blog_id = $current_blog->blog_id;
+			if ( ! $blog_id ) { $blog_id = $current_blog->blog_id; }
 		}
 
 		$post_id = (int)$post_id;
 		$vote = (int)$vote;
-		if (!$this->check_voting_permissions($site_id, $blog_id, $post_id)) return false;
+		if ( ! $this->check_voting_permissions( $site_id, $blog_id, $post_id ) ) { return false; }
 
 		$user_id = $this->get_user_id();
 		$user_ip = $this->get_user_ip();
 
-		$date = current_time('mysql');
-		$sql = "INSERT INTO " . $this->db->base_prefix . "wdpv_post_votes (" .
-			"blog_id, site_id, post_id, user_id, user_ip, vote, date" .
-			") VALUES (" .
+		$date = current_time( 'mysql' );
+		$sql = 'INSERT INTO ' . $this->db->base_prefix . 'wdpv_post_votes (' .
+			'blog_id, site_id, post_id, user_id, user_ip, vote, date' .
+			') VALUES (' .
 			"{$blog_id}, {$site_id}, {$post_id}, {$user_id}, {$user_ip}, {$vote}, '{$date}'" .
-		")";
-		$res = $this->db->query($sql);
+		')';
+		$res = $this->db->query( $sql );
 
-		if ($res) {
-			$this->set_voted_cookie($site_id, $blog_id, $post_id);
-			do_action('wdpv_voted', $site_id, $blog_id, $post_id, $vote); // Update listeners
+		if ( $res ) {
+			$this->set_voted_cookie( $site_id, $blog_id, $post_id );
+			do_action( 'wdpv_voted', $site_id, $blog_id, $post_id, $vote ); // Update listeners
 		}
 
 		return $res;
@@ -350,17 +350,17 @@ class Wdpv_Model {
 		$site_id = (int)$site_id;
 		$blog_id = (int)$blog_id;
 
-		if ((!$site_id || !$blog_id) && $current_blog) { // Requested current blog post
-			if (!$site_id) $site_id = $current_blog->site_id;
-			if (!$blog_id) $blog_id = $current_blog->blog_id;
-		} else if (!$site_id || !$blog_id) {
-			if (!$site_id) $site_id = 0;
-			if (!$blog_id) $blog_id = 1;
+		if ( ( ! $site_id || ! $blog_id) && $current_blog ) { // Requested current blog post
+			if ( ! $site_id ) { $site_id = $current_blog->site_id; }
+			if ( ! $blog_id ) { $blog_id = $current_blog->blog_id; }
+		} else if ( ! $site_id || ! $blog_id ) {
+			if ( ! $site_id ) { $site_id = 0; }
+			if ( ! $blog_id ) { $blog_id = 1; }
 		}
-		if (!$post_id || !$site_id || !$blog_id) return false;
+		if ( ! $post_id || ! $site_id || ! $blog_id ) { return false; }
 
 		$sql = "DELETE FROM {$this->db->base_prefix}wdpv_post_votes WHERE site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id}";
-		return $this->db->query($sql);
+		return $this->db->query( $sql );
 	}
 
 	/**
@@ -375,28 +375,28 @@ class Wdpv_Model {
 	 * @return bool true if all is good, false if voting not allowed
 	 */
 	function check_voting_permissions ($site_id, $blog_id, $post_id) {
-		if (!$this->data->get_option('allow_voting')) return false;
+		if ( ! $this->data->get_option( 'allow_voting' ) ) { return false; }
 
-		if (!$this->check_cookie_permissions($site_id, $blog_id, $post_id)) return false;
+		if ( ! $this->check_cookie_permissions( $site_id, $blog_id, $post_id ) ) { return false; }
 
 		$user_id = $this->get_user_id();
-		if (!$user_id && !$this->data->get_option('allow_visitor_voting')) return false;
+		if ( ! $user_id && ! $this->data->get_option( 'allow_visitor_voting' ) ) { return false; }
 
 		$not_voted = true;
-		if ($not_voted && $user_id) {
-			$where = apply_filters('wdpv-sql-where-user_id_check', "WHERE user_id={$user_id} AND site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id}");
-			$result = $this->db->get_var("SELECT COUNT(*) FROM " . $this->db->base_prefix . "wdpv_post_votes {$where}");
+		if ( $not_voted && $user_id ) {
+			$where = apply_filters( 'wdpv-sql-where-user_id_check', "WHERE user_id={$user_id} AND site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id}" );
+			$result = $this->db->get_var( 'SELECT COUNT(*) FROM ' . $this->db->base_prefix . "wdpv_post_votes {$where}" );
 			$not_voted = $result ? false : true;
 		}
 
-		if (!$this->data->get_option('use_ip_check')) return $not_voted;
+		if ( ! $this->data->get_option( 'use_ip_check' ) ) { return $not_voted; }
 
-		if ($not_voted) { // Either not registered user, or not voted yet. Check IPs
+		if ( $not_voted ) { // Either not registered user, or not voted yet. Check IPs
 			$user_ip = $this->get_user_ip();
-			$where = apply_filters('wdpv-sql-where-user_ip_check', "WHERE user_ip={$user_ip} AND site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id}");
-			$result = $this->db->get_var("SELECT COUNT(*) FROM " . $this->db->base_prefix . "wdpv_post_votes {$where}");
+			$where = apply_filters( 'wdpv-sql-where-user_ip_check', "WHERE user_ip={$user_ip} AND site_id={$site_id} AND blog_id={$blog_id} AND post_id={$post_id}" );
+			$result = $this->db->get_var( 'SELECT COUNT(*) FROM ' . $this->db->base_prefix . "wdpv_post_votes {$where}" );
 			return $result ? false : true;
-		} else return false;
+		} else { return false; }
 	}
 
 	/**
@@ -408,14 +408,14 @@ class Wdpv_Model {
 	 * @return bool true if all is good, false if voting not allowed
 	 */
 	function check_cookie_permissions ($site_id, $blog_id, $post_id) {
-		if (!isset($_COOKIE['wdpv_voted'])) return true; // No "voted" cookie, we're done here
+		if ( ! isset($_COOKIE['wdpv_voted']) ) { return true; // No "voted" cookie, we're done here
+		}
+		$votes = $this->decrypt_cookie_data_array( $_COOKIE['wdpv_voted'] );
+		$str = $this->create_data_string( $site_id, $blog_id, $post_id );
 
-		$votes = $this->decrypt_cookie_data_array($_COOKIE['wdpv_voted']);
-		$str = $this->create_data_string($site_id, $blog_id, $post_id);
+		$voted = @in_array( $str, $votes );
 
-		$voted = @in_array($str, $votes);
-
-		return !$voted;
+		return ! $voted;
 	}
 
 	/**
@@ -427,14 +427,14 @@ class Wdpv_Model {
 	 */
 	function set_voted_cookie ($site_id, $blog_id, $post_id) {
 		$voted = array();
-		if (isset($_COOKIE['wdpv_voted'])) {
-			$voted = $this->decrypt_cookie_data_array($_COOKIE['wdpv_voted']);
+		if ( isset($_COOKIE['wdpv_voted']) ) {
+			$voted = $this->decrypt_cookie_data_array( $_COOKIE['wdpv_voted'] );
 		}
-		$voted[] = $this->create_data_string($site_id, $blog_id, $post_id);
+		$voted[] = $this->create_data_string( $site_id, $blog_id, $post_id );
 
-		$expiration_time = apply_filters('wdpv-cookie-expiration_time', (time() + 30*24*3600));
+		$expiration_time = apply_filters( 'wdpv-cookie-expiration_time', (time() + 30 * 24 * 3600) );
 
-		setcookie("wdpv_voted", $this->encrypt_cookie_data_array($voted), $expiration_time, COOKIEPATH, COOKIE_DOMAIN);//, "/", str_replace('http://', '', get_bloginfo('url')));
+		setcookie( 'wdpv_voted', $this->encrypt_cookie_data_array( $voted ), $expiration_time, COOKIEPATH, COOKIE_DOMAIN );//, "/", str_replace('http://', '', get_bloginfo('url')));
 	}
 
 	/**
@@ -443,7 +443,7 @@ class Wdpv_Model {
 	 */
 	function create_data_string () {
 		$args = func_get_args();
-		return join('|', $args);
+		return join( '|', $args );
 	}
 
 	/**
@@ -451,7 +451,7 @@ class Wdpv_Model {
 	 * Encrypts cookie data.
 	 */
 	function encrypt_cookie_data_array ($arr) {
-		return base64_encode(str_rot13(serialize($arr)));
+		return base64_encode( str_rot13( serialize( $arr ) ) );
 	}
 
 	/**
@@ -459,7 +459,7 @@ class Wdpv_Model {
 	 * Decrypts cookie data.
 	 */
 	function decrypt_cookie_data_array ($str) {
-		return unserialize(str_rot13(base64_decode(stripslashes($str))));
+		return unserialize( str_rot13( base64_decode( stripslashes( $str ) ) ) );
 	}
 
 	/**
@@ -476,39 +476,39 @@ class Wdpv_Model {
 	 * Returns long representation of current users IP address.
 	 */
 	function get_user_ip () {
-		return $user_ip = (int)sprintf("%u", ip2long($_SERVER['REMOTE_ADDR']));
+		return $user_ip = (int)sprintf( '%u', ip2long( $_SERVER['REMOTE_ADDR'] ) );
 	}
 
 	function extract_timeframe ($timeframe) {
 		$start_date = $end_date = false;
 
-		switch ($timeframe) {
-			case "this_week":
-				$start_date = date('Y-m-d', strtotime('this Monday', time() - 7*24*3600));
-				$end_date = date('Y-m-d', strtotime('this Monday'));
+		switch ( $timeframe ) {
+			case 'this_week':
+				$start_date = date( 'Y-m-d', strtotime( 'this Monday', time() - 7 * 24 * 3600 ) );
+				$end_date = date( 'Y-m-d', strtotime( 'this Monday' ) );
 				break;
-			case "last_week":
-				$start_date = date('Y-m-d', strtotime('this Monday', time() - 14*24*3600));
-				$end_date = date('Y-m-d', strtotime('this Monday', time() - 7*24*3600));
+			case 'last_week':
+				$start_date = date( 'Y-m-d', strtotime( 'this Monday', time() - 14 * 24 * 3600 ) );
+				$end_date = date( 'Y-m-d', strtotime( 'this Monday', time() - 7 * 24 * 3600 ) );
 				break;
-			case "this_month":
-				$start_date = date('Y-m-d', strtotime(date('Y-m-01')));
-				$end_date = date('Y-m-d', strtotime(date('Y-m-') . date('t')));
+			case 'this_month':
+				$start_date = date( 'Y-m-d', strtotime( date( 'Y-m-01' ) ) );
+				$end_date = date( 'Y-m-d', strtotime( date( 'Y-m-' ) . date( 't' ) ) );
 				break;
-			case "last_month":
-				$month = (int)date('m') - 1;
-				$start_date = date('Y-m-d', strtotime(date('Y-' . $month . '-01')));
-				$end_date = date('Y-m-d', strtotime(date('Y-' . $month . '-') . date('t')));
+			case 'last_month':
+				$month = (int)date( 'm' ) - 1;
+				$start_date = date( 'Y-m-d', strtotime( date( 'Y-' . $month . '-01' ) ) );
+				$end_date = date( 'Y-m-d', strtotime( date( 'Y-' . $month . '-' ) . date( 't' ) ) );
 				break;
-			case "last_year":
-				$year = (int)date('Y') - 1;
+			case 'last_year':
+				$year = (int)date( 'Y' ) - 1;
 				$start_date = "{$year}-01-01";
 				$end_date = "{$year}-12-31";
 				break;
-			case "this_year":
+			case 'this_year':
 			default:
-				$start_date = date('Y-m-d', strtotime(date('Y-01-01')));
-				$end_date = date('Y-m-d', strtotime(date('Y-12-31')));
+				$start_date = date( 'Y-m-d', strtotime( date( 'Y-01-01' ) ) );
+				$end_date = date( 'Y-m-d', strtotime( date( 'Y-12-31' ) ) );
 				break;
 		}
 
@@ -527,24 +527,24 @@ class Wdpv_Query {
 
 	private function __construct ($args=array()) {
 		$args['orderby'] = self::ORDER_QUERY;
-		$this->_query = new WP_Query($args);
+		$this->_query = new WP_Query( $args );
 	}
 
 	public static function spawn ($limit=5, $posted_timeframe=false, $voted_timeframe=false, $query_args=array()) {
 		$model = wdpv_get_model();
-		$posts = $model->get_popular_on_current_site($limit, $posted_timeframe, $voted_timeframe);
+		$posts = $model->get_popular_on_current_site( $limit, $posted_timeframe, $voted_timeframe );
 
-		$query_args['post__in'] = wp_list_pluck($posts, 'ID');
+		$query_args['post__in'] = wp_list_pluck( $posts, 'ID' );
 		$query_args['posts_per_page'] = $limit;
-		
-		$me = new self($query_args);
+
+		$me = new self( $query_args );
 		return $me->_query;
 	}
 
 	public static function filter_wdpv_query ($sortby, $q) {
-		if (empty($q->query['post__in']) || empty($q->query['orderby']) || self::ORDER_QUERY != $q->query['orderby']) return $sortby;
-		if (!empty($q->query['order']) && 'DESC' == $q->query['order']) $q->query['post__in'] = array_reverse($q->query['post__in']);
-		return "find_in_set(ID, '" . join(',', $q->query['post__in']) . "')";
+		if ( empty($q->query['post__in']) || empty($q->query['orderby']) || self::ORDER_QUERY != $q->query['orderby'] ) { return $sortby; }
+		if ( ! empty($q->query['order']) && 'DESC' == $q->query['order'] ) { $q->query['post__in'] = array_reverse( $q->query['post__in'] ); }
+		return "find_in_set(ID, '" . join( ',', $q->query['post__in'] ) . "')";
 	}
 }
-add_filter('posts_orderby', array('Wdpv_Query', 'filter_wdpv_query'), 10, 2);
+add_filter( 'posts_orderby', array('Wdpv_Query', 'filter_wdpv_query'), 10, 2 );

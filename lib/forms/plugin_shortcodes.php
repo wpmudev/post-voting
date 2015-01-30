@@ -11,7 +11,7 @@
 			<dt class="attributes"><?php _e( 'Attributes', 'wdpv' ); ?>:</dt> <dd><?php _ex( 'none', 'Attributes (none)', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This is the main voting shortcode. It will display all parts of voting gadget - "Vote up" link, "Vote down" link and results.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This is the main voting shortcode. It will display all parts of voting gadget - "Vote up" link, "Vote down" link and results.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -21,7 +21,7 @@
 	<dd class="notes"><?php _e( '<strong>Note:</strong> if you don\'t allow voting, only the results will be displayed.', 'wdpv' ); ?></dd>
 </dl>
 
-<p><?php _e('If you wish to customize the gadget appearance, you may want to use one or more of the other shortcodes listed below.', 'wdpv' ); ?></p>
+<p><?php _e( 'If you wish to customize the gadget appearance, you may want to use one or more of the other shortcodes listed below.', 'wdpv' ); ?></p>
 
 <dl class="item">
 	<dt class="tag"><?php _ex( 'Tag', 'Shortcode title', 'wdpv' ); ?>: <code>[wdpv_vote_up]</code></dt>
@@ -30,7 +30,7 @@
 			<dt class="attributes"><?php _e( 'Attributes', 'wdpv' ); ?>:</dt> <dd><?php _ex( 'none', 'Attributes (none)', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will display just the "Vote up" link.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will display just the "Vote up" link.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -46,7 +46,7 @@
 			<dt class="attributes"><?php _e( 'Attributes', 'wdpv' ); ?>:</dt> <dd><?php _ex( 'none', 'Attributes (none)', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will display just the "Vote down" link.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will display just the "Vote down" link.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Example', 'wdpv' ); ?>:</dt>
@@ -62,7 +62,7 @@
 			<dt class="attributes"><?php _e( 'Attributes', 'wdpv' ); ?>:</dt> <dd><?php _ex( 'none', 'Attributes (none)', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will display just the voting results.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will display just the voting results.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -79,14 +79,14 @@
 			<dd>
 				<dl>
 					<dt><code>limit</code></dt>
-					<dd><?php _e('<em>(optional)</em> Show only this many posts. Defaults to 5', 'wdpv' ); ?></dd>
+					<dd><?php _e( '<em>(optional)</em> Show only this many posts. Defaults to 5', 'wdpv' ); ?></dd>
 					<dt><code>network</code></dt>
-					<dd><?php printf( __('<em>(optional)</em> Show posts from entire network. Set to %s if you wish to display posts from entire network.', 'wdpv' ), '<code>yes</code>' ); ?></dd>
+					<dd><?php printf( __( '<em>(optional)</em> Show posts from entire network. Set to %s if you wish to display posts from entire network.', 'wdpv' ), '<code>yes</code>' ); ?></dd>
 				</dl>
 			</dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will display the list of posts with highest number of votes.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will display the list of posts with highest number of votes.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -112,7 +112,7 @@
 			<dd><?php printf( __( 'Clear the floats, %s or %s. Defaults to %s', 'wdpv' ), '<code>true</code>', '<code>false</code>', '<code>true</code>' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This is the main voting template tag. It will display all parts of voting gadget - "Vote up" link, "Vote down" link and results.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This is the main voting template tag. It will display all parts of voting gadget - "Vote up" link, "Vote down" link and results.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -130,7 +130,7 @@
 			<dd><?php printf( __( 'Clear the floats, %s or %s. Defaults to %s', 'wdpv' ), '<code>true</code>', '<code>false</code>', '<code>true</code>' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will display just the "Vote up" link.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will display just the "Vote up" link.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -148,7 +148,7 @@
 			<dd><?php printf( __( 'Clear the floats, %s or %s. Defaults to %s', 'wdpv' ), '<code>true</code>', '<code>false</code>', '<code>true</code>' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will display just the "Vote down" link.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will display just the "Vote down" link.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -166,7 +166,7 @@
 			<dd><?php printf( __( 'Clear the floats, %s or %s. Defaults to %s', 'wdpv' ), '<code>true</code>', '<code>false</code>', '<code>true</code>' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will display just the voting results.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will display just the voting results.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -185,7 +185,7 @@
 			<dd>bool <code>network</code> - <?php _e( '<em>(optional)</em> Show posts from entire network. Set to <code>true</code> if you wish to display posts from entire network.', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will display the list of posts with highest number of votes.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will display the list of posts with highest number of votes.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -210,7 +210,7 @@
 			<dd>int <code>post_id</code> - <?php _e( 'Your post ID', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This is the main voting template tag. It will <em>return</em> all parts of voting gadget - "Vote up" link, "Vote down" link and results.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This is the main voting template tag. It will <em>return</em> all parts of voting gadget - "Vote up" link, "Vote down" link and results.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -230,7 +230,7 @@
 			<dd>int <code>post_id</code> - <?php _e( 'Your post ID', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will <em>return</em> just the "Vote up" link.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will <em>return</em> just the "Vote up" link.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -250,7 +250,7 @@
 			<dd>int <code>post_id</code> - <?php _e( 'Your post ID', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will <em>return</em> just the "Vote down" link.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will <em>return</em> just the "Vote down" link.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -270,7 +270,7 @@
 			<dd>int <code>post_id</code> - <?php _e( 'Your post ID', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will <em>return</em> just the voting results.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will <em>return</em> just the voting results.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -295,7 +295,7 @@
 			<dd>int <code>post_id</code> - <?php _e( 'Your post ID', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This is the main voting template tag. It will <em>return</em> all parts of voting gadget - "Vote up" link, "Vote down" link and results.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This is the main voting template tag. It will <em>return</em> all parts of voting gadget - "Vote up" link, "Vote down" link and results.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -316,7 +316,7 @@
 			<dd>int <code>post_id</code> - <?php _e( 'Your post ID', 'wdpv' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will <em>return</em> just the "Vote up" link.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will <em>return</em> just the "Vote up" link.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -337,7 +337,7 @@
 				<dd>int <code>post_id</code> - <?php _e( 'Your post ID', 'wdpv' ); ?></dd>
 			</dl>
 		</dd>
-	<dd><?php _e('This will <em>return</em> just the "Vote down" link.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will <em>return</em> just the "Vote down" link.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -358,7 +358,7 @@
 				<dd>int <code>post_id</code> - <?php _e( 'Your post ID', 'wdpv' ); ?></dd>
 			</dl>
 		</dd>
-	<dd><?php _e('This will <em>return</em> just the voting results.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will <em>return</em> just the voting results.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -382,7 +382,7 @@
 				<dd>int <code>limit</code> - <?php _e( 'Limit the returned results to this many.', 'wdpv' ); ?></dd>
 			</dl>
 		</dd>
-	<dd><?php _e('This will <em>return</em> just the voting results within the selected timespan.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will <em>return</em> just the voting results within the selected timespan.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -400,7 +400,7 @@
 				<dd>int <code>limit</code> - <?php _e( 'Limit the returned results to this many.', 'wdpv' ); ?></dd>
 			</dl>
 		</dd>
-	<dd><?php _e('This will <em>output</em> the voting results within the selected timespan.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will <em>output</em> the voting results within the selected timespan.', 'wdpv' ); ?></dd>
 	<dd>
 		<dl>
 			<dt class="examples"><?php _e( 'Examples', 'wdpv' ); ?>:</dt>
@@ -421,7 +421,7 @@
 			<dd>array <code>query</code> - <?php printf( __( 'Additional %s arguments.', 'wdpv' ), '<code>WP_Query</code>' ); ?></dd>
 		</dl>
 	</dd>
-	<dd><?php _e('This will spawn and <em>return</em> a <code>WP_Query</code> instance populated with the popular posts for a given timespan.', 'wdpv' ); ?></dd>
+	<dd><?php _e( 'This will spawn and <em>return</em> a <code>WP_Query</code> instance populated with the popular posts for a given timespan.', 'wdpv' ); ?></dd>
 	<dd><?php _e( 'You can then use the returned result to construct custom loops within your theme.', 'wdpv' ); ?></dd>
 	<dd class="notes"><?php _e( '<strong>Note:</strong> results will be returned even if you don\'t allow voting.', 'wdpv' ); ?></dd>
 </dl>
