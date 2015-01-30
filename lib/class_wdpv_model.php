@@ -29,19 +29,6 @@ class Wdpv_Model {
 	}
 
 	/**
-	 * Returns all blogs on the current site.
-	 */
-	function get_blog_ids () {
-		global $current_blog;
-		$site_id = 0;
-		if ( $current_blog ) {
-			$site_id = $current_blog->site_id;
-		}
-		$sql = 'SELECT blog_id FROM ' . $this->db->blogs . " WHERE site_id={$site_id} AND public='1' AND archived= '0' AND spam='0' AND deleted='0' ORDER BY registered DESC";
-		return $this->db->get_results( $sql, ARRAY_A );
-	}
-
-	/**
 	 * Fetches a list of top rated posts from current site.
 	 *
 	 * @param int Post fetching limit, defaults to 5
