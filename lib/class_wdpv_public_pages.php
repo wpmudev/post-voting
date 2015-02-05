@@ -73,11 +73,12 @@ class Wdpv_PublicPages {
 		) { return $body; }
 		if ( $this->codec->has_wdpv_shortcode( 'no_auto', $body ) ) { return $body; }
 		$position = $this->data->get_option( 'voting_position' );
+
 		if ( 'top' == $position || 'both' == $position ) {
-			$body = do_shortcode( $this->codec->get_code( 'vote_widget' ) ) . ' ' . $body;
+			$body = do_shortcode( $this->codec->wdpv_render_vote_box( array( 'echo' => false ) ) ) . ' ' . $body;
 		}
 		if ( 'bottom' == $position || 'both' == $position ) {
-			$body .= ' ' . do_shortcode( $this->codec->get_code( 'vote_widget' ) );
+			$body .= ' ' . do_shortcode( $this->codec->wdpv_render_vote_box( array( 'echo' => false ) ) );
 		}
 		return $body;
 	}
