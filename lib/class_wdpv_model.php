@@ -302,6 +302,9 @@ class Wdpv_Model {
 		$vote = (int)$vote;
 		if ( ! $this->check_voting_permissions( $site_id, $blog_id, $post_id ) ) { return false; }
 
+		if ( $this->data->get_option('voting_positive') && $vote < 0 )
+			return false;
+
 		$user_id = $this->get_user_id();
 		$user_ip = $this->get_user_ip();
 
@@ -384,6 +387,7 @@ class Wdpv_Model {
 			$result = $this->db->get_var( 'SELECT COUNT(*) FROM ' . $this->db->base_prefix . "wdpv_post_votes {$where}" );
 			return $result ? false : true;
 		} else { return false; }
+
 	}
 
 	/**

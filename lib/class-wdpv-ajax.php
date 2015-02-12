@@ -23,7 +23,7 @@ class Wdpv_Ajax {
 			$vote = (int)$_POST['wdpv_vote'];
 			$post_id = (int)$_POST['post_id'];
 			$blog_id = (int)@$_POST['blog_id'];
-			$status = $this->model->update_post_votes( $blog_id, $post_id, $vote );
+			$status = $this->model->update_post_votes( $blog_id, $post_id, $vote );	
 			$data = $this->model->get_votes_total( (int)$_POST['post_id'], false, (int)@$_POST['blog_id'] );
 		}
 
