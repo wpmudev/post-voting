@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
 		vote: function( event ) {
 			if ( wpmudev_post_voting.is_voting )
 				return;
-
+console.log("AAA");
 			wpmudev_post_voting.is_voting = true;
 
 			var element = $(this);	
@@ -35,7 +35,7 @@ jQuery(document).ready(function($) {
 				data: { "action": "wdpv_record_vote", "wdpv_vote": vote, "blog_id": element.data( 'blog-id' ), "post_id": element.data( 'post-id' ) },
 			})
 			.done(function(resp) {
-				if ( resp.status )
+				if ( resp.votes !== false )
 					results.text( resp.votes );
 			})
 			.fail(function(error) {

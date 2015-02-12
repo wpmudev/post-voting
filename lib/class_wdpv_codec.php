@@ -216,8 +216,10 @@ class Wdpv_Codec {
 
 		$args['post_id'] = $args['post_id'] ? $args['post_id'] : get_the_ID();
 
+		$options = wdpv_get_options();
+
 		?>
-			<div class="wdpv_vote_down icomoon <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>" data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" data-post-id="<?php echo $args['post_id']; ?>">
+			<div class="wdpv_vote_down <?php echo $options['voting_appearance']; ?> <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>" data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" data-post-id="<?php echo $args['post_id']; ?>">
 				<i class="wdpv-icon"></i>
 			</div> 
 		<?php
@@ -236,8 +238,10 @@ class Wdpv_Codec {
 
 		$args['post_id'] = $args['post_id'] ? $args['post_id'] : get_the_ID();
 
+		$options = wdpv_get_options();
+		
 		?>
-			<div class="wdpv_vote_up icomoon <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>" data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" data-post-id="<?php echo $args['post_id']; ?>">
+			<div class="wdpv_vote_up <?php echo $options['voting_appearance']; ?> <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>" data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" data-post-id="<?php echo $args['post_id']; ?>">
 				<i class="wdpv-icon"></i>
 			</div> 
 		<?php
