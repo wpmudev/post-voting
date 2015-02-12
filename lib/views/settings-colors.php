@@ -6,7 +6,7 @@
 		$( '.color-field' ).wpColorPicker({
 			change: function( event, ui ) {
 				var type = $(event.target).data('type');
-				$( 'i.' + type ).css( 'color', ui.color.toString() );
+				$( 'i.' + type ).css( 'color', ui.color.toString() );			
 				
 			}
 		});

@@ -80,5 +80,11 @@
 		color:<?php echo $opt['color_down']; ?>
 	}
 
+	.wdpv-voting-appereance-label:hover i:after {
+		-webkit-text-stroke-width: 1px;
+	   	-webkit-text-stroke-color: #333;
+	}
+	
+
 
 </style>

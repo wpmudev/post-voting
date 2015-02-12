@@ -38,16 +38,7 @@ class Wdpv_Options {
 	 *
 	 * @static
 	 */
-	public static function populate () {
-		$site_opts = get_site_option( 'wdpv' );
-		$site_opts = is_array( $site_opts ) ? $site_opts : array();
-
-		$opts = get_option( 'wdpv' );
-		$opts = is_array( $opts ) ? $opts : array();
-
-		$res = array_merge( $site_opts, $opts );
-		update_option( 'wdpv', $res );
-	}
+	public static function populate () {}
 
 }
 
@@ -77,7 +68,7 @@ function wdpv_get_default_options() {
 		'show_login_link' => false,
 		'skip_post_types' => array(),
 		'voting_position' => 'top',
-		'voting_appearance' => 'default',
+		'voting_appearance' => 'icomoon',
 		'voting_positive' => false,
 		'front_page_voting' => true,
 		'disable_siteadmin_changes' => false,

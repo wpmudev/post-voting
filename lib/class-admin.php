@@ -19,17 +19,7 @@ class Wdpv_Admin {
 		// Cleanup
 		add_action( 'deleted_post', array( $this, 'clear_orphaned_data' ) );
 
-		// Step1: add AJAX hooks
-		if ( $this->data->get_option( 'allow_voting' ) ) {
-			// Step1a: add AJAX hooks for visitors
-			if ( $this->data->get_option( 'allow_visitor_voting' ) ) {
-				add_action( 'wp_ajax_nopriv_wdpv_record_vote', array($this, 'json_record_vote') );
-				add_action( 'wp_ajax_nopriv_wdpv_vote_results', array($this, 'json_vote_results') );
-			}
-			// Step1b: add AJAX hooks for registered users
-			add_action( 'wp_ajax_wdpv_record_vote', array($this, 'json_record_vote') );
-			add_action( 'wp_ajax_wdpv_vote_results', array($this, 'json_vote_results') );
-		}
+		
 
 		// Optional hooks for BuddyPress
 		if ( defined( 'BP_VERSION' ) ) {
@@ -44,33 +34,7 @@ class Wdpv_Admin {
 		$this->model->remove_votes_for_post( $post_id );
 	}
 
-	function json_record_vote () {
-		$status = false;
-		if ( isset($_POST['wdpv_vote']) && isset($_POST['post_id']) ) {
-			$vote = (int)$_POST['wdpv_vote'];
-			$post_id = (int)$_POST['post_id'];
-			$blog_id = (int)@$_POST['blog_id'];
-			$status = $this->model->update_post_votes( $blog_id, $post_id, $vote );
-		}
-		header( 'Content-type: application/json' );
-		echo json_encode(array(
-			'status' => (int)$status,
-		));
-		exit();
-	}
-
-	function json_vote_results () {
-		$data = false;
-		if ( isset($_POST['post_id']) ) {
-			$data = $this->model->get_votes_total( (int)$_POST['post_id'], false, (int)@$_POST['blog_id'] );
-		}
-		header( 'Content-type: application/json' );
-		echo json_encode(array(
-			'status' => ($data ? 1 : 0),
-			'data' => (int)$data,
-		));
-		exit();
-	}
+	
 
 	function bp_record_vote_activity ($site_id, $blog_id, $post_id, $vote) {
 		if ( ! bp_loggedin_user_id() ) { return false; }

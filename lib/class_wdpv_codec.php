@@ -136,6 +136,8 @@ class Wdpv_Codec {
 	}
 
 	public static function wdpv_render_vote_box( $args = array() ) {
+		global $current_blog;
+
 		$defaults = array(
 			'show_up' => true,
 			'show_down' => true,
@@ -174,6 +176,12 @@ class Wdpv_Codec {
 		if ( ! $args['show_votes'] )
 			$class .= 'wdpv-votes-hidden';
 
+		$site_id = 1;
+		if ( $current_blog )
+			$site_id = $current_blog->site_id;
+
+		$args['disabled'] = ! $model->check_voting_permissions( $site_id, $args['blog_id'], $args['post_id'] );
+
 		if ( ! $args['echo'] )
 			ob_start();
 		?>
@@ -201,6 +209,7 @@ class Wdpv_Codec {
 		$defaults = array(
 			'post_id' => false,
 			'blog_id' => is_multisite() ? get_current_blog_id() : 1,
+			'disabled' => false
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -208,10 +217,8 @@ class Wdpv_Codec {
 		$args['post_id'] = $args['post_id'] ? $args['post_id'] : get_the_ID();
 
 		?>
-			<div class="wdpv_vote_down icomoon">
+			<div class="wdpv_vote_down icomoon <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>" data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" data-post-id="<?php echo $args['post_id']; ?>">
 				<i class="wdpv-icon"></i>
-				<input type="hidden" value="<?php echo $args['post_id']; ?>">
-				<input type="hidden" class="wdpv_blog_id" value="<?php echo $args['blog_id']; ?>">
 			</div> 
 		<?php
 
@@ -221,7 +228,8 @@ class Wdpv_Codec {
 		$defaults = array(
 			'post_id' => false,
 			'blog_id' => is_multisite() ? get_current_blog_id() : 1,
-			'echo' => true
+			'echo' => true,
+			'disabled' => false
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -229,10 +237,8 @@ class Wdpv_Codec {
 		$args['post_id'] = $args['post_id'] ? $args['post_id'] : get_the_ID();
 
 		?>
-			<div class="wdpv_vote_up icomoon">
+			<div class="wdpv_vote_up icomoon <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>" data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" data-post-id="<?php echo $args['post_id']; ?>">
 				<i class="wdpv-icon"></i>
-				<input type="hidden" value="<?php echo $args['post_id']; ?>">
-				<input type="hidden" class="wdpv_blog_id" value="<?php echo $args['blog_id']; ?>">
 			</div> 
 		<?php
 
@@ -242,7 +248,8 @@ class Wdpv_Codec {
 		$defaults = array(
 			'post_id' => false,
 			'blog_id' => is_multisite() ? get_current_blog_id() : 1,
-			'echo' => true
+			'echo' => true,
+			'disabled' => false
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -253,10 +260,9 @@ class Wdpv_Codec {
 		$count = $model->get_votes_total( $args['post_id'], false, $args['blog_id'] );
 
 		?>
-			<div class="wdpv_vote_result">
-				<span class="wdpv_vote_result_output"><?php echo $count; ?></span>
-				<input type="hidden" value="<?php echo $args['post_id']; ?>">
-				<input type="hidden" class="wdpv_blog_id" value="<?php echo $args['blog_id']; ?>">
+			<div class="wdpv_vote_result <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>">
+				<span class="wdpv_vote_result_output" data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" data-post-id="<?php echo $args['post_id']; ?>"><?php echo $count; ?></span>
+				<span class="wdpv-spinner"></span>
 			</div>
 		<?php
 
