@@ -61,6 +61,7 @@ class Wdpv_WidgetVoting extends WP_Widget {
 	}
 
 	function widget($args, $instance) {
+		global $post;
 		extract( $args );
 		$title = apply_filters( 'widget_title', $instance['title'] );
 		$show_vote_up = (int)@$instance['show_vote_up'];

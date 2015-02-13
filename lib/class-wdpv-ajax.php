@@ -20,6 +20,8 @@ class Wdpv_Ajax {
 		$status = false;
 		$data = false;
 		if ( isset($_POST['wdpv_vote']) && isset($_POST['post_id']) ) {
+			check_ajax_referer( 'wdpv-vote', 'security' );
+			
 			$vote = (int)$_POST['wdpv_vote'];
 			$post_id = (int)$_POST['post_id'];
 			$blog_id = (int)@$_POST['blog_id'];
@@ -31,21 +33,4 @@ class Wdpv_Ajax {
 		exit();
 	}
 
-
-	function render_colors_stylesheet() {
-		if ( isset( $_GET['wdpv-colors'] ) ) {
-			header( 'Content-type: text/css' );
-
-			$options = wdpv_get_options();
-			?>
-				.wdpv_vote_down i.wdpv-icon:after {
-				   color:<?php echo $options['color_down']; ?>
-				}
-				.wdpv_vote_up i.wdpv-icon:after {
-				   color:<?php echo $options['color_up']; ?>
-				}
-			<?php
-			exit;
-		}
-	}
 }

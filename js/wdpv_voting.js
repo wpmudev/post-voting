@@ -13,8 +13,10 @@ jQuery(document).ready(function($) {
 
 			var element = $(this);	
 
-			if ( element.hasClass( 'wdpv-disabled' ) )
+			if ( element.hasClass( 'wdpv-disabled' ) ) {
+				wpmudev_post_voting.is_voting = false;
 				return;
+			}
 
 			var resultContainer = element.siblings('.wdpv_vote_result' ).first();
 			var results = resultContainer.find('.wdpv_vote_result_output');
@@ -32,7 +34,13 @@ jQuery(document).ready(function($) {
 			$.ajax({
 				url: wdpv_i18n.ajaxurl,
 				type: 'post',
-				data: { "action": "wdpv_record_vote", "wdpv_vote": vote, "blog_id": element.data( 'blog-id' ), "post_id": element.data( 'post-id' ) },
+				data: { 
+					"action": "wdpv_record_vote", 
+					"wdpv_vote": vote, 
+					"blog_id": element.data( 'blog-id' ), 
+					"post_id": element.data( 'post-id' ), 
+					'security': element.data( 'nonce' ) 
+				},
 			})
 			.done(function(resp) {
 				if ( resp.votes !== false )
@@ -46,6 +54,10 @@ jQuery(document).ready(function($) {
 				results.css( 'display', 'inline' );
 				spinner.css( 'display', 'none' );
 			});
+
+			wpmudev_post_voting.is_voting = false;
+
+			return this;
 			
 		},
 	};
