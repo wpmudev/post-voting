@@ -16,6 +16,10 @@ class Wdpv_PublicPages {
 		// LOad integrations
 		if ( class_exists( 'BuddyPress' ) )
 			include_once( 'integration/buddypress/class-buddypress.php' );
+
+		if ( class_exists( 'bbpress' ) ) {
+			include_once( 'integration/bbpress/class-bbpress.php' );
+		}
 		
 	}
 
@@ -65,25 +69,34 @@ class Wdpv_PublicPages {
 	}
 
 
-	function inject_voting_buttons ($body) {
+	public static function inject_voting_buttons ($body) {
 		$inject = apply_filters( 'automatically_inject_voting_buttons', true );
 
+		$options = wdpv_get_options();
+		$codec = new Wdpv_Codec();
 		if (
-			(is_home() && ! $this->data->get_option( 'front_page_voting' ))
+			( is_home() && ! $options['front_page_voting'] )
 			||
 			( ! is_home() && ! is_singular())
 			||
 			! $inject
 		) { return $body; }
-		if ( $this->codec->has_wdpv_shortcode( 'no_auto', $body ) ) { return $body; }
-		$position = $this->data->get_option( 'voting_position' );
+		if ( $codec->has_wdpv_shortcode( 'no_auto', $body ) ) { return $body; }
+		$position = $options['voting_position'];
 
-		if ( 'top' == $position || 'both' == $position ) {
-			$body = do_shortcode( $this->codec->wdpv_render_vote_box( array( 'echo' => false ) ) ) . ' ' . $body;
-		}
-		if ( 'bottom' == $position || 'both' == $position ) {
-			$body .= ' ' . do_shortcode( $this->codec->wdpv_render_vote_box( array( 'echo' => false ) ) );
-		}
+		$shortcode = '[wdpv_vote';
+		if ( $post_id = get_the_ID() )
+			$shortcode .= ' post_id="' . $post_id . '"';
+		if ( $blog_id = get_current_blog_id() )
+			$shortcode .= ' blog_id="' . $blog_id . '"';
+		$shortcode .= ']';
+
+		if ( 'top' == $position || 'both' == $position )
+			$body = do_shortcode( $shortcode ) . ' ' . $body;
+
+		if ( 'bottom' == $position || 'both' == $position )
+			$body .= ' ' . do_shortcode( $shortcode );
+
 		return $body;
 	}
 
@@ -95,10 +108,15 @@ class Wdpv_PublicPages {
 
 		// Automatic Voting buttons
 		if ( 'manual' != $this->data->get_option( 'voting_position' ) ) {
-			add_filter( 'the_content', array($this, 'inject_voting_buttons'), 15 ); // , 5);
-			if ( class_exists( 'bbpress' ) && ! (defined( 'WDPV_SKIP_BBPRESS_COMPAT_FILTER' ) && WDPV_SKIP_BBPRESS_COMPAT_FILTER) ) { add_filter( 'bbp_get_reply_content', array($this, 'inject_voting_buttons'), 5 ); }
+			add_filter( 'the_content', array( $this, 'inject_voting_buttons' ), 15 ); // , 5);
 		}
 
 		$this->codec->register();
 	}
+}
+
+
+function wdpv_inject_voting_buttons( $body = '' ) {
+	$body = Wdpv_PublicPages::inject_voting_buttons( $body );	
+	return $body;
 }

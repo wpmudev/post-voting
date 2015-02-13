@@ -224,10 +224,7 @@ class Wdpv_Codec {
 		$ajax_nonce = wp_create_nonce( 'wdpv-vote' );
 
 		?>
-			<div class="wdpv_vote_down <?php echo $options['voting_appearance']; ?> <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>" 
-				data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" 
-				data-post-id="<?php echo $args['post_id']; ?>"
-				data-nonce="<?php echo $ajax_nonce; ?>">
+			<div class="wdpv_vote_down <?php echo $options['voting_appearance']; ?> <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>" data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" data-post-id="<?php echo $args['post_id']; ?>" data-nonce="<?php echo $ajax_nonce; ?>">
 				<i class="wdpv-icon"></i>
 			</div> 
 		<?php
@@ -251,10 +248,7 @@ class Wdpv_Codec {
 		$ajax_nonce = wp_create_nonce( 'wdpv-vote' );
 
 		?>
-			<div class="wdpv_vote_up <?php echo $options['voting_appearance']; ?> <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>" 
-				data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" 
-				data-post-id="<?php echo $args['post_id']; ?>"
-				data-nonce="<?php echo $ajax_nonce; ?>">
+			<div class="wdpv_vote_up <?php echo $options['voting_appearance']; ?> <?php echo $args['disabled'] ? 'wdpv-disabled' : ''; ?>" data-blog-id="<?php echo absint( $args['blog_id'] ); ?>" data-post-id="<?php echo $args['post_id']; ?>" data-nonce="<?php echo $ajax_nonce; ?>">
 				<i class="wdpv-icon"></i>
 			</div> 
 		<?php

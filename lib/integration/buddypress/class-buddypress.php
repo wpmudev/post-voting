@@ -7,7 +7,7 @@ class Wdpv_BuddyPress_Integration {
 		add_filter( 'wdpv_register_settings', array( $this, 'add_settings_fields' ) );
 
 		$options = wdpv_get_options();
-		if ( $options['bp_profile_votes'] ) {
+		if ( $options['bp_publish_activity'] ) {
 			add_action( 'wdpv_voted', array($this, 'bp_record_vote_activity'), 10, 4 );
 		}
 
@@ -15,8 +15,16 @@ class Wdpv_BuddyPress_Integration {
 			add_action( 'bp_after_profile_content', array( $this, 'bp_show_recent_votes' ) );
 		}
 
+		add_filter( 'automatically_inject_voting_buttons', array( $this, 'avoid_vote_boxes_on_buddypress' ) );
 		
 	}
+
+	public function avoid_vote_boxes_on_buddypress( $inject ) {
+		if ( is_buddypress() )
+			return false;
+
+		return $inject;
+	} 
 
 	public function add_default_options( $options ) {
 		$options['bp_publish_activity'] = false;
@@ -83,6 +91,8 @@ class Wdpv_BuddyPress_Integration {
 		$username = $username ? $username : bp_get_loggedin_user_username();
 		if ( ! $username ) { return false; }
 
+		$options = wdpv_get_options();
+
 		$user_link = bp_get_loggedin_user_link();
 		$link = get_blog_permalink( $blog_id, $post_id );
 
@@ -98,7 +108,7 @@ class Wdpv_BuddyPress_Integration {
 			'type' => 'wdpv_post_vote',
 			'item_id' => $blog_id,
 			'secondary_item_id' => $post_id,
-			'hide_sitewide' => $this->data->get_option( 'bp_publish_activity_local' ),
+			'hide_sitewide' => $options['bp_publish_activity_local'],
 		);
 		$res = bp_activity_add( $args );
 		return $res;

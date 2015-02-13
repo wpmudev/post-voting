@@ -200,7 +200,7 @@ class Wdpv_Model {
 		}
 
 		return $this->db->get_results(
-			'SELECT * FROM ' . $this->db->base_prefix . "wdpv_post_votes WHERE user_id={$uid} {$where} {$limit} ORDER BY date DESC",
+			'SELECT * FROM ' . $this->db->base_prefix . "wdpv_post_votes WHERE user_id={$uid} {$where} ORDER BY date DESC {$limit}",
 			ARRAY_A
 		);
 	}
