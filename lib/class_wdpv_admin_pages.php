@@ -139,19 +139,6 @@ class Wdpv_AdminPages {
 			);
 		}
 
-		if ( defined( 'BP_VERSION' ) ) {
-			$new_settings['wdpv_bp_publish_activity'] = array(
-				'title' => __( 'Publish votes to activity stream', 'wdpv' ),
-				'callback' => array( $form, 'create_bp_publish_activity_box' ),
-				'section' => 'wdpv_bp'
-			);
-			$new_settings['wdpv_bp_profile_votes'] = array(
-				'title' => __( 'Show recent votes on user profile page', 'wdpv' ),
-				'callback' => array( $form, 'create_bp_profile_votes_box' ),
-				'section' => 'wdpv_bp'
-			);
-		}
-
 		if ( ! is_multisite() || ( is_multisite() && is_network_admin() ) ) {
 			$new_settings['wdpv_plugins_all_plugins'] = array(
 				'title' => __( 'All add-ons', 'wdpv' ),
@@ -170,13 +157,6 @@ class Wdpv_AdminPages {
 				'callback' => null
 			)
 		);
-
-		if ( defined( 'BP_VERSION' ) ) {
-			$new_sections['wdpv_bp'] = array(
-				'title' => __( 'BuddyPress integration', 'wdpv' ),
-				'callback' => null
-			);
-		}
 
 		if ( ! is_multisite() || ( is_multisite() && is_network_admin() ) && Wdpv_PluginsHandler::get_all_plugins() ) {
 			$new_sections['wdpv_plugins'] = array(

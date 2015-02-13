@@ -19,15 +19,6 @@ class Wdpv_Admin {
 		// Cleanup
 		add_action( 'deleted_post', array( $this, 'clear_orphaned_data' ) );
 
-		
-
-		// Optional hooks for BuddyPress
-		if ( defined( 'BP_VERSION' ) ) {
-			if ( $this->data->get_option( 'bp_profile_votes' ) ) {
-				//add_action('bp_before_profile_content', array($this, 'bp_show_recent_votes'));
-				add_action( 'wdpv_voted', array($this, 'bp_record_vote_activity'), 10, 4 );
-			}
-		}
 	}
 
 	function clear_orphaned_data ($post_id) {
@@ -35,34 +26,6 @@ class Wdpv_Admin {
 	}
 
 	
-
-	function bp_record_vote_activity ($site_id, $blog_id, $post_id, $vote) {
-		if ( ! bp_loggedin_user_id() ) { return false; }
-
-		$username = bp_get_loggedin_user_fullname();
-		$username = $username ? $username : bp_get_loggedin_user_username();
-		if ( ! $username ) { return false; }
-
-		$user_link = bp_get_loggedin_user_link();
-		$link = get_blog_permalink( $blog_id, $post_id );
-
-		$post = get_blog_post( $blog_id, $post_id );
-		$title = $post->post_title;
-
-		$args = array (
-			'action' => sprintf(
-				__( '<a href="%s">%s</a> voted on <a href="%s">%s</a>', 'wdpv' ),
-				$user_link, $username, $link, $title
-			),
-			'component' => 'wdpv_post_vote',
-			'type' => 'wdpv_post_vote',
-			'item_id' => $blog_id,
-			'secondary_item_id' => $post_id,
-			'hide_sitewide' => $this->data->get_option( 'bp_publish_activity_local' ),
-		);
-		$res = bp_activity_add( $args );
-		return $res;
-	}
 
 	// TinyMCE buttons ( Thanks to Woocommerce Shortcodes plugin: https://wordpress.org/plugins/woocommerce-shortcodes/)
 	function init_tiny_mce_button() {

@@ -43,13 +43,14 @@ class Wdpv_Options {
 }
 
 function wdpv_get_options() {
-	$settings = get_site_option( 'wdpv' );
+	$settings = get_site_option( 'wdpv', array() );
 
 	if ( is_multisite() && ! is_network_admin() ) {
-		$settings = get_option( 'wdpv' );
+		$settings = get_option( 'wdpv', array() );
 	}
 
-	return wp_parse_args( $settings, wdpv_get_default_options() );
+	$options = wp_parse_args( $settings, wdpv_get_default_options() );
+	return $options;
 }
 
 function wdpv_update_options( $options ) {
@@ -61,7 +62,7 @@ function wdpv_update_options( $options ) {
 
 
 function wdpv_get_default_options() {
-	return array(
+	$defaults = array(
 		'allow_voting' => true,
 		'allow_visitor_voting' => false,
 		'use_ip_check' => true,
@@ -75,4 +76,7 @@ function wdpv_get_default_options() {
 		'color_up' => '#6CA96C',
 		'color_down' => '#D04C4C'
 	);
+
+	$defaults = apply_filters( 'wdpv_default_options', $defaults );
+	return $defaults;
 }

@@ -13,6 +13,9 @@ class Wdpv_PublicPages {
 		$this->codec = new Wdpv_Codec;
 		add_action( 'plugins_loaded', array(  $this, 'render_colors_stylesheet' ) );
 
+		// LOad integrations
+		if ( class_exists( 'BuddyPress' ) )
+			include_once( 'integration/buddypress/class-buddypress.php' );
 		
 	}
 
@@ -84,13 +87,6 @@ class Wdpv_PublicPages {
 		return $body;
 	}
 
-	function bp_show_recent_votes () {
-		global $bp;
-		$user = $bp->displayed_user;
-		$username = $user->fullname ? $user->fullname : $user->userdata->user_nicename;
-		$recent_votes = $this->model->get_recent_votes_by( $user->id );
-		include(WDPV_PLUGIN_BASE_DIR . '/lib/forms/bp_profile.php');
-	}
 
 	function add_hooks () {
 
@@ -101,13 +97,6 @@ class Wdpv_PublicPages {
 		if ( 'manual' != $this->data->get_option( 'voting_position' ) ) {
 			add_filter( 'the_content', array($this, 'inject_voting_buttons'), 15 ); // , 5);
 			if ( class_exists( 'bbpress' ) && ! (defined( 'WDPV_SKIP_BBPRESS_COMPAT_FILTER' ) && WDPV_SKIP_BBPRESS_COMPAT_FILTER) ) { add_filter( 'bbp_get_reply_content', array($this, 'inject_voting_buttons'), 5 ); }
-		}
-
-		// Optional hooks for BuddyPress
-		if ( defined( 'BP_VERSION' ) ) {
-			if ( $this->data->get_option( 'bp_profile_votes' ) ) {
-				add_action( 'bp_after_profile_content', array($this, 'bp_show_recent_votes') );
-			}
 		}
 
 		$this->codec->register();

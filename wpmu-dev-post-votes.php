@@ -62,10 +62,10 @@ add_action( 'widgets_init', create_function( '', "register_widget('Wdpv_WidgetNe
 if ( is_admin() ) {
 	require_once WDPV_PLUGIN_BASE_DIR . '/lib/class-admin.php';
 	new Wdpv_Admin();
-} else {
-	require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_public_pages.php';
-	Wdpv_PublicPages::serve();
 }
+require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_public_pages.php';
+Wdpv_PublicPages::serve();
+
 
 if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 	require_once WDPV_PLUGIN_BASE_DIR . '/lib/class-wdpv-ajax.php';
