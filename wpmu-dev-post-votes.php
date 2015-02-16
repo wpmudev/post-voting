@@ -29,6 +29,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 define( 'WDPV_PLUGIN_SELF_DIRNAME', basename( dirname( __FILE__ ) ), true );
 
+define( 'WDPV_VERSION', '3.0' );
+
 //Setup proper paths/URLs and load text domains
 define( 'WDPV_PLUGIN_BASE_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
 define( 'WDPV_PLUGIN_URL', untrailingslashit( plugin_dir_url( __FILE__ ) ) );
@@ -38,7 +40,7 @@ global $wpmudev_notices;
 $wpmudev_notices[] = array( 'id' => 231, 'name' => 'Post Voting', 'screens' => array( 'settings_page_wdpv-network', 'settings_page_wdpv' ) );
 if ( file_exists( WDPV_PLUGIN_BASE_DIR . '/lib/externals/wpmudev-dash-notification.php' ) ) { require_once WDPV_PLUGIN_BASE_DIR . '/lib/externals/wpmudev-dash-notification.php'; }
 
-
+require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_public_pages.php';
 require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_installer.php';
 Wdpv_Installer::check();
 
@@ -63,7 +65,7 @@ if ( is_admin() ) {
 	require_once WDPV_PLUGIN_BASE_DIR . '/lib/class-admin.php';
 	new Wdpv_Admin();
 }
-require_once WDPV_PLUGIN_BASE_DIR . '/lib/class_wdpv_public_pages.php';
+
 Wdpv_PublicPages::serve();
 
 
@@ -72,3 +74,13 @@ if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 	new Wdpv_Ajax();
 }
 
+
+register_activation_hook( __FILE__, 'wdpv_activate' );
+function wdpv_activate() {
+	update_site_option( 'wdpv_version', WDPV_VERSION );
+}
+
+register_deactivation_hook( __FILE__, 'wdpv_deactivate' );
+function wdpv_deactivate() {
+	delete_site_option( 'wdpv_version' );
+}

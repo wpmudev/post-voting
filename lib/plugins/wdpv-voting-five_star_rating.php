@@ -36,32 +36,102 @@ class Wdpv_Voting_FiveStarRating {
 
 		add_action( 'wp_ajax_wdpv_personal_rating_results', array($this, 'json_personal_rating_results') );
 		add_action( 'wp_ajax_nopriv_wdpv_personal_rating_results', array($this, 'json_personal_rating_results') );
+
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_dashicons' ) );
+
+		$public_pages = Wdpv_PublicPages::serve();
+		remove_action( 'plugins_loaded', array( $public_pages, 'render_colors_stylesheet' ) );
+		add_action( 'plugins_loaded', array(  $this, 'render_colors_stylesheet' ) );
+
+	}
+
+	function render_colors_stylesheet() {
+		if ( isset( $_GET['wdpv-colors'] ) ) {
+			header( 'Content-type: text/css' );
+
+			$options = wdpv_get_options();
+			?>
+				.wdpv_voting {
+					direction:rtl;
+					text-align:left;
+				}
+				.wdpv_star {
+					display:inline-block;
+					position: relative;
+					
+				}
+				.wdpv_star:after {
+					font-family:'dashicons';
+					font-size:18px;
+					color:<?php echo $options['color_up']; ?>;
+					cursor:pointer;
+				}
+				.wdpv_star_full:after {
+					content: "\f155";
+				}
+				.wdpv_star_half:after {
+					content: "\f459";
+				}
+				.wdpv_star_empty:after {
+					content: "\f154";
+				}
+
+				.wdpv_vote_star > span.wdpv_star:hover:after,
+				.wdpv_vote_star > span.wdpv_star:hover ~ span.wdpv_star:after {
+					content: "\f155";
+					color:black;
+					color:<?php echo $options['color_down']; ?>;
+				}
+			<?php
+			exit;
+		}
+	}
+
+	public function enqueue_dashicons() {
+		wp_enqueue_style( 'dashicons' );
+		wp_enqueue_style( 'wdpv-five-star', 'five-star/five-star.css', array( 'dashicons' ), WDPV_VERSION );
 	}
 
 	function output_voting_widget( $ret, $args ) {
 		$post_id = $args['post_id'];
 		$blog_id = $args['blog_id'];
 
-		$total = $this->_model->get_votes_total( $post_id, false, $blog_id );
-
 		$count = $this->_model->get_votes_count( $post_id, false, $blog_id );
 		$count = $count ? $count : 1;
 
-		$avg = $total / $count;
+		$positives = $this->_model->get_votes_positives( $post_id, false, $blog_id );
+		
+		$rating = round( ( $positives / $count ) * 10 );
 
-		// Round the result to .5 increments
-		$result = (int)$avg; // Get the lower int part
-		$tmp = $avg - $result;
-		$result += round( $tmp ) ? .5 : 0;
+		$ratings = array();
+		if ( $rating )
+			$ratings = array_fill( 0, $rating, 1 );
 
-		$offset = $result * 10;
+		$stars = array();
+		for ( $i = 0; $i < 10; $i = $i + 2 ) {
+			if ( isset( $ratings[ $i + 1 ] ) && isset( $ratings[ $i + 1 ] ) )
+				$stars[] = 'full';
+			elseif ( isset( $ratings[ $i ] ) )
+				$stars[] = 'half';
+			else
+				$stars[] = 'empty';
+		}
 
-		return "<div class='wdpv_voting wdpv_five_stars'>" .
-			"<div class='wdpv_rating wdpv_dev_stars wdpv_{$offset}_offset'>" .
-				"<input type='hidden' class='wdpv_blog_id' value='{$blog_id}' />" .
-				"<input type='hidden' value='{$post_id}' />" .
-			'</div>' .
-		'</div>';
+		$stars = array_reverse( $stars );
+		$ajax_nonce = wp_create_nonce( 'wdpv-vote' );
+
+		$options = wdpv_get_options();
+		ob_start();
+		?>
+			<div class="wdpv_voting">
+				<div class="wdpv_vote_star" data-blog-id=<?php echo $args['blog_id']; ?> data-post-id=<?php echo $args['post_id']; ?> data-nonce="<?php echo esc_attr( $ajax_nonce ); ?>">
+					<?php foreach ( $stars as $star ): ?>
+						<span class="wdpv_star wdpv_star_<?php echo $star; ?>"></span>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		<?php
+		return ob_get_clean();
 	}
 
 	function output_personal_voting_widget ($ret, $args, $blog_id, $post_id) {

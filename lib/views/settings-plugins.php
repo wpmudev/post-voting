@@ -35,7 +35,7 @@
 				$deactivate_url = wp_nonce_url( $deactivate_url, 'deactivate-plugin' );
 				$is_active = in_array( $plugin, $active );
 			?>
-			<tr>
+			<tr class="<?php echo $is_active ? 'active' : ''; ?>">
 				<td class="plugin-title">
 					<strong><?php echo esc_html( $plugin_data['Name'] ); ?></strong>
 					<div class="row-actions visible">
@@ -64,7 +64,20 @@
 </table>
 
 <style>
+	.wdpv-plugins {
+		box-sizing: border-box;
+	}
 	.wdpv-plugins th {
 		padding:8px 10px;
+	}
+	.wdpv-plugins tr td {
+		border-bottom:1px solid #E5E5E5;
+		
+	}
+	.wdpv-plugins tr.active td {
+		background:#f7fcfe;
+	}
+	.wdpv-plugins tr.active td:first-child {
+		border-left:5px solid #4f96b2;
 	}
 </style>

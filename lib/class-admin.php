@@ -19,6 +19,9 @@ class Wdpv_Admin {
 		// Cleanup
 		add_action( 'deleted_post', array( $this, 'clear_orphaned_data' ) );
 
+		add_action( 'admin_init', array( $this, 'maybe_upgrade' ) );
+		add_action( 'admin_init', array( $this, 'maybe_upgrade_network' ) );
+
 	}
 
 	function clear_orphaned_data ($post_id) {
@@ -61,5 +64,46 @@ class Wdpv_Admin {
 		$i18n['wdpv_shortcodes'] = WDPV_PLUGIN_BASE_DIR . '/lib/tinymce-shortcodes-i18n.php';
 
 		return $i18n;
+	}
+
+	public function maybe_upgrade() {
+		$current_version = get_option( 'wdpv_version', '2.2.2' );
+		
+		if ( $current_version === WDPV_VERSION )
+			return;
+
+		if ( version_compare( $current_version, '3.0', '<' ) ) {
+			// Remapping the old appereance options
+			$options = get_option( 'wdpv', array() );
+			if ( isset( $options['voting_appearance'] ) && $options['voting_appearance'] === '' )
+				$options['voting_appearance'] = 'icomoon';
+
+
+			update_option( 'wdpv', $options );
+		}
+
+		update_option( 'wdpv_version', WDPV_VERSION );
+	}
+
+	public function maybe_upgrade_network() {
+		if ( ! is_multisite() )
+			return;
+
+		$current_version = get_site_option( 'wdpv_version', '2.2.2' );
+		
+		if ( $current_version === WDPV_VERSION )
+			return;
+
+		if ( version_compare( $current_version, '3.0', '<' ) ) {
+			// Remapping the old appereance options
+			$options = get_site_option( 'wdpv', array() );
+			if ( isset( $options['voting_appearance'] ) && $options['voting_appearance'] === '' )
+				$options['voting_appearance'] = 'icomoon';
+
+
+			update_site_option( 'wdpv', $options );
+		}
+
+		update_site_option( 'wdpv_version', WDPV_VERSION );
 	}
 }

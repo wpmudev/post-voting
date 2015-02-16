@@ -229,6 +229,22 @@ class Wdpv_Model {
 		return (int)$this->db->get_var( $sql );
 	}
 
+	function get_votes_positives( $post_id, $site_id = 0, $blog_id = 0 ) {
+		global $current_blog;
+		$post_id = (int)$post_id;
+		if ( ! $post_id ) { return 0; }
+
+		if ( ( ! $site_id || ! $blog_id) && $current_blog ) { // Requested current blog post
+			if ( ! $site_id ) { $site_id = $current_blog->site_id; }
+			if ( ! $blog_id ) { $blog_id = $current_blog->blog_id; }
+		}
+		$site_id = (int)$site_id;
+		$blog_id = (int)$blog_id;
+
+		$sql = 'SELECT SUM(vote) FROM ' . $this->db->base_prefix . "wdpv_post_votes WHERE post_id={$post_id} AND site_id={$site_id} AND blog_id={$blog_id} AND vote > -1";
+		return (int)$this->db->get_var( $sql );
+	}
+
 	/**
 	 * Gets total sum of votes for a post, per user.
 	 *

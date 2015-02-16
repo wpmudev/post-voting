@@ -6,6 +6,7 @@ class Wdpv_PublicPages {
 	var $model;
 	var $data;
 	var $codec;
+	public static $instance = null;
 
 	function __construct () {
 		$this->model = wdpv_get_model();
@@ -20,6 +21,8 @@ class Wdpv_PublicPages {
 		if ( class_exists( 'bbpress' ) ) {
 			include_once( 'integration/bbpress/class-bbpress.php' );
 		}
+
+		$this->add_hooks();
 		
 	}
 
@@ -46,8 +49,11 @@ class Wdpv_PublicPages {
 	 * @static
 	 */
 	public static function serve () {
-		$me = new Wdpv_PublicPages;
-		$me->add_hooks();
+		if ( ! self::$instance )
+			self::$instance = new Wdpv_PublicPages;
+
+		return self::$instance;
+		
 	}
 
 
