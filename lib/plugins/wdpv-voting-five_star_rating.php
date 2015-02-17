@@ -25,6 +25,7 @@ class Wdpv_Voting_FiveStarRating {
 	private function _add_hooks () {
 		add_filter( 'wdpv_vote_box', array($this, 'output_voting_widget'), 10, 2 );
 		add_filter( 'wdpv-output-before_vote_widget', array($this, 'output_voting_widget'), 10, 4 );
+
 		add_filter( 'wdpv-output-vote_result', array($this, 'output_voting_result'), 10, 4 );
 		add_filter( 'wdpv-output-vote_down', '__return_false' );
 		add_filter( 'wdpv-output-vote_up', '__return_false' );
@@ -37,12 +38,27 @@ class Wdpv_Voting_FiveStarRating {
 		add_action( 'wp_ajax_wdpv_personal_rating_results', array($this, 'json_personal_rating_results') );
 		add_action( 'wp_ajax_nopriv_wdpv_personal_rating_results', array($this, 'json_personal_rating_results') );
 
+		// We need Dashicons for the stars
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_dashicons' ) );
 
+		// Use our own styles and JS
 		$public_pages = Wdpv_PublicPages::serve();
+		remove_action( 'wp_enqueue_scripts', array( $public_pages, 'js_load_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'load_scripts' ) );
 		remove_action( 'plugins_loaded', array( $public_pages, 'render_colors_stylesheet' ) );
 		add_action( 'plugins_loaded', array(  $this, 'render_colors_stylesheet' ) );
 
+	}
+
+	public function load_scripts() {
+		$options = wdpv_get_options();
+		if ( $options['allow_voting'] ) {
+			wp_enqueue_script( 'wdpv_voting', WDPV_PLUGIN_URL . '/lib/plugins/five-star/five-star.js', array( 'jquery' ) ); 
+			$l10n = array(
+				'ajaxurl' => admin_url( 'admin-ajax.php' )
+			);
+			wp_localize_script( 'wdpv_voting', 'wdpv_i18n', $l10n );
+		}
 	}
 
 	function render_colors_stylesheet() {
@@ -82,6 +98,10 @@ class Wdpv_Voting_FiveStarRating {
 					color:black;
 					color:<?php echo $options['color_down']; ?>;
 				}
+
+				.wdpv_star_selected:after {
+					color:<?php echo $options['color_down']; ?>;
+				}
 			<?php
 			exit;
 		}
@@ -89,7 +109,6 @@ class Wdpv_Voting_FiveStarRating {
 
 	public function enqueue_dashicons() {
 		wp_enqueue_style( 'dashicons' );
-		wp_enqueue_style( 'wdpv-five-star', 'five-star/five-star.css', array( 'dashicons' ), WDPV_VERSION );
 	}
 
 	function output_voting_widget( $ret, $args ) {
@@ -122,11 +141,14 @@ class Wdpv_Voting_FiveStarRating {
 
 		$options = wdpv_get_options();
 		ob_start();
+
+		$i = 5;
 		?>
 			<div class="wdpv_voting">
-				<div class="wdpv_vote_star" data-blog-id=<?php echo $args['blog_id']; ?> data-post-id=<?php echo $args['post_id']; ?> data-nonce="<?php echo esc_attr( $ajax_nonce ); ?>">
+				<div class="wdpv_vote_star">
 					<?php foreach ( $stars as $star ): ?>
-						<span class="wdpv_star wdpv_star_<?php echo $star; ?>"></span>
+						<span class="wdpv_star wdpv_star_<?php echo $i; ?> wdpv_star_<?php echo $star; ?>" data-rating="<?php echo $i; ?>" data-blog-id=<?php echo $args['blog_id']; ?> data-post-id=<?php echo $args['post_id']; ?> data-nonce="<?php echo esc_attr( $ajax_nonce ); ?>"></span>
+						<?php $i--; ?>
 					<?php endforeach; ?>
 				</div>
 			</div>
@@ -235,18 +257,5 @@ class Wdpv_Voting_FiveStarRating {
 	}
 }
 
-
-
-function wdpv_result_average ($post_id=false) {
-	global $blog_id, $post;
-	$post_id = $post_id ? $post_id : $post->ID;
-	return apply_filters( 'wdpv-output-vote_result', '', array(), $blog_id, $post_id );
-}
-
-function wdpv_current_user_vote ($post_id=false) {
-	global $blog_id, $post;
-	$post_id = $post_id ? $post_id : $post->ID;
-	return apply_filters( 'wdpv-output-personal_vote_result', '', array(), $blog_id, $post_id );
-}
 
 Wdpv_Voting_FiveStarRating::serve();
