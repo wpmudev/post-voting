@@ -22,7 +22,7 @@ class Wdpv_Options {
 	 */
 	function get_option ($key) {
 		//$opts = WP_ALLOW_MULTISITE ? get_site_option('wdpv') : get_option('wdpv');
-		$opts = get_option( 'wdpv' );
+		$opts = wdpv_get_options();
 		return @$opts[$key];
 	}
 
