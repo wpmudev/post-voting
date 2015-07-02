@@ -3,7 +3,7 @@
 Plugin Name: Post Voting
 Plugin URI: http://premium.wpmudev.org/project/post-voting-plugin/
 Description: Gauge the popularity of your site's content by letting your visitors or users vote on that content. Sort of like your own personal Digg or Reddit, and it's packed with features!
-Version: 2.2.2
+Version: 2.2.3
 Text Domain: wdpv
 Author: WPMU DEV
 Author URI: http://premium.wpmudev.org

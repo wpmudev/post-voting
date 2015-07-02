@@ -11,6 +11,8 @@ class Wdpv_PublicPages {
 		$this->model = new Wdpv_Model;
 		$this->data = new Wdpv_Options;
 		$this->codec = new Wdpv_Codec;
+
+
 	}
 	function Wdpv_PublicPages () { $this->__construct(); }
 
