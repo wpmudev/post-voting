@@ -10,6 +10,15 @@ class Wdpv_WidgetPopular extends WP_Widget {
 	}
 
 	function form($instance) {
+        $defaults = array(
+            'title' => '',
+            'limit' => 5,
+            'posted_timeframe' => 'this_week',
+            'voted_timeframe' => 'this_week'
+        );
+
+        $instance = wp_parse_args( $instance, $defaults );
+
 		$title = esc_attr($instance['title']);
 		$limit = esc_attr($instance['limit']);
 		$posted_timeframe = esc_attr($instance['posted_timeframe']);

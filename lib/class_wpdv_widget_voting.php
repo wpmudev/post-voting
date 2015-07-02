@@ -10,6 +10,15 @@ class Wdpv_WidgetVoting extends WP_Widget {
 	}
 
 	function form($instance) {
+        $defaults = array(
+            'title' => '',
+            'show_vote_up' => false,
+            'show_vote_down' => false,
+            'show_vote_result' => false
+        );
+
+        $instance = wp_parse_args( $instance, $defaults );
+
 		$title = esc_attr($instance['title']);
 		$show_vote_up = esc_attr($instance['show_vote_up']);
 		$show_vote_down = esc_attr($instance['show_vote_down']);
