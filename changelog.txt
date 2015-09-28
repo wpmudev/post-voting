@@ -5,6 +5,11 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+2.2.4 - 2015-09-28
+----------------------------------------------------------------------
+- Fixed: Login message appearing in front page due to a logic error.
+- Fixed: Login message appearing in disabled post types.
+
 2.2.3 - 2015-07-02
 ----------------------------------------------------------------------
 - Added filter in Network widget to change posts permalinks
