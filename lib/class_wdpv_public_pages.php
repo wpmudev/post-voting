@@ -53,6 +53,7 @@ class Wdpv_PublicPages {
 	function inject_voting_buttons ($body) {
 		$inject = apply_filters( "automatically_inject_voting_buttons", true );
 
+		$do_not_show  = $this->data->get_option( 'skip_post_types' );
 		$front_page_voting  = $this->data->get_option( 'front_page_voting' );
 		$is_front_page = is_home() || is_front_page();
 
@@ -61,6 +62,10 @@ class Wdpv_PublicPages {
 			|| ( ! $is_front_page && ! is_singular() )
 			|| ! $inject
 		) {
+			return $body;
+		}
+
+		if ( is_singular() && isset( $do_not_show[ get_post_type() ] ) && $do_not_show[ get_post_type() ] ) {
 			return $body;
 		}
 
