@@ -24,8 +24,9 @@ class Wdpv_Codec {
 
 	function _generate_login_link () {
 		$post_id = get_the_ID();
-		$count = $this->model->get_votes_total($post_id);
-		return sprintf(
+		$blog_id = $this->_get_blog_id($args['blog_id']);
+		$count = $this->model->get_votes_total($post_id, false, $blog_id);
+ 		return sprintf(
 			__('<div class="wdpv_login">This post has %s votes. <a href="%s">Log in now</a> to vote</div>', 'wdpv'),
 			$count, site_url('wp-login.php')
 		);
@@ -148,7 +149,7 @@ class Wdpv_Codec {
 		$post_id = $args['post_id'] ? $args['post_id'] : get_the_ID();
 		$blog_id = $this->_get_blog_id($args['blog_id']);
 		$count = $this->model->get_votes_total($post_id, false, $blog_id);
-		$ret = "<div class='wdpv_vote_result'><span class='wdpv_vote_result_output'>{$count}</span><input type='hidden' value='{$post_id}' /><input type='hidden' class='wdpv_blog_id' value='{$blog_id}' /></div>";
+		$ret = "<div class='wdpv_vote_result'><span class='wdpv_vote_result_output'>{$count}</span><input type='hidden' value='{$post_id}' /><input type='hidden' class='wdpv_blog_id' value='{$blog_id}' /></div>";				 	   	     	
 		$ret .= $standalone ? '<div class="wdpv_clear"></div>' : '';
 		return apply_filters('wdpv-output-vote_result', $ret, $args, $blog_id, $post_id);
 	}
@@ -173,7 +174,7 @@ class Wdpv_Codec {
 
 		$post_id = $args['post_id'] ? $args['post_id'] : get_the_ID();
 		$blog_id = $this->_get_blog_id($args['blog_id']);
-		if ( ! $this->_check_voting_display_restrictions( $post_id ) ) 
+		if ( ! $this->_check_voting_display_restrictions( $post_id ) )
 			return '';
 
 		$ret = apply_filters( 'wdpv-output-before_vote_widget', '', $args, $blog_id, $post_id );
