@@ -5,6 +5,10 @@ Change Log:
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
+2.2.5 - 2017-08-25
+----------------------------------------------------------------------
+- Fixed: Recent votes don't display on BuddyPress profile page when specific vote display count is selected in settings
+
 2.2.4 - 2015-09-28
 ----------------------------------------------------------------------
 - Fixed: Login message appearing in front page due to a logic error.
