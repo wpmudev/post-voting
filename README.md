@@ -157,5 +157,3 @@ Post Voting also provides a number of widgets, these can be added via **Appearan
 ![Post Voting - Top voted Posts Widget](https://premium.wpmudev.org/wp-content/uploads/2011/05/Post-Voting-Top-voted-Posts-Widget.png)
 
  Top voted Posts widget in front-end using Twenty Twelve theme
-
- We hope you enjoy using Post Voting and that it helps you to engage your users with your site's content. If you have trouble with any aspect of configuration or usage or have a cool feature suggestion to make, please head on over to the [community forums](https://premium.wpmudev.org/forums/tags/reader#question) where support staff and other helpful members are waiting to lend a hand.
