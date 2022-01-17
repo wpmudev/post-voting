@@ -43,7 +43,7 @@ Post Voting Plugin looks amazing out-of-the-box with any well coded WordPress th
 
 ## Usage
 
-For help with installing plugins please see our [Plugin installation guide](https://premium.wpmudev.org/wpmu-manual/installing-regular-plugins-on-wpmu/)
+For help with installing plugins please see our [Plugin installation guide](https://wpmudev.com/docs/using-wordpress/installing-wordpress-plugins/)
 
 Login to your admin panel for WordPress or Multisite and activate the plugin:
 
