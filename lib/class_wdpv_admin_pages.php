@@ -46,7 +46,7 @@ class Wdpv_AdminPages {
 			wp_redirect($goback);
 			die;
 		}
-		add_submenu_page('settings.php', 'Post Voting', 'Post Voting', 'manage_network_options', 'wdpv', array($this, 'create_admin_page'));
+		add_submenu_page('settings.php', __('Post Voting', 'wdpv' ), __('Post Voting', 'wdpv' ), 'manage_network_options', 'wdpv', array($this, 'create_admin_page'));
 		add_dashboard_page('Voting Stats', __( 'Voting Stats', 'wdpv' ), 'manage_network_options', 'wdpv_stats', array($this, 'create_stats_page'));
 	}
 
@@ -54,7 +54,7 @@ class Wdpv_AdminPages {
 		$form = new Wdpv_AdminFormRenderer;
 
 		register_setting('wdpv', 'wdpv');
-		add_settings_section('wdpv_voting', __('Voting settings', 'wdpv'), create_function('', ''), 'wdpv_options_page');
+		add_settings_section('wdpv_voting', __('Voting settings', 'wdpv'), function() {}, 'wdpv_options_page');
 		add_settings_field('wdpv_allow_voting', __('Allow post voting', 'wdpv'), array($form, 'create_allow_voting_box'), 'wdpv_options_page', 'wdpv_voting');
 		add_settings_field('wdpv_allow_visitor_voting', __('Allow voting for unregistered users', 'wdpv'), array($form, 'create_allow_visitor_voting_box'), 'wdpv_options_page', 'wdpv_voting');
 		add_settings_field('wdpv_use_ip_check_link', __('Use IP check', 'wdpv'), array($form, 'create_use_ip_check_box'), 'wdpv_options_page', 'wdpv_voting');
@@ -70,13 +70,13 @@ class Wdpv_AdminPages {
 
 		// BuddyPress integration
 		if (defined('BP_VERSION')) {
-			add_settings_section('wdpv_bp', __('BuddyPress integration', 'wdpv'), create_function('', ''), 'wdpv_options_page');
+			add_settings_section('wdpv_bp', __('BuddyPress integration', 'wdpv'), function() {}, 'wdpv_options_page');
 			add_settings_field('wdpv_bp_publish_activity', __('Publish votes to activity stream', 'wdpv'), array($form, 'create_bp_publish_activity_box'), 'wdpv_options_page', 'wdpv_bp');
 			add_settings_field('wdpv_bp_profile_votes', __('Show recent votes on user profile page', 'wdpv'), array($form, 'create_bp_profile_votes_box'), 'wdpv_options_page', 'wdpv_bp');
 		}
 
 		if (!is_multisite() || (is_multisite() && is_network_admin())) { // On multisite, plugins are available only on network admin pages
-			add_settings_section('wdpv_plugins', __('Post Voting add-ons', 'wdpv'), create_function('', ''), 'wdpv_options_page');
+			add_settings_section('wdpv_plugins', __('Post Voting add-ons', 'wdpv'), function() {}, 'wdpv_options_page');
 			add_settings_field('wdpv_plugins_all_plugins', __('All add-ons', 'wdpv'), array($form, 'create_plugins_box'), 'wdpv_options_page', 'wdpv_plugins');
 		}
 
@@ -85,8 +85,8 @@ class Wdpv_AdminPages {
 
 	function create_blog_admin_menu_entry () {
 		$settings_perms = $this->data->get_option('disable_siteadmin_changes') ? 'manage_network_options' : 'manage_options';
-		add_options_page('Post Voting', 'Post Voting', $settings_perms, 'wdpv', array($this, 'create_admin_page'));
-		add_dashboard_page(__( 'Voting Stats', 'wdpv' ), 'Voting Stats', 'manage_options', 'wdpv_stats', array($this, 'create_stats_page'));
+		add_options_page(__('Post Voting', 'wdpv' ), __('Post Voting', 'wdpv' ), $settings_perms, 'wdpv', array($this, 'create_admin_page'));
+		add_dashboard_page(__('Voting Stats', 'wdpv' ), __('Voting Stats', 'wdpv' ), 'manage_options', 'wdpv_stats', array($this, 'create_stats_page'));
 	}
 
 	function get_current_tab() {

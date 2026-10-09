@@ -5,7 +5,7 @@
 class Wdpv_PluginsHandler {
 
 	public static function init () {
-		define('WDPV_PLUGIN_PLUGINS_DIR', WDPV_PLUGIN_BASE_DIR . '/lib/plugins', true);
+		define('WDPV_PLUGIN_PLUGINS_DIR', WDPV_PLUGIN_BASE_DIR . '/lib/plugins');
 		self::load_active_plugins();
 	}
 
